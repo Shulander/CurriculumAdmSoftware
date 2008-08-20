@@ -1,26 +1,43 @@
 .topo
 {
-	width: 100%; 
+	width: 68%;
+	padding: 1%;
 	background-color: #EBEBEB;
 	border-color: gray;
 	border-style: groove;
 	text-align: center;	
 }
 
-body  
-{	
+.container 
+{ 
+	width: 68%;
+	padding: 1%;
 	color: black;
 	background-color: white;
 	border-color: gray;
 	border-style: groove;
 	text-align: left;
+} 
+
+
+th
+{
+	text-align: left;
+	font-size: larger;	
 }
+
+body
+{	
+	background-color: #B0B0B0;
+}
+
 
 h2
 {
 	color: gray;
 }
 
+/*-------------------------LINKS ---------------------------*/
 a:link 
 {
 	color: #4B4B4B;
@@ -31,7 +48,19 @@ a:visited
 	color: #C9C9C9;
 }
 
-/*Menu*/
+/*---------------------------Menu---------------------------*/
+.menu 
+{
+	width: 25%;
+	float: right; 
+	background-color: #EBEBEB;
+	text-align: left;
+	border-color: gray;
+	border-style: groove;
+	padding: 2%;
+}
+
+/*Links menu*/
 a.linkMenu:link 
 {
 	color: #708090;
@@ -43,63 +72,66 @@ a.linkMenu:visited
 	text-decoration: none;
 }
 
-.menu {
-	float: right; 
-	background-color: #EBEBEB;
-	text-align: left;
-	border-color: gray;
-	border-style: groove;
-	padding: 1%;
-}
-
-.container 
-{ 
-
-} 
-.twoColHybRtHdr #header { 
-	background: #DDDDDD; 
-	padding: 0 10px;
-} 
-.twoColHybRtHdr #header h1 {
-	margin: 0; 
-	padding: 10px 0;
-}
-
-.twoColHybRtHdr #sidebar1 h3, .twoColHybRtHdr #sidebar1 p {
-	margin-left: 10px;
-	margin-right: 10px;
-}
-.mainContent 
+/*-----------------------Mensagens ---------------------------*/
+.ajuda
 {
-  mar
-} 
-.twoColHybRtHr #footer { 
-	padding: 0 10px; 
-	background:#DDDDDD;
-} 
-.twoColHybRtHdr #footer p {
-	margin: 0;
-	padding: 10px 0;
-}
-.fltrt { 
-	float: right;
-	margin-left: 8px;
-}
-.fltlft { 
-	float: left;
-	margin-right: 8px;
-}
-.clearfloat { 
-	clear:both;
-    height:0;
-    font-size: 1px;
-    line-height: 0px;
+	list-style-image: url(../imagens/help.gif);
+	color: gray;
 }
 
---> 
-</style><!--[if IE]>
-<style type="text/css"> 
-.twoColHybRtHdr #sidebar1 { padding-top: 30px; }
-.twoColHybRtHdr #mainContent { zoom: 1; padding-top: 15px; }
-</style>
-<![endif]-->
+.sucesso
+{
+	list-style-image: url(../imagens/success.png);
+	color: green;
+}
+
+.erro
+{
+	list-style-image: url(../imagens/exclamation.png);	
+	color: red;
+}
+
+.aviso
+{
+	color: #FFA500;
+	list-style-image: url(../imagens/messagebox_warning.png);
+}
+
+/* -----------------------DICAS------------------------------ */
+a.dica
+{
+	position: relative;
+	font-family: "Times New Roman", Times, serif;
+	padding: 0;
+	color: Black;
+	text-decoration: none;
+	border-bottom: 2px dotted Black;
+	cursor: help;
+	z-index: 24;
+}
+
+a.dica:hover
+{
+	background:transparent;
+	z-index:25; 
+}
+
+a.dica span
+{
+	display: none
+}
+
+a.dica:hover span
+{
+	display: block;
+	position: absolute;
+	width: 230px;
+	top: 3em;
+	text-align: justify;
+	left: 0;
+	font: 12px arial, verdana, helvetica, sans-serif;
+	padding: 5px 10px;
+	border: 1px solid #999;
+	background: #EFEFEF;
+	color: #000;
+}
