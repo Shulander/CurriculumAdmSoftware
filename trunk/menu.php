@@ -1,6 +1,11 @@
+<center>
 <div class="menu">
-    <a class="linkMenu" href="dadosPessoais.php">1. Dados Pessoais</a><br>
-	<a class="linkMenu" href="dadosEducacionais.php">2. Formação Acadêmica</a><br>
-    <a class="linkMenu" href="dadosProfissionais.php">3. Experiência Profissional</a><br>
-    <a class="linkMenu" href="dadosExtras.php">4. Idiomas e Intercâmbio</a>
- </div>
+	<p class="menuNav">
+    <a href="dadosPessoais.php">Dados Pessoais</a>
+	<a href="dadosEducacionais.php">Formação Acadêmica</a>
+	<a href="idiomas.php">Idiomas</a>
+	<a href="dadosProfissionais.php">Experiência Profissional</a>
+	<a href="dadosExtras.php">Dados Adicionais</a>
+	</p>
+</div>
+</center>

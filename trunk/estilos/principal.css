@@ -1,34 +1,156 @@
 .topo
 {
-	width: 68%;
-	padding: 1%;
-	background-color: #EBEBEB;
-	border-color: gray;
+	background-image: url(../imagens/Header.gif);
+	background-position: center;
+	border-color: #002F99;
 	border-style: groove;
-	text-align: center;	
+	border-width: thin;
+	text-align: center;
+	width: 782px;
+	height: 95px;
+	background-repeat: no-repeat;
+	background-color: #FF9933;
 }
+
+p
+{
+	text-align: justify;
+	text-indent: 20px;
+	margin: 10px;
+}
+
+.dados
+{
+	color:#002F99;
+}
+
+
+.tabela
+{
+	color:#002F99;
+	text-align: justify;
+	text-indent: 20px;
+	margin: 10px;
+}
+
 
 .container 
 { 
-	width: 68%;
-	padding: 1%;
+	width: 782px;
 	color: black;
 	background-color: white;
-	border-color: gray;
+	border-color: #002F99;
 	border-style: groove;
+	color:#002F99;
+	border-width: thin;
 	text-align: left;
 } 
 
+div.login 
+{
+	/*margens*/
+	margin-top: 15px;
+	margin-bottom: 15px;
+	color: #002F99;
+	/*borda*/
+	border-style: dashed;
+	border-color: #002F99;
+	border-width: thin;
+	/*fundo*/
+	background-color: #EDF8FB;
+	padding: 1em;
+	width: 35%;
+	height: 50%;
+}
+
+h3
+{
+	text-align: center;
+	color: #002F99;
+	font-weight: bold;
+}
+
+hr
+{
+	width: 90%;
+	text-align: center;
+}
+
+/* Listas*/
+
+ol
+{
+	font-weight: bold;
+	text-align: justify;
+	margin: 10px;
+}
+
+ol.normal
+{
+	font-weight: normal;
+	text-align: justify;
+	margin: 10px;	
+}
+
+ul.none
+{
+	list-style: none;
+	margin: 0px;
+}
+
+.etapas
+{
+	color: black;
+	font-weight: normal;
+}
+
+.explicacao
+{
+	color: black;
+	font-weight: normal;
+	list-style: disc;	
+}
+
+p.p_logout
+{
+	text-align: right;
+	margin-right: 20px;
+}
+.img_logout
+{
+	border: none;
+}
+
+h4
+{
+	text-align: center;
+	color: #002F99;
+	font-weight: bold;
+}
+
+address
+{
+	font-size: xx-small;
+	text-align: center;
+	font-style: italic;
+}
+
+.texto
+{
+	text-align: center;
+	color: #002F99;
+}
 
 th
 {
 	text-align: left;
-	font-size: larger;	
+	font-size: larger;
 }
 
 body
-{	
-	background-color: #B0B0B0;
+{
+	background-color: #DFE1FF;
+	text-align: center;
 }
 
 
@@ -38,61 +160,53 @@ h2
 }
 
 /*-------------------------LINKS ---------------------------*/
-a:link 
+a:link
 {
-	color: #4B4B4B;
-	
-}
-a:visited 
-{
-	color: #C9C9C9;
-}
-
-/*---------------------------Menu---------------------------*/
-.menu 
-{
-	width: 25%;
-	float: right; 
-	background-color: #EBEBEB;
-	text-align: left;
-	border-color: gray;
-	border-style: groove;
-	padding: 2%;
-}
-
-/*Links menu*/
-a.linkMenu:link 
-{
-	color: #708090;
 	text-decoration: none;
+	color: #007788;
 }
-a.linkMenu:visited 
+a:visited
 {
-	color: #708090;
+	text-decoration: none;	
+	color: #007788;	
+} 
+a:active 
+{
 	text-decoration: none;
+	color: #007788;	
+}
+a:hover {
+	text-decoration: none;
+	background-color: #F0F8FF; 
+	color: #007788;
 }
 
 /*-----------------------Mensagens ---------------------------*/
 .ajuda
 {
 	list-style-image: url(../imagens/help.gif);
-	color: gray;
+	color: #002F99;
+	text-align: center;
 }
 
 .sucesso
 {
+	text-align: center;
 	list-style-image: url(../imagens/success.png);
 	color: green;
 }
 
 .erro
 {
+	text-align: center;
 	list-style-image: url(../imagens/exclamation.png);	
 	color: red;
+	text-align: center;
 }
 
 .aviso
 {
+	text-align: center;
 	color: #FFA500;
 	list-style-image: url(../imagens/messagebox_warning.png);
 }
@@ -103,9 +217,9 @@ a.dica
 	position: relative;
 	font-family: "Times New Roman", Times, serif;
 	padding: 0;
-	color: Black;
+	color: #002F99;
 	text-decoration: none;
-	border-bottom: 2px dotted Black;
+	border-bottom: 2px dotted #002F99;
 	cursor: help;
 	z-index: 24;
 }
@@ -132,6 +246,6 @@ a.dica:hover span
 	font: 12px arial, verdana, helvetica, sans-serif;
 	padding: 5px 10px;
 	border: 1px solid #999;
-	background: #EFEFEF;
+	background: #DFE1FF;
 	color: #000;
 }
