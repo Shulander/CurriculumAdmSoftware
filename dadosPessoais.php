@@ -1,7 +1,13 @@
 <!-- Cabecalho -->
-<?php include ("cabecalho.php"); ?>
-<!--  Testa variaveis -->
-<?php
+<?php 
+	include ("cabecalho.php");
+	include ("menu.php");
+	require_once ("utils/sessao.php");	
+	require_once ("utils/BancoDados.php");
+	require_once ("classes/Pessoa.php");	
+	restritoUsuario ();	 
+	$idLogin = $_SESSION['idLogin'];
+	/*-------------Testa variaveis------------------*/
 	//testa se a variavel aviso existe
 	if(isset($_GET['aviso'])) {
 		$aviso = $_GET['aviso'];	
@@ -30,54 +36,153 @@
 	if(isset($_REQUEST['dataNascimento'])) {
 		$dataNascimento = $_REQUEST['dataNascimento'];	
 	} else {
-		$dataNascimento = "dd/mm/aaaa";
+		$dataNascimento = "";
+	}
+	//testa se a variavel endereco existe
+	if(isset($_REQUEST['estadoCivil'])) {
+		$estadoCivil = $_REQUEST['estadoCivil'];	
+	} else {
+		$estadoCivil = "";
+	}
+	//testa se a variavel sexo existe
+	if(isset($_REQUEST['sexo'])) {
+		$sexo = $_REQUEST['sexo'];	
+	} else {
+		$sexo = "";
+	}
+	//testa se a variavel endereco existe
+	if(isset($_REQUEST['endereco'])) {
+		$endereco = $_REQUEST['endereco'];	
+	} else {
+		$endereco = "";
+	}
+	//testa se a variavel numero existe
+	if(isset($_REQUEST['numero'])) {
+		$numero = $_REQUEST['numero'];	
+	} else {
+		$numero = "";
+	}
+	//testa se a variavel complemento existe
+	if(isset($_REQUEST['complemento'])) {
+		$complemento = $_REQUEST['complemento'];	
+	} else {
+		$complemento = "";
+	}
+	//testa se a variavel bairro existe
+	if(isset($_REQUEST['bairro'])) {
+		$bairro = $_REQUEST['bairro'];	
+	} else {
+		$bairro = "";
+	}
+	//testa se a variavel cep existe
+	if(isset($_REQUEST['cep'])) {
+		$cep = $_REQUEST['cep'];	
+	} else {
+		$cep = "";
+	}
+	//testa se a variavel cidade existe
+	if(isset($_REQUEST['cidade'])) {
+		$cidade = $_REQUEST['cidade'];	
+	} else {
+		$cidade = "Santa Maria";
+	}
+	//testa se a variavel cidadeOutra existe
+	if(isset($_REQUEST['cidadeOutra'])) {
+		$cidadeOutra = $_REQUEST['cidadeOutra'];	
+	} else {
+		$cidadeOutra = "";
+	}
+	//testa se a variavel estado existe
+	if(isset($_REQUEST['estado'])) {
+		$estado = $_REQUEST['estado'];	
+	} else {
+		$estado = "RS";
+	}
+	//testa se a variavel estadoOutro existe
+	if(isset($_REQUEST['estadoOutro'])) {
+		$estadoOutro = $_REQUEST['estadoOutro'];	
+	} else {
+		$estadoOutro = "";
+	}
+	//testa se a variavel telResidencial existe
+	if(isset($_REQUEST['telResidencial'])) {
+		$telResidencial = $_REQUEST['telResidencial'];	
+	} else {
+		$telResidencial = "";
+	}
+	//testa se a variavel celular existe
+	if(isset($_REQUEST['celular'])) {
+		$celular = $_REQUEST['celular'];	
+	} else {
+		$celular = "";
+	}
+	//testa se a variavel email existe
+	if(isset($_REQUEST['email'])) {
+		$email = $_REQUEST['email'];	
+	} else {
+		$email = "";
 	}
 ?>
 <!-- Sub-titulo -->
-<h2>Dados Pessoais</h2>
+<h3>Dados Pessoais</h3>
 <?php
-echo '<form action="checaDadosPessoais.php" method="POST">';
-echo '<table>';
-//--------Nome---------------
-echo '<tr><td>Nome:<font class="erro">*</font> </td>';
-echo '<td><INPUT TYPE=TEXT ID="nome" NAME="nome" value="'.$nome.'" size="50" maxlength="50"></td></tr>';
-//-------Nacionalidade--------
-echo '<tr><td>Nacionalidade:<font class="erro">*</font></td>';
-echo '<td><select id="nacionalidade" name="nacionalidade"  onchange="if(this.options[this.selectedIndex].value==\'estrangeira\') { blocoAbre($(\'blocoEstrangeira\')); } else { blocoFecha($(\'blocoEstrangeira\')); }">';
-echo '<option value="0"> -- Selecione -- </option>';
-echo '<option value="brasileira" '.($nacionalidade == "brasileira"?'selected="selected"':"").'>Brasileira</option>';
-echo '<option value="estrangeira" '.($nacionalidade == "estrangeira"?'selected="selected"':"").'>Estrangeira</option>';
-echo '</select><span id="blocoEstrangeira" '.($nacionalidade == "estrangeira"?'':'style="display:none"').'>&nbsp;&nbsp;&nbsp;<input type="text" name="nacionalidadeEstrangeira" id="nacionalidadeEntrangeira" value="'.$nacionalidadeEstrangeira.'" size="30" maxlength="30"/></span></td></tr>';
-//----------Data de Nacimento---------
-echo '<tr><td><a href="#" class="dica">Data de Nascimento:<span>Esse campo deve ter o formato dd/mm/aaaa!</span></a><font class="erro">*</font>&nbsp;&nbsp;</td>';
-echo '<td><input type="text" name="dataNascimento" id="dataNascimento" value="'.$dataNascimento.'" size="10" maxlength="10" value="dd/mm/aaaa" onfocus="if($(\'dataNascimento\').value==\'dd/mm/aaaa\') { $(\'dataNascimento\').value=\'\'; }"/></td></tr>';
-echo '<tr></tr>';
+if(!empty($aviso)) {
+	if ($aviso == "sucesso") {
+		echo '<SCRIPT language="Javascript">alert("Dados cadastrados com sucesso!")</SCRIPT>';
+		header ("Location:dadosEducacionais.php");
+	} else {
+		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
+	}						
+}
+$conexaoBD = new BancoDados ();
+if (!$conexaoBD->conecta()) {
+	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
+} else {
+	if (isset($idLogin)) {
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$resultado = $pessoa->buscaPorIdUsuario ();
+		if ($resultado == true) {
+			echo '<ul><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
+			//editar dados pessoais
+			$result = $pessoa->busca();
+			if ($result == true) {
+				$nome = $pessoa->getNome ();
+				$nacionalidade = $pessoa->getNacionalidade();
+				if ($nacionalidade != "Brasileira") {
+					$nacionalidadeEstrangeira = $nacionalidade;
+					$nacionalidade = "Estrangeira"; 
+				}
+				$dataNascimento = $pessoa->converteDataNascimento();
+				$sexo = $pessoa->getSexo();
+				$estadoCivil = $pessoa->getEstadoCivil();
+				$endereco = $pessoa->getEndereco();
+				$numero = $pessoa->getNumero();
+				$complemento = $pessoa->getComplemento();
+				$bairro = $pessoa->getBairro();
+				$cep = $pessoa->getCep();
+				$cidade = $pessoa->getCidade ();
+				if ($cidade == "Outra") {
+					$cidadeOutra = $pessoa->getCidade(); 
+				}
+				$estado = $pessoa->getEstado(); 
+				if ($estado == "Outro") {
+					$estadoOutro = $pessoa->getEstado(); 
+				}
+				$telResidencial = $pessoa->getTelResidencial();
+				$celular = $pessoa->getCelular();
+				$email = $pessoa->getEmail();
+				$pagina = "dadosPessoaisEditaBD.php";
+				include ("dadosPessoaisForm.php");
+			} else {
+				echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
+			}
+		} else {
+			//cadastrar dados pessoais
+			$pagina = "dadosPessoaisInsereBD.php";
+			include ("dadosPessoaisForm.php");
+		}	
+	}
+}
+//---------------Rodape-------------------
+include ("rodape.php"); 
 ?>
-<!-- Endereço-->
-<tr><th>Endereço</th><td></td></tr>
-<tr><td>Logradouro:<font class="erro">*</font> </td><td><INPUT TYPE=TEXT ID="logradouro" NAME="logradouro" size="50"></td></tr>
-<tr><td><a href="#" class="dica">Número: <span>Esse campo só aceita valores numéricos!</span></a><font class="erro">*</font></td><td><INPUT TYPE=TEXT ID="numero" NAME="numero" size="20"></td></tr>
-<tr><td>Complemento: </td><td><INPUT TYPE=TEXT ID="complemento" NAME="complemento" size="50"></td></tr>
-<tr><td>Bairro: </td><td><INPUT TYPE=TEXT ID="bairro" NAME="bairro" size="50"></td></tr>
-<tr><td>Cidade: <font class="erro">*</font></td><td><INPUT TYPE=TEXT ID="cidade" NAME="cidade" size="50"></td></tr>
-<tr><td>Estado: <font class="erro">*</font></td>
-<td>
-<select id="estado" nome="estado">
-<option value="0">-- Selecione --</option>
-<option value="RS">Rio Grande do Sul</option>
-<option value="outro">Outro</option>
-</select>
-</td></tr>
-<!-- Telefone -->
-<tr><td><a href="#" class="dica">Telefone Residencial:<span>Esse campo deve ter o formato (prefixo)dddd-dddd, onde prefixo é o número do prefixo e d é um dígito(número)!</span></a></td><td><INPUT TYPE=TEXT id="telResidencial" NAME="telResidencial" size="20" maxlength="11"></td></tr>
-<tr><td><a href="#" class="dica">Celular: <span>Esse campo deve ter o formato (prefixo)dddd-dddd, onde prefixo é o número do prefixo e d é um dígito(número)!</span></a><font class="erro">*</font></td><td><INPUT TYPE=TEXT ID="telCelular" NAME="telCelular" size="20" maxlength="11"></td></tr>
-<tr><td>E-mail: <font class="erro">*</font></td><td><INPUT TYPE=TEXT ID="email" NAME="email" size="30"></td></tr>
-</table>
-<br />
-<input type=Submit value="Próxima Página" />
-<br />
-<ul class="ajuda">
-	<li>Os campos marcados com asterisco (<font class="erro">*</font>) são obrigatórios!</li>
-</ul>
-</form>
-<?php include ("rodape.php"); ?>

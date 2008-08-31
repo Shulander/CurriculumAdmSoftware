@@ -2,17 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <script type="text/javascript" src="javaScript/utils.js"></script>
+<script type="text/javascript" src="javaScript/dhtmlgoodies_calendar.js?random=20060118"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>AIESEC in Santa Maria - Curriculum Vitae</title>
+<title>AIESEC in Santa Maria</title>
 <link rel="stylesheet" type="text/css" href="estilos/principal.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="estilos/menu.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="estilos/dhtmlgoodies_calendar.css?random=20051112" media="screen" />
 </head>
 <!-- Corpo -->
 <body>
 <center>
 <!-- Titulo -->
-<div class="topo">
-	<h1>Curriculum Vitae</h1>
-</div>
+<div class="topo"></div>
 <div class="container">
-	<!-- Menu -->
-   <?php include ("menu.php"); ?>
+<br />
