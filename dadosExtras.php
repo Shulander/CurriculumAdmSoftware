@@ -43,9 +43,9 @@
 	}	
 	//testa se a variavel pergunta5 existe
 	if(isset($_REQUEST['pergunta5'])) {
-		$pergunta5 = $_REQUEST['pergunta5'];	
+		$pergunta5 = unserialize($_REQUEST['pergunta5']);	
 	} else {
-		$pergunta5 = "";
+		$pergunta5 = array();	
 	}	
 	//testa se a variavel outro2 existe
 	if(isset($_REQUEST['outro2'])) {
@@ -64,20 +64,25 @@
 		$outro3 = $_REQUEST['outro3'];	
 	} else {
 		$outro3 = "";
-	}		
+	}
+	//testa se a variavel recomendador existe
+	if(isset($_REQUEST['recomendador'])) {
+		$recomendador = $_REQUEST['recomendador'];	
+	} else {
+		$recomendador = "";
+	}				
 ?>
 <!-- Sub-titulo -->
-<h3>Dados Adicionais</h3>
-<h4>Pesquisa de Imagem</h4>
+<h3>Pesquisa de Imagem</h3>
 <?php
 if(!empty($aviso)) {
 	if ($aviso == "sucesso") {
-		echo '<ul class="sucesso"><li>Pessoa cadastrada com sucesso!</li></ul>';
+		echo '<ul class="sucesso"><li>Pesquisa de imagem cadastrada com sucesso!</li></ul>';
 	} else {
 		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
 	}						
 }
-echo '<form action="dadosAdicionaisBD.php" method="POST">';
+echo '<form action="dadosExtrasBD.php" method="POST">';
 //-------------Pergunta 1---------------
 echo '<ol class="normal">';
 echo '<li>Você conhecia a AIESEC antes do processo seletivo?<font class="erro">*</font>';
@@ -118,36 +123,37 @@ echo '<br/>';
 //-------------Pergunta 5---------------
 echo '<li>Por que você está se inscrevendo para o processo seletivo da AIESEC?<font class="erro">*</font>';
 	echo '<ul class="none">';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Desenvolvimento profissional e pessoal" '.($pergunta5 == "Desenvolvimento profissional e pessoal"?'CHECKED"':"").'>Desenvolvimento pessoal e profissional</li>';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Conhecimento sobre outras culturas" '.($pergunta5 == "Conhecimento sobre outras culturas"?'CHECKED"':"").'>Conhecimento sobre outras culturas</li>';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Intercâmbio profissional" '.($pergunta5 == "Intercâmbio profissional"?'CHECKED"':"").'>Intercâmbio profissional</li>';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Contribuir com o desenvolvimento social" '.($pergunta5 == "Contribuir com o desenvolvimento social"?'CHECKED"':"").'>Contribuir com o desenvolvimento social</li>';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Desenvolvimento de liderança" '.($pergunta5 == "Desenvolvimento de liderança"?'CHECKED"':"").'>Desenvolvimento de liderança</li>';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Contato com pessoas e organizações" '.($pergunta5 == "Contato com pessoas e organizações"?'CHECKED"':"").'>Contato com pessoas e organizações</li>';
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Networking profisional" '.($pergunta5 == "Networking profisional"?'CHECKED"':"").'>Networking profisional</li>';		
-	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5" value="Outro" '.($pergunta5 == "Outro"?'CHECKED"':"").'>Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Desenvolvimento profissional e pessoal" '.(isset($pergunta5["Desenvolvimento profissional e pessoal"])?'CHECKED="CHECKED"':"").'>Desenvolvimento pessoal e profissional</li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Conhecimento sobre outras culturas" '.(isset($pergunta5["Conhecimento sobre outras culturas"])?'CHECKED="CHECKED"':"").'>Conhecimento sobre outras culturas</li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Intercâmbio profissional" '.(isset($pergunta5["Intercâmbio profissional"])?'CHECKED="CHECKED"':"").'>Intercâmbio profissional</li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Contribuir com o desenvolvimento social" '.(isset($pergunta5["Contribuir com o desenvolvimento social"])?'CHECKED="CHECKED"':"").'>Contribuir com o desenvolvimento social</li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Desenvolvimento de liderança" '.(isset($pergunta5["Desenvolvimento de liderança"])?'CHECKED="CHECKED"':"").'>Desenvolvimento de liderança</li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Contato com pessoas e organizações" '.(isset($pergunta5["Contato com pessoas e organizações"])?'CHECKED="CHECKED"':"").'>Contato com pessoas e organizações</li>';
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Networking profisional" '.(isset($pergunta5["Networking profisional"])?'CHECKED="CHECKED"':"").'>Networking profisional</li>';		
+	echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Outro" '.(isset($pergunta5["Outro"])?'CHECKED="CHECKED"':"").'>Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';
 	echo '</ul>';
 echo '</li>';
 echo '<br/>';
 //-------------Pergunta 6---------------
 echo '<li>Como ficou sabendo sobre a AIESEC?<font class="erro">*</font>';
 	echo '<ul class="none">';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="membro_alumnus" '.($pergunta6 == "membro_alumnus"?'CHECKED"':"").'>Recomendação de pessoa que faz (ou já fez) parte da AIESEC</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="recomendacao_outros" '.($pergunta6 == "recomendacao_outros"?'CHECKED"':"").'>Recomendação de outros</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="website" '.($pergunta6 == "website"?'CHECKED"':"").'>Website da AIESEC</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="panfleto_flyer" '.($pergunta6 == "panfleto_flyer"?'CHECKED"':"").'>Panfleto/Flyer</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="cartaz_poster_painelEletronico" '.($pergunta6 == "cartaz_poster_painelEletronico"?'CHECKED"':"").'>Cartaz/pôster/Painel Eletrônico</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="faixa_banner" '.($pergunta6 == "faixa_banner"?'CHECKED"':"").'>Faixa/Banners</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="newsletter_malaDireta" '.($pergunta6 == "newsletter_malaDireta"?'CHECKED"':"").'>Newsletter/Mala direta</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="internet" '.($pergunta6 == "internet"?'CHECKED"':"").'>Internet (google, blogs, websites...)</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="evento" '.($pergunta6 == "evento"?'CHECKED"':"").'>Evento promovido pela AIESEC</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="TV" '.($pergunta6 == "TV"?'CHECKED"':"").'>Televisão</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="revista" '.($pergunta6 == "revista"?'CHECKED"':"").'>Revista</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="jornal" '.($pergunta6 == "jornal"?'CHECKED"':"").'>Jornal</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="radio" '.($pergunta6 == "radio"?'CHECKED"':"").'>Rádio</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="sala_de_aula" '.($pergunta6 == "sala_de_aula"?'CHECKED"':"").'>Divulgação em sala de aula</li>';
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="revista" '.($pergunta6 == "revista"?'CHECKED"':"").'>Revista</li>';		
-	echo '<li><input type="checkbox" id="pergunta6" name="pergunta6" value="Outro" '.($pergunta6 == "Outro"?'CHECKED"':"").'>Outro&nbsp;&nbsp;<input type="text" value="'.$outro3.'" id="outro3" name="outro3" size="50" maxlength="50"></li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="membro_alumnus" '.($pergunta6 == "membro_alumnus"?'CHECKED"':"").'>Recomendação de pessoa que faz (ou já fez) parte da AIESEC
+	<ul><li>Nome: <input type="text" value="'.$recomendador.'" id="recomendador" name="recomendador" size="40" maxlength="40"></li></ul></li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="recomendacao_outros" '.($pergunta6 == "recomendacao_outros"?'CHECKED"':"").'>Recomendação de outros</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="website" '.($pergunta6 == "website"?'CHECKED"':"").'>Website da AIESEC</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="panfleto_flyer" '.($pergunta6 == "panfleto_flyer"?'CHECKED"':"").'>Panfleto/Flyer</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="cartaz_poster_painelEletronico" '.($pergunta6 == "cartaz_poster_painelEletronico"?'CHECKED"':"").'>Cartaz/pôster/Painel Eletrônico</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="faixa_banner" '.($pergunta6 == "faixa_banner"?'CHECKED"':"").'>Faixa/Banners</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="newsletter_malaDireta" '.($pergunta6 == "newsletter_malaDireta"?'CHECKED"':"").'>Newsletter/Mala direta</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="internet" '.($pergunta6 == "internet"?'CHECKED"':"").'>Internet (google, blogs, websites...)</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="evento" '.($pergunta6 == "evento"?'CHECKED"':"").'>Evento promovido pela AIESEC</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="TV" '.($pergunta6 == "TV"?'CHECKED"':"").'>Televisão</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="revista" '.($pergunta6 == "revista"?'CHECKED"':"").'>Revista</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="jornal" '.($pergunta6 == "jornal"?'CHECKED"':"").'>Jornal</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="radio" '.($pergunta6 == "radio"?'CHECKED"':"").'>Rádio</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="sala_de_aula" '.($pergunta6 == "sala_de_aula"?'CHECKED"':"").'>Divulgação em sala de aula</li>';
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="revista" '.($pergunta6 == "revista"?'CHECKED"':"").'>Revista</li>';		
+	echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="Outro" '.($pergunta6 == "Outro"?'CHECKED"':"").'>Outro&nbsp;&nbsp;<input type="text" value="'.$outro3.'" id="outro3" name="outro3" size="50" maxlength="50"></li>';
 	echo '</ul>';
 echo '</li>';
 echo '</ol>';

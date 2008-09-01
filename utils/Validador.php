@@ -98,7 +98,7 @@ class Validador
 		$this->setErro (null);
 		/*----------Erros--------------*/
 		$erroFormatoData = "A data deve possuir o formato 'dd/mm/aaaa'!";
-		$erroDataMaior = "A data de nascimento deve ser anterior a data atual";
+		$erroDataMaior = "A data deve ser anterior a data atual!";
 		/*------------------------------*/
 		$tamCampo = strlen ($campo);
 		//testa se o campo data tem 10 caracteres

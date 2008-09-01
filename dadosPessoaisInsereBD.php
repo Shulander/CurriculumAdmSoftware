@@ -5,6 +5,24 @@
 	include ("utils/Validador.php");
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
+	$nome = $_POST['nome'];
+	$nacionalidade = $_POST['nacionalidade'];
+	$nacionalidadeEstrangeira = $_POST['nacionalidadeEstrangeira'];
+	$dataNascimento = $_POST['dataNascimento'];
+	$sexo = $_POST['sexo'];
+	$estadoCivil = $_POST['estadoCivil'];
+	$endereco = $_POST['endereco'];
+	$numero = $_POST['numero'];
+	$complemento = $_POST['complemento'];
+	$bairro = $_POST['bairro'];
+	$cep = $_POST['cep'];
+	$cidade = $_POST['cidade'];
+	$cidadeOutra = $_POST['cidadeOutra'];
+	$estado = $_POST['estado'];
+	$estadoOutro = $_POST['estadoOutro'];
+	$telResidencial = $_POST['telResidencial'];
+	$celular = $_POST['celular'];
+	$email = $_POST['email'];
 	$conexaoBD = new BancoDados ();
 	//verifica se a conexao ao banco de dados ocorreu corretamente
 	if (!$conexaoBD->conecta()) {
@@ -19,7 +37,6 @@
 	$aviso = null;
 	$validador = new Validador ();
 	/*------------Nome----------------*/
-	$nome = $_POST['nome'];
 	if(is_null ($aviso)) {		
 		if (!$validador->isPreenchido ($nome)) {
 			$aviso = "É necessário preencher o campo 'Nome'!";	
@@ -28,8 +45,6 @@
 		}
 	}
 	/*---------Nacionalidade-----------*/
-	$nacionalidade = $_POST['nacionalidade'];
-	$nacionalidadeEstrangeira = $_POST['nacionalidadeEstrangeira'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($nacionalidade)) {
 			$aviso = "É necessário preencher o campo 'Nacionalidade'!";	
@@ -49,7 +64,6 @@
 		}
 	}
 	/*---------Data de Nascimento-----------*/	
-	$dataNascimento = $_POST['dataNascimento'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($dataNascimento)) {
 			$aviso = "É necessário preencher o campo 'Data de Nascimento'!";	
@@ -65,7 +79,6 @@
 		}
 	}
 	/*---------Sexo-----------*/	
-	$sexo = $_POST['sexo'];
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($sexo)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Sexo'!";	
@@ -76,8 +89,6 @@
 		}
 	}
 	/*---------Estado Civil------------*/
-	$estadoCivil = $_POST['estadoCivil'];
-	echo $estadoCivil;
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($estadoCivil)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Estado civil'!";	
@@ -89,7 +100,6 @@
 		}
 	}
 	/*------------Endereco----------------*/
-	$endereco = $_POST['endereco'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($endereco)) {
 			$aviso = "É necessário preencher o campo 'Endereço'!";	
@@ -98,7 +108,6 @@
 		}
 	}
 	/*------------Numero----------------*/
-	$numero = $_POST['numero'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($numero)) {
 			$aviso = "É necessário preencher o campo 'Numero'!";	
@@ -109,7 +118,6 @@
 		}
 	}
 	/*------------Complemento----------------*/
-	$complemento = $_POST['complemento'];
 	if(is_null ($aviso)) {
 		if (!empty ($complemento)) {
 			if (!$validador->comprimento($complemento, 50)) {
@@ -118,7 +126,6 @@
 		}
 	}
 	/*------------Bairro----------------*/
-	$bairro = $_POST['bairro'];
 	if(is_null ($aviso)) {
 		if (!empty ($bairro)) {
 			if (!$validador->comprimento($bairro, 50)) {
@@ -127,7 +134,6 @@
 		}
 	}
 	/*------------CEP----------------*/
-	$cep = $_POST['cep'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($cep)) {
 			$aviso = "É necessário preencher o campo 'CEP'!";	
@@ -138,8 +144,6 @@
 		}
 	}
 	/*---------Cidade-----------*/
-	$cidade = $_POST['cidade'];
-	$cidadeOutra = $_POST['cidadeOutra'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($cidade)) {
 			$aviso = "É necessário preencher o campo 'Cidade'!";	
@@ -159,8 +163,6 @@
 		}
 	}
 	/*---------Estado-----------*/
-	$estado = $_POST['estado'];
-	$estadoOutro = $_POST['estadoOutro'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($estado)) {
 			$aviso = "É necessário preencher o campo 'Estado'!";	
@@ -180,7 +182,6 @@
 		}
 	}
 	/*------------telResidencial----------------*/
-	$telResidencial = $_POST['telResidencial'];
 	if(is_null ($aviso)) {
 		if (!empty ($telResidencial)) {
 			if (!$validador->comprimento($telResidencial, 16)) {
