@@ -1,5 +1,5 @@
 <?php
-include ("Usuario.php");
+require_once("Usuario.php");
 class Pessoa
 {
 	var $id;
@@ -43,6 +43,10 @@ class Pessoa
 		$this->email = strip_tags (htmlspecialchars ($email, ENT_QUOTES));
 		$this->idLogin = $idLogin + 0;
 		$this->conexaoBD = $conexaoBD;
+	}
+	function getId ()
+	{
+		return $this->id;
 	}
 	
 	function getNome ()

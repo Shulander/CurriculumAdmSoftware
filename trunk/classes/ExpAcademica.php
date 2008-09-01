@@ -1,5 +1,5 @@
 <?php
-include ("Usuario.php");
+require_once("Usuario.php");
 class ExpAcademica
 {
 	private $id;
@@ -93,7 +93,7 @@ class ExpAcademica
 	{
 		$sql = "INSERT INTO expacademica (curso, tipo, instituicao, turno, semestre, dataIngresso, dataConclusao, 
 		idPessoa) VALUES ('".$this->curso."', '".$this->tipo."', '".$this->instituicao."', '".$this->turno."', 
-		'".$this->semestre."', '".$this-dataIngresso."', ".$this->dataConclusao.", ".$this->idPessoa.")";
+		'".$this->semestre."', '".$this->dataIngresso."', '".$this->dataConclusao."', ".$this->idPessoa.")";
 		mysql_query($sql, $this->conexaoBD->getLink());
 		$result = mysql_affected_rows();
 		if ($result == 1) {
@@ -104,17 +104,14 @@ class ExpAcademica
 	}
 	
 	function edita ()
-	{
-		$sql = "UPDATE pessoa SET nome='".$this->nome."', nacionalidade='".$this->nacionalidade."', 
-		dataNascimento='".$this->dataNascimento."', sexo='".$this->sexo."', estadoCivil='".$this->estadoCivil."', 
-		endereco='".$this->endereco."', numero=".$this->numero.", complemento='".$this->complemento."', 
-		bairro='".$this->bairro."', cep=".$this->cep.", cidade='".$this->cidade."', estado='".$this->estado."', 
-		telResidencial='".$this->telResidencial."', celular='".$this->celular."', email='".$this->email."'";
-		//echo $sql;
-		//exit();
+	{		
+		$sql = "UPDATE expacademica SET curso='".$this->curso."', tipo='".$this->tipo."', 
+		instituicao='".$this->instituicao."', turno='".$this->turno."', semestre=".$this->semestre.", 
+		dataIngresso='".$this->dataIngresso."', dataConclusao=".$this->dataConclusao.", idPessoa='".$this->idPessoa."' 
+		WHERE id=".$this->id;
 		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
 		if (!$result) {
-    		return "Erro no alteração dos dados pessoais!".mysql_error();
+    		return "Erro no alteração dos dados educacionais!".mysql_error();
 		} else {
 			return "sucesso";
 		}

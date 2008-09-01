@@ -12,4 +12,6 @@
 		<li><a href="dadosEducacionaisEdita.php">Editar experiência acadêmica existente</a></li>
 	</ul>
 </li></ul>
+<center><form action="principal.php"><input type="submit" value="Voltar"></form></center>
+<br />
 <?php include ("rodape.php"); ?>

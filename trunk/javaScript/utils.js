@@ -89,7 +89,7 @@ estadoCivil, endereco, numero, cep, cidade, cidadeOutra, estado, estadoOutro, ce
 function verificaFormDadosEducacionais (curso, tipo, instituicao, dataIngresso)
 {
 	var retorno = true;
-	if (verificaCampoVazio(curso.value)) {
+	if (curso.value == 0) {
 		alert ('É necessário preencher o campo "Curso"!');
 		curso.focus ();
 		retorno = false;
@@ -104,6 +104,10 @@ function verificaFormDadosEducacionais (curso, tipo, instituicao, dataIngresso)
 	} else if (verificaCampoVazio(dataIngresso.value)) {
 		alert ('É necessário preencher o campo "Data de ingresso"!');
 		dataIngresso.focus ();
+		retorno = false;
+	} else if (verificaCampoVazio(dataConclusao.value)) {
+		alert ('É necessário preencher o campo "Data de conclusão"!');
+		dataConclusao.focus ();
 		retorno = false;
 	}
 	return retorno;
