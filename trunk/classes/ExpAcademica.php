@@ -159,7 +159,7 @@ class ExpAcademica
 		$sql2 = "SELECT id FROM expacademica WHERE idPessoa=".$this->idPessoa;
 		$resultado2 = mysql_query($sql2, $this->conexaoBD->getLink());
 		$numLinhas2 = mysql_num_rows ($resultado2);
-		if ($resultado2 != 0) {
+		if ($numLinhas2 != 0) {
 			$idsExpAcademica = array ();
 			while ($dados2  = mysql_fetch_array ($resultado2)) {
 				$idsExpAcademicas[] = $dados2['id'];

@@ -3,8 +3,8 @@
 	require_once ("BancoDados.php");
 	restritoVisitante();
 	//dados
-	$usuario = $_POST['usuario'];
-	$senha = $_POST['senha'];
+	$usuario = $_REQUEST['usuario'];
+	$senha = $_REQUEST['senha'];
 	//se usuario e/ou senha estao vazios, transmite o erro na pagina inicial
 	if(empty($usuario) || empty($senha)) {
 		$aviso = "É necessário preencher os campos usuário e senha!";

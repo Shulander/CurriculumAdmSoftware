@@ -84,7 +84,7 @@
 			$aviso = "É necessário selecionar uma opção do campo 'Sexo'!";	
 		} else if(!$validador->isLetra($sexo)) {
 			$aviso = "Campo 'Sexo' inválido!";
-		} else if ($sexo != "feminino" && $sexo != "masculino") {
+		} else if ($sexo != "Feminino" && $sexo != "Masculino") {
 			$aviso = "O campo 'Sexo' deve possuir valor 'Feminino' ou 'Masculino'!";
 		}
 	}
@@ -94,8 +94,8 @@
 			$aviso = "É necessário selecionar uma opção do campo 'Estado civil'!";	
 		} else if(!$validador->isLetra($estadoCivil)) {
 			$aviso = "Campo 'Estado civil' inválido!";
-		} else if ($estadoCivil != "solteiro" && $estadoCivil != "casado" && $estadoCivil != "viúvo" && 
-		$estadoCivil != "separado" && $estadoCivil != "divorciado") {
+		} else if ($estadoCivil != "Solteiro" && $estadoCivil != "Casado" && $estadoCivil != "Viúvo" && 
+		$estadoCivil != "Separado" && $estadoCivil != "Divorciado") {
 			$aviso = "O campo 'Sexo' deve possuir valor Solteiro/Casado/Viúvo/Separado/Divorciado!";
 		}
 	}

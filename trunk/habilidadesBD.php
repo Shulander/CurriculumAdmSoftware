@@ -18,9 +18,62 @@
 	$word = $_POST['word'];
 	$excel = $_POST['excel'];
 	$powerpoint = $_POST['powerpoint'];
+	//testa se a variavel contabilidade existe
+	if(isset($_POST['contabilidade'])) {
+		$contabilidade = $_POST['contabilidade'];
+		$contabilidadeErro = serialize(array_flip($contabilidade));
+	} else {
+		$contabilidadeErro = serialize(array());	
+	}
+	//testa se a variavel administracao existe
+	if(isset($_POST['administracao'])) {
+		$administracao = $_POST['administracao'];
+		$administracaoErro = serialize(array_flip($administracao));	
+	} else {
+		$administracaoErro = serialize(array());	
+	}//testa se a variavel economia existe
+	if(isset($_POST['economia'])) {
+		$economia = $_POST['economia'];
+		$economiaErro = serialize(array_flip($economia));		
+	} else {
+		$economiaErro = serialize(array());	
+	}//testa se a variavel financas existe
+	if(isset($_POST['financas'])) {
+		$financas = $_POST['financas'];
+		$financasErro = serialize(array_flip($financas));	
+	} else {
+		$financasErro = serialize(array());	
+	}//testa se a variavel recursosHumanos existe
+	if(isset($_POST['recursosHumanos'])) {
+		$recursosHumanos = $_POST['recursosHumanos'];
+		$recursosHumanosErro = serialize(array_flip($recursosHumanos));	
+	} else {
+		$recursosHumanosErro = serialize(array());	
+	}//testa se a variavel tecnologiaInformacao existe
+	if(isset($_POST['tecnologiaInformacao'])) {
+		$tecnologiaInformacao = $_POST['tecnologiaInformacao'];
+		$tecnologiaInformacaoErro = serialize(array_flip($tecnologiaInformacao));	
+	} else {
+		$tecnologiaInformacaoErro = serialize(array());	
+	}//testa se a variavel marketing existe
+	if(isset($_POST['marketing'])) {
+		$marketing = $_POST['marketing'];
+		$marketingErro = serialize(array_flip($marketing));	
+	} else {
+		$marketingErro = serialize(array());	
+	}//testa se a variavel outrosEstudos existe
+	if(isset($_POST['outrosEstudos'])) {
+		$outrosEstudos = $_POST['outrosEstudos'];
+		$outrosEstudosErro = serialize(array_flip($outrosEstudos));	
+	} else {
+		$outrosEstudos = serialize(array());	
+	}
 	$location = "&ingles=".$ingles."&espanhol=".$espanhol."&italiano=".$italiano."&frances=".$frances
 	."&alemao=".$alemao."&outro1=".$outro1."&outro1Nivel=".$outro1Nivel."&outro2=".$outro2.
-	"&outro2Nivel=".$outro2Nivel."&word=".$word."&excel=".$excel."&powerpoint=".$powerpoint;
+	"&outro2Nivel=".$outro2Nivel."&word=".$word."&excel=".$excel."&powerpoint=".$powerpoint.
+	"&contabilidade=".$contabilidadeErro."&administracao=".$administracaoErro."&economia=".$economiaErro.
+	"&financas=".$financasErro."&recursosHumanos=".$recursosHumanosErro.
+	"&tecnologiaInformacao=".$tecnologiaInformacaoErro."&marketing=".$marketingErro."&outrosEstudos=".$outrosEstudosErro;
 	$conexaoBD = new BancoDados ();
 	//verifica se a conexao ao banco de dados ocorreu corretamente
 	if (!$conexaoBD->conecta()) {
@@ -106,6 +159,62 @@
 			$aviso = "É necessário selecionar uma opção no campo 'Powerpoint'!";	
 		}
 	}
+	/*------------Contabilidade----------------*/
+	$contabilidadeText = "";
+	if(is_null ($aviso)) {
+		if (is_array($contabilidade)) {
+			$contabilidadeText = implode($contabilidade,",");
+		}
+	}
+	/*------------Administracao----------------*/
+	$administracaoText = "";
+	if(is_null ($aviso)) {
+		if (is_array($administracao)) {
+			$administracaoText = implode($administracao,",");
+		}
+	}
+	/*------------Economia----------------*/
+	$economiaText = "";
+	if(is_null ($aviso)) {
+		if (is_array($economia)) {
+			$economiaText = implode($economia,",");
+		}
+	}
+	/*------------Financas----------------*/
+	$financasText = "";
+	if(is_null ($aviso)) {
+		if (is_array($financas)) {
+			$financasText = implode($financas,",");
+		}
+	}
+	/*------------Recursos Humanos----------------*/
+	$recursosHumanosText = "";
+	if(is_null ($aviso)) {
+		if (is_array($recursosHumanos)) {
+			$recursosHumanosText = implode($recursosHumanos,",");
+		}
+	}
+	/*------------Tecnologia da Informacao----------------*/
+	$tecnologiaInformacaoText = "";
+	if(is_null ($aviso)) {
+		if (is_array($tecnologiaInformacao)) {
+			$tecnologiaInformacaoText = implode($tecnologiaInformacao,",");
+		}
+	}
+	/*------------Marketing----------------*/
+	$marketingText = "";
+	if(is_null ($aviso)) {
+		if (is_array($marketing)) {
+			$marketingText = implode($marketing,",");
+		}
+	}
+	/*------------Outros Estudos----------------*/
+	$outrosEstudosText = "";
+	if(is_null ($aviso)) {
+		if (is_array($outrosEstudos)) {
+			$outrosEstudosText = implode($outrosEstudos,",");
+		}
+	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
 		header("Location:habilidades.php?aviso=".$aviso.$location);
@@ -115,7 +224,9 @@
 	$sql = "UPDATE pessoa SET ingles='".$ingles."',espanhol='".$espanhol."',italiano='".$italiano."',
 	frances='".$frances."',alemao='".$alemao."',outro1='".$outro1."',outro2='".$outro2."',
 	outro1Nivel='".$outro1Nivel."',outro2Nivel='".$outro2Nivel."',word='".$word."',
-	excel='".$excel."',powerpoint='".$powerpoint."' WHERE id=".$idPessoa;
+	excel='".$excel."',powerpoint='".$powerpoint."',contabilidade='".$contabilidadeText."',administracao='".$administracaoText."'
+	,economia='".$economiaText."',financas='".$financasText."',recursosHumanos='".$recursosHumanosText."'
+	,tecnologiaInformacao='".$tecnologiaInformacaoText."',marketing='".$marketingText."',outrosEstudos='".$outrosEstudosText."' WHERE id=".$idPessoa;
 	$resultado = mysql_query($sql, $conexaoBD->getLink()); 
 	if (!$resultado) {
     	$aviso = "Erro no inserção das habilidades!".mysql_error();

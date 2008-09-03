@@ -142,7 +142,7 @@ if (!$conexaoBD->conecta()) {
 		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) {
-			echo '<ul><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
+			echo '<ul class="ajuda"><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
 			//editar dados pessoais
 			$result = $pessoa->busca();
 			if ($result == true) {
@@ -181,6 +181,8 @@ if (!$conexaoBD->conecta()) {
 			$pagina = "dadosPessoaisInsereBD.php";
 			include ("dadosPessoaisForm.php");
 		}	
+	} else {
+		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	}
 }
 //---------------Rodape-------------------
