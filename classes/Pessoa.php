@@ -176,6 +176,24 @@ class Pessoa
 		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
 		if ($numLinhas != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$result = $dados['resultado'];
+				if ($result == 1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
+		
+		
+		//$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado == 1) {
+			echo "bixa~!";
+			exit ();
 			return true; //pessoa relacionada a id ja foi cadastrada
 		} else {
 			return false;	
