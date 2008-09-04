@@ -48,8 +48,5 @@ else { echo "<font class='erro'>Bloqueado</font>"; } ?><br/>
 </table>
 </center>
 <center><input type="button" <?php if ($pago == false) {  echo "disabled='disabled'"; } ?> value="Marcar entrevista"></center>
-<p class="p_logout">
-	<a href="utils/logout.php"><img class="img_logout" src="imagens/logout.gif" title="Deslogar"></a>
-</p>
 <!-- Rodape -->
 <?php include ("rodape.php"); ?>
