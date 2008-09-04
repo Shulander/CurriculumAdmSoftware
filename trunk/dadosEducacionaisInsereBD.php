@@ -93,6 +93,8 @@
 			if (!is_null($erro)) {
 				if ($erro != "A data deve ser anterior a data atual!") {
 					$aviso = $erro;
+				} else {
+					$dataConclusaoBD = $validador->converteData ($dataConclusao);
 				}
 			} else {
 				$aviso = "Erro de sistema!";
@@ -110,7 +112,7 @@
 	/*---------Semestre------------*/
 	if(is_null ($aviso)) {
 		if ($validador->isPreenchido ($semestre)) {
-			if (!$validador->comprimento($endereco, 50)) {
+			if (!$validador->comprimento($semestre, 2)) {
 				$aviso = "O campo 'Semestre' deve possuir no máximo 2 dígitos!";
 			} else if (!$validador->isNumero($semestre)) {
 				$aviso = "O campo 'Semestre' deve possuir valor numérico!";
