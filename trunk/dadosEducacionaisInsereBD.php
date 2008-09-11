@@ -135,7 +135,7 @@
 	} else {
 		$result = $pessoa->alteraDadosEducacionaisBD (1);
 		if ($result == "sucesso") {
-			header ("Location:habilidades.php");
+			header ("Location:dadosEducacionais.php");
 		} else {
 			header("Location:dadosEducacionaisInsere.php?aviso=".$aviso.$location);
 		}
