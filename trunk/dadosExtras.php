@@ -1,8 +1,7 @@
-<!-- Cabecalho -->
 <?php 
+	require_once ("utils/sessao.php");
 	include ("cabecalho.php");
 	include ("menu.php");
-	require_once ("utils/sessao.php");
 	require_once ("utils/BancoDados.php");
 	require_once ("classes/Pessoa.php");		
 	restritoUsuario ();	
@@ -90,7 +89,7 @@ if (!$conexaoBD->conecta()) {
 	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) { //se pessoa foi cadastrada
 					echo '<form action="dadosExtrasBD.php" method="POST">';
@@ -132,7 +131,7 @@ if (!$conexaoBD->conecta()) {
 			echo '</li>';
 			echo '<br/>';
 			//-------------Pergunta 5---------------
-			echo '<li>Por que você está se inscrevendo para o processo seletivo da AIESEC?<font class="erro">*</font>';
+			echo '<li><a href="#" class="dica">Por que você está se inscrevendo para o processo seletivo da AIESEC? <span>Pode-se marcar mais de uma opção nessa pergunta.</span></a> <font class="erro">*</font>';
 				echo '<ul class="none">';
 				echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Desenvolvimento profissional e pessoal" '.(isset($pergunta5["Desenvolvimento profissional e pessoal"])?'CHECKED="CHECKED"':"").'>Desenvolvimento pessoal e profissional</li>';
 				echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Conhecimento sobre outras culturas" '.(isset($pergunta5["Conhecimento sobre outras culturas"])?'CHECKED="CHECKED"':"").'>Conhecimento sobre outras culturas</li>';

@@ -18,12 +18,11 @@ class Pessoa
 	var $estado;
 	var $telResidencial;
 	var $celular;
-	var $email;
 	var $conexaoBD;
 	
 	function Pessoa ($idLogin=0, $nome="", $nacionalidade="", $dataNascimento="", $sexo="", $estadoCivil="",
 	$endereco="", $numero="", $complemento="", $bairro="", $cep="", $cidade="", $estado="", $telResidencial="",
-	$celular="", $email="", $id=0, $conexaoBD=false)
+	$celular="", $id=0, $conexaoBD=false)
 	{
 		$this->id = $id + 0;
 		$this->nome = strip_tags (htmlspecialchars ($nome, ENT_QUOTES));
@@ -40,13 +39,17 @@ class Pessoa
 		$this->estado = strip_tags (htmlspecialchars ($estado, ENT_QUOTES));
 		$this->telResidencial = strip_tags (htmlspecialchars ($telResidencial, ENT_QUOTES));
 		$this->celular = strip_tags (htmlspecialchars ($celular, ENT_QUOTES));
-		$this->email = strip_tags (htmlspecialchars ($email, ENT_QUOTES));
 		$this->idLogin = $idLogin + 0;
 		$this->conexaoBD = $conexaoBD;
 	}
 	function getId ()
 	{
 		return $this->id;
+	}
+
+	function getIdLogin ()
+	{
+		return $this->idLogin;
 	}
 	
 	function getNome ()
@@ -118,11 +121,6 @@ class Pessoa
 	{
 		return $this->celular;
 	}
-
-	function getEmail ()
-	{
-		return $this->email;
-	}
 	
 	/*Recebe uma data em formato aaaa-mm-dd e converte em uma data no formato dd/mm/aaaa*/
 	function converteDataNascimento ()
@@ -134,10 +132,10 @@ class Pessoa
 	function insere ()
 	{
 		$sql = "INSERT INTO pessoa(nome, nacionalidade, dataNascimento, sexo, estadoCivil, endereco, numero, 
-		complemento, bairro, cep, cidade, estado, telResidencial, celular, email, idLogin) VALUES ('".$this->nome."', 
+		complemento, bairro, cep, cidade, estado, telResidencial, celular, idLogin) VALUES ('".$this->nome."', 
 		'".$this->nacionalidade."', '".$this->dataNascimento."', '".$this->sexo."', '".$this->estadoCivil."', 
 		'".$this->endereco."', ".$this->numero.", '".$this->complemento."', '".$this->bairro."', ".$this->cep.", 
-		'".$this->cidade."', '".$this->estado."', '".$this->telResidencial."', '".$this->celular."', '".$this->email."',
+		'".$this->cidade."', '".$this->estado."', '".$this->telResidencial."', '".$this->celular."', 
 		".$this->idLogin.")";
 		mysql_query($sql, $this->conexaoBD->getLink());
 		$result = mysql_affected_rows();
@@ -158,12 +156,65 @@ class Pessoa
 		dataNascimento='".$this->dataNascimento."', sexo='".$this->sexo."', estadoCivil='".$this->estadoCivil."', 
 		endereco='".$this->endereco."', numero=".$this->numero.", complemento='".$this->complemento."', 
 		bairro='".$this->bairro."', cep=".$this->cep.", cidade='".$this->cidade."', estado='".$this->estado."', 
-		telResidencial='".$this->telResidencial."', celular='".$this->celular."', email='".$this->email."'";
-		//echo $sql;
-		//exit();
+		telResidencial='".$this->telResidencial."', celular='".$this->celular."'";
 		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
 		if (!$result) {
     		return "Erro no alteração dos dados pessoais!".mysql_error();
+		} else {
+			return "sucesso";
+		}
+	}
+	
+	function alteraDadosPessoaisBD ($dadosPessoais)
+	{
+		$sql = "UPDATE pessoa SET dadosPessoais=".$dadosPessoais;
+		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
+		if (!$result) {
+    		return "Erro no alteração dos dados pessoais!".mysql_error();
+		} else {
+			return "sucesso";
+		}
+	}
+
+	function alteraDadosEducacionaisBD ($dadosEducacionais)
+	{
+		$sql = "UPDATE pessoa SET dadosEducacionais=".$dadosEducacionais;
+		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
+		if (!$result) {
+    		return "Erro no alteração dos dados educacionais!".mysql_error();
+		} else {
+			return "sucesso";
+		}
+	}
+
+	function alteraDadosProfissionaisBD ($dadosProfissionais)
+	{
+		$sql = "UPDATE pessoa SET dadosProfissionais=".$dadosProfissionais;
+		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
+		if (!$result) {
+    		return "Erro no alteração dos dados profissionais!".mysql_error();
+		} else {
+			return "sucesso";
+		}
+	}
+	
+	function alteraHabilidadesBD ($habilidades)
+	{
+		$sql = "UPDATE pessoa SET habilidades=".$habilidades;
+		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
+		if (!$result) {
+    		return "Erro no alteração das habilidades!".mysql_error();
+		} else {
+			return "sucesso";
+		}
+	}
+
+	function alteraPesquisaBD ($pesquisa)
+	{
+		$sql = "UPDATE pessoa SET pesquisa=".$pesquisa;
+		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
+		if (!$result) {
+    		return "Erro no alteração da pesquisa!".mysql_error();
 		} else {
 			return "sucesso";
 		}
@@ -187,16 +238,6 @@ class Pessoa
 			return true;
 		} else {
 			return false;
-		}
-		
-		
-		//$numLinhas = mysql_num_rows ($resultado);
-		if ($resultado == 1) {
-			echo "bixa~!";
-			exit ();
-			return true; //pessoa relacionada a id ja foi cadastrada
-		} else {
-			return false;	
 		}
 	}
 	
@@ -222,10 +263,34 @@ class Pessoa
 				$this->estado = $dados['estado'];
 				$this->telResidencial = $dados['telResidencial'];
 				$this->celular = $dados['celular'];
-				$this->email = $dados['email'];
-				$this->id = $dados['id'];			
+				$this->id = $dados['id'];
 			}
 			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/*Verifica se todos os dados foram preenchidos*/
+	function isDadosPreenchidos ()
+	{
+		$sql = "SELECT * FROM pessoa WHERE idLogin=".$this->idLogin;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$dadosPessoais = $dados['dadosPessoais'];
+				$dadosEducacionais = $dados['dadosEducacionais'];
+				$dadosProfissionais = $dados['dadosProfissionais'];
+				$habilidades = $dados['habilidades'];
+				$pesquisa = $dados['pesquisa'];
+			}
+			if ($dadosPessoais == 1 && $dadosEducacionais == 1 && $dadosProfissionais == 1 
+			&& $habilidades == 1 && $pesquisa == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}

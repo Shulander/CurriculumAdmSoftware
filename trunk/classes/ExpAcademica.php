@@ -107,7 +107,7 @@ class ExpAcademica
 	{		
 		$sql = "UPDATE expacademica SET curso='".$this->curso."', tipo='".$this->tipo."', 
 		instituicao='".$this->instituicao."', turno='".$this->turno."', semestre=".$this->semestre.", 
-		dataIngresso='".$this->dataIngresso."', dataConclusao=".$this->dataConclusao.", idPessoa='".$this->idPessoa."' 
+		dataIngresso='".$this->dataIngresso."', dataConclusao='".$this->dataConclusao."', idPessoa='".$this->idPessoa."' 
 		WHERE id=".$this->id;
 		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
 		if (!$result) {

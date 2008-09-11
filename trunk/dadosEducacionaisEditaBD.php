@@ -27,7 +27,7 @@
 		exit();
 	}
 	//Busca idPessoa
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
 	$resultado = $pessoa->busca();
 	if ($resultado == true) {
 		$idPessoa = $pessoa->getId ();
@@ -86,9 +86,9 @@
 	/*---------Data de Conclusao-----------*/	
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($dataConclusao)) {
-			if($validador->isData($dataConclusao)) {						
-				$dataConclusaoBD = $validador->converteData ($dataConclusao);
-			}
+			$aviso = "É necessário preencher o campo 'Data de Conclusão'!";
+		} else if($validador->isData($dataConclusao)) {						
+			$dataConclusaoBD = $validador->converteData ($dataConclusao);
 		} else {
 			$erro = $validador->getErro();
 			if (!is_null($erro)) {
@@ -100,14 +100,6 @@
 			} else {
 				$aviso = "Erro de sistema!";
 			}
-		}
-	}
-	/*---------Turno-----------*/	
-	if(is_null ($aviso)) {
-		if (!$validador->isSelecionado($turno)) {
-			$aviso = "É necessário selecionar uma opção do campo 'Turno'!";	
-		} else if(!$validador->isLetra($turno)) {
-			$aviso = "Campo 'Turno' inválido!";
 		}
 	}
 	/*---------Semestre------------*/

@@ -1,11 +1,15 @@
 <?php
 	require_once ("utils/sessao.php");
 	require_once ("utils/BancoDados.php");
+	require_once ("utils/Validador.php");
 	include ("classes/Usuario.php");
 	restritoVisitante();
-	$login = $_POST['usuario'];
+	$email = $_POST['email'];
 	$senha = $_POST['senha'];
-			
+	$tipo = $_POST['tipo'];
+	$location = "&email=".$email."&tipo=".$tipo;
+	$aviso = null;
+	$validador = new Validador ();
 	//tenta conectar-se ao banco de dados
 	$conexaoBD = new BancoDados ();
 	//verifica se a conexao ao banco de dados ocorreu corretamente
@@ -14,14 +18,41 @@
 		header("Location:cadastro.php?aviso=".$aviso);
 		exit();
 	}
-	$usuario = new Usuario ($login, $senha, $conexaoBD, 0);
+	/*------------email----------------*/
+	if (!$validador->isPreenchido ($email)) {
+		$aviso = "É necessário preencher o campo 'E-mail'!";	
+	} else if (!$validador->comprimento($email, 50)) {
+		$aviso = "O campo 'Email' deve possuir no máximo 50 caracteres!";
+	} else if (!$validador->isEmail($email)) {
+		$aviso = "Campo 'E-mail' inválido!";
+	}
+	/*---------Tipo------------*/
+	if (is_null ($aviso)) {
+		if (!$validador->isSelecionado($tipo)) {
+			$aviso = "É necessário selecionar uma opção do campo 'Tipo de Inscrição'!";	
+		}
+	}
+	if (!is_null ($aviso)) {
+		header("Location:cadastro.php?aviso=".$aviso.$location);
+		exit ();
+	}
+	//verifica se email ja foi cadastrado anteriormente
+	$usuario = new Usuario ($email, $senha, $tipo, $conexaoBD, 0);
+	$retorno = $usuario->buscaPorEmail();
+	if ($retorno != 0) {
+		//alguem ja se cadastrou com esse email
+		$aviso = "Esse usuário já está cadastrado no sistema!";
+		header("Location:cadastro.php?aviso=".$aviso.$location);
+		exit ();
+	}
+	//se esta tudo ok, insere usuario
 	$aviso = $usuario->insere();
 	$conexaoBD->desconecta();
 	
 	if ($aviso == "sucesso") {
-		header("Location:utils/login.php?usuario=".$login."&senha=".$senha);
+		header("Location:utils/login.php?email=".$email."&senha=".$senha);
 	} else {
-		header("Location:cadastro.php?aviso=".$aviso."&usuario=".$login);
+		header("Location:cadastro.php?aviso=".$aviso.$location);
 	}
 	exit();
 ?>

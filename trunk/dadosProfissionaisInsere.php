@@ -1,7 +1,7 @@
-<!-- Cabecalho -->
-<?php include ("cabecalho.php");
-	include ("menu.php");
+<?php 
 	require_once ("utils/sessao.php");
+	include ("cabecalho.php");
+	include ("menu.php");
 	require_once ("utils/BancoDados.php");
 	require_once ("classes/Pessoa.php");	
 	restritoUsuario ();	
@@ -46,20 +46,14 @@
 //Sub-titulo
 echo '<h3>Inserir Experiência Profissional</h3>';
 if(!empty($aviso)) {
-	if ($aviso == "sucesso") {
-		//echo '<ul class="sucesso"><li>Formação acadêmica cadastrada com sucesso!</li></ul>';
-		echo '<SCRIPT language="Javascript">alert("Formação acadêmica cadastrada com sucesso!")</SCRIPT>';
-		header ("Location:dadosExtras.php");
-	} else {
-		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
-	}						
+	echo '<ul class="erro"><li>'.$aviso.'</li></ul>';							
 }
 $conexaoBD = new BancoDados ();
 if (!$conexaoBD->conecta()) {
 	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) { //se pessoa foi cadastrada
 			echo '<form action="dadosProfissionaisInsereBD.php" method="POST" name="dadosProfissionaisForm"

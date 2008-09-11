@@ -3,11 +3,11 @@
 	require_once ("BancoDados.php");
 	restritoVisitante();
 	//dados
-	$usuario = $_REQUEST['usuario'];
+	$email = $_REQUEST['email'];
 	$senha = $_REQUEST['senha'];
-	//se usuario e/ou senha estao vazios, transmite o erro na pagina inicial
-	if(empty($usuario) || empty($senha)) {
-		$aviso = "É necessário preencher os campos usuário e senha!";
+	//se usuario e/ou senha e/ou tipo estao vazios, transmite o erro na pagina inicial
+	if(empty($email) || empty($senha)) {
+		$aviso = "É necessário preencher os campos email e senha!";
 		voltaParaPaginaInicial ($aviso);
 	}
 	//tenta conectar-se ao banco de dados
@@ -19,7 +19,7 @@
 		voltaParaPaginaInicial ($aviso);
 	}
 	//verifica se o usuario e a senha estao corretos	
-	$sql = "SELECT id as idLogin FROM login WHERE usuario LIKE '".$usuario."' AND senha LIKE '".md5($senha)."'";
+	$sql = "SELECT tipo,id as idLogin FROM login WHERE email LIKE '".$email."' AND senha LIKE '".md5($senha)."'";
 	$result = mysql_query($sql, $conexao->getLink());
 	if (mysql_num_rows ($result)!= 1){
 		$aviso = "Erro de login! Os campos usuário e/ou senha estão incorretos!";
@@ -28,9 +28,18 @@
 	//se chegou ate aqui, a conexao foi aceita
 	$row = mysql_fetch_array($result, MYSQL_ASSOC);
 	$conexao->setIdLogin($row['idLogin']);
-	$conexao->setNome ($usuario);
+	$conexao->setTipo ($row['tipo']);
+	$conexao->setNome ($email);
 	$conexao->setSession(); //salva na sessao
 	$_SESSION['logado'] = true;
+	if ($conexao->getTipo() == "admin") {
+		$_SESSION['admin'] = true;
+		mysql_free_result($result);	
+		header("Location:../controle.php");
+		exit();
+	} else {
+		$_SESSION['admin'] = false;
+	}
 	mysql_free_result($result);	
 	header("Location:../principal.php");
 	exit();

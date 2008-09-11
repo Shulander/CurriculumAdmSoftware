@@ -1,5 +1,6 @@
-<!-- Cabecalho -->
-<?php include ("cabecalho.php");
+<?php 
+	require_once ("utils/sessao.php");
+	include ("cabecalho.php");
 	include ("menu.php");
 	require_once ("utils/sessao.php");
 	require_once ("utils/BancoDados.php");
@@ -13,7 +14,7 @@
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
-			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 			$resultado = $pessoa->buscaPorIdUsuario ();
 			if ($resultado == true) { //se pessoa foi cadastrada
 				echo '<ul><li>Clique na opção desejada:';
