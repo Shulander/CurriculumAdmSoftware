@@ -2,7 +2,7 @@
 echo '<form action="'.$pagina.'" method="POST" 
 onsubmit="return verificaFormDadosPessoais($(\'nome\'), $(\'nacionalidade\'), $(\'nacionalidadeEstrangeira\'), 
 $(\'dataNascimento\'), $(\'sexo\'), $(\'estadoCivil\'), $(\'endereco\'), $(\'numero\'), $(\'cep\'), $(\'cidade\'), 
-$(\'cidadeOutra\'), $(\'estado\'), $(\'estadoOutro\'), $(\'celular\'), $(\'email\'));">';
+$(\'cidadeOutra\'), $(\'estado\'), $(\'estadoOutro\'), $(\'celular\'));">';
 echo '<table class="tabela">';
 //-------------Nome---------------
 echo '<tr><td>Nome:<font class="erro">*</font></td>';
@@ -10,7 +10,7 @@ echo '<td><input type="text" id="nome" name="nome" value="'.$nome.'" size="50" m
 //-------------Nacionalidade-------
 echo '<tr><td>Nacionalidade:<font class="erro">*</font></td>';
 echo '<td><select id="nacionalidade" name="nacionalidade" onchange="
-if(this.options[this.selectedIndex].value==\'estrangeira\') { 
+if(this.options[this.selectedIndex].value==\'Estrangeira\') { 
 	blocoAbre($(\'blocoEstrangeira\')); 
 } else { blocoFecha($(\'blocoEstrangeira\')); }
 ">';
@@ -64,7 +64,7 @@ echo '<tr><td><a href="#" class="dica">CEP: <span>Esse campo só aceita valores n
 //--------------------------Cidade------------------------------
 echo '<tr><td>Cidade: <font class="erro">*</font></td>';
 echo '<td><select id="cidade" name="cidade" onchange="
-if(this.options[this.selectedIndex].value==\'outra\') { 
+if(this.options[this.selectedIndex].value==\'Outra\') { 
 	blocoAbre($(\'blocoOutra\')); 
 } else { blocoFecha($(\'blocoOutra\')); }
 ">';
@@ -77,7 +77,7 @@ echo '</td></tr>';
 //------------------------Estado---------------------------------
 echo '<tr><td>Estado: <font class="erro">*</font></td>';
 echo '<td><select id="estado" name="estado" onchange="
-if(this.options[this.selectedIndex].value==\'outro\') { 
+if(this.options[this.selectedIndex].value==\'Outro\') { 
 	blocoAbre($(\'blocoOutro\')); 
 } else { blocoFecha($(\'blocoOutro\')); }
 ">';
@@ -96,9 +96,6 @@ echo '<tr><td><a href="#" class="dica">Celular: <span>Esse campo deve ter o form
 onde prefixo é o número do prefixo e d é um dígito(número)!</span></a><font class="erro">*</font></td>';
 echo '<td><input type="text" id="celular" name="celular" value="'.$celular.'" size="20" 
 maxlength="16"></td></tr>';
-//Email
-echo '<tr><td>E-mail: <font class="erro">*</font></td>';
-echo '<td><input type="text" id="email" name="email" value="'.$email.'" size="50" maxlength="50"></td></tr>';
 //--------------
 echo '</table><br />';
 echo '<center>';

@@ -1,7 +1,7 @@
-<!-- Cabecalho -->
-<?php include ("cabecalho.php");
-	include ("menu.php");
+<?php 
 	require_once ("utils/sessao.php");
+	include ("cabecalho.php");
+	include ("menu.php");
 	require_once ("utils/BancoDados.php");
 	require_once ("classes/Pessoa.php");
 	restritoUsuario ();
@@ -67,17 +67,17 @@
 	} else {
 		$outro2Nivel = "";
 	}
-	//testar se a variavel word existe
-	if(isset($_GET['word'])) {
-		$word = $_GET['word'];	
+	//testar se a variavel office existe
+	if(isset($_GET['office'])) {
+		$office = $_GET['office'];	
 	} else {
-		$word = "";
+		$office = "";
 	}
-	//testar se a variavel excel existe
-	if(isset($_GET['excel'])) {
-		$excel = $_GET['excel'];	
+	//testar se a variavel webdesign existe
+	if(isset($_GET['webdesign'])) {
+		$webdesign = $_GET['webdesign'];	
 	} else {
-		$excel = "";
+		$webdesign = "";
 	}
 	//testar se a variavel powerpoint existe
 	if(isset($_GET['powerpoint'])) {
@@ -138,20 +138,14 @@
 <h3>Habilidades</h3>
 <?php
 	if(!empty($aviso)) {
-		if ($aviso == "sucesso") {
-			//echo '<ul class="sucesso"><li>Habilidades cadastradas com sucesso!</li></ul>';
-			echo '<SCRIPT language="Javascript">alert("Habilidades cadastradas com sucesso!")</SCRIPT>';
-			header ("Location:dadosProfissionais.php");
-		} else {
-			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
-		}						
+		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';							
 	}
 	$conexaoBD = new BancoDados ();
 	if (!$conexaoBD->conecta()) {
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
-			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 			$resultado = $pessoa->buscaPorIdUsuario ();
 			if ($resultado == true) { //se pessoa foi cadastrada
 				echo '<form action="habilidadesBD.php" method="POST">';
@@ -237,35 +231,35 @@
 				//-------------INFORMATICA----------------------
 				echo '<h4>Informática</h4>';
 				echo '<table class="tabela">';
-				//--------------------Word-----------
-				echo '<tr><td>Word: <font class="erro">*</font></td>';
-				echo '<td><select name="word" >';
+				//--------------------office-----------
+				echo '<tr><td>Pacote Office: <font class="erro">*</font></td>';
+				echo '<td><select name="office" >';
 				echo '<option value="0"> -- Selecione -- </option>';
-				echo '<option value="nenhum" '.($word == "nenhum"?'selected="selected"':"").'>Nenhum</option>';
-				echo '<option value="basico" '.($word == "basico"?'selected="selected"':"").'>Básico</option>';					
-				echo '<option value="intermediario" '.($word == "intermediario"?'selected="selected"':"").'>Intermediário</option>';
-				echo '<option value="avancado" '.($word == "avancado"?'selected="selected"':"").'>Avançado</option>';							
-				echo '<option value="fluente" '.($word == "fluente"?'selected="selected"':"").'>Fluente</option>';	
+				echo '<option value="nenhum" '.($office == "nenhum"?'selected="selected"':"").'>Nenhum</option>';
+				echo '<option value="basico" '.($office == "basico"?'selected="selected"':"").'>Básico</option>';					
+				echo '<option value="intermediario" '.($office == "intermediario"?'selected="selected"':"").'>Intermediário</option>';
+				echo '<option value="avancado" '.($office == "avancado"?'selected="selected"':"").'>Avançado</option>';							
+				echo '<option value="expert" '.($office == "expert"?'selected="selected"':"").'>Expert</option>';	
 				echo '</select></td></tr>';
-				//--------------------Excel-----------
-				echo '<tr><td>Excel: <font class="erro">*</font></td>';
-				echo '<td><select name="excel" >';
+				//--------------------webdesign-----------
+				echo '<tr><td>Webdesign: <font class="erro">*</font></td>';
+				echo '<td><select name="webdesign" >';
 				echo '<option value="0"> -- Selecione -- </option>';
-				echo '<option value="nenhum" '.($excel == "nenhum"?'selected="selected"':"").'>Nenhum</option>';
-				echo '<option value="basico" '.($excel == "basico"?'selected="selected"':"").'>Básico</option>';					
-				echo '<option value="intermediario" '.($excel == "intermediario"?'selected="selected"':"").'>Intermediário</option>';
-				echo '<option value="avancado" '.($excel == "avancado"?'selected="selected"':"").'>Avançado</option>';							
-				echo '<option value="fluente" '.($excel == "fluente"?'selected="selected"':"").'>Fluente</option>';	
+				echo '<option value="nenhum" '.($webdesign == "nenhum"?'selected="selected"':"").'>Nenhum</option>';
+				echo '<option value="basico" '.($webdesign == "basico"?'selected="selected"':"").'>Básico</option>';					
+				echo '<option value="intermediario" '.($webdesign == "intermediario"?'selected="selected"':"").'>Intermediário</option>';
+				echo '<option value="avancado" '.($webdesign == "avancado"?'selected="selected"':"").'>Avançado</option>';							
+				echo '<option value="expert" '.($webdesign == "expert"?'selected="selected"':"").'>Expert</option>';	
 				echo '</select></td></tr>';
-				//--------------------Powerpoint-----------
-				echo '<tr><td>Powerpoint: <font class="erro">*</font></td>';
-				echo '<td><select name="powerpoint" >';
+				//--------------------editorImagem-----------
+				echo '<tr><td>Editores de Imagem: <font class="erro">*</font></td>';
+				echo '<td><select name="editorImagem" >';
 				echo '<option value="0"> -- Selecione -- </option>';
-				echo '<option value="nenhum" '.($powerpoint == "nenhum"?'selected="selected"':"").'>Nenhum</option>';
-				echo '<option value="basico" '.($powerpoint == "basico"?'selected="selected"':"").'>Básico</option>';					
-				echo '<option value="intermediario" '.($powerpoint == "intermediario"?'selected="selected"':"").'>Intermediário</option>';
-				echo '<option value="avancado" '.($powerpoint == "avancado"?'selected="selected"':"").'>Avançado</option>';							
-				echo '<option value="fluente" '.($powerpoint == "fluente"?'selected="selected"':"").'>Fluente</option>';	
+				echo '<option value="nenhum" '.($editorImagem == "nenhum"?'selected="selected"':"").'>Nenhum</option>';
+				echo '<option value="basico" '.($editorImagem == "basico"?'selected="selected"':"").'>Básico</option>';					
+				echo '<option value="intermediario" '.($editorImagem == "intermediario"?'selected="selected"':"").'>Intermediário</option>';
+				echo '<option value="avancado" '.($editorImagem == "avancado"?'selected="selected"':"").'>Avançado</option>';							
+				echo '<option value="expert" '.($editorImagem == "expert"?'selected="selected"':"").'>Expert</option>';	
 				echo '</select></td></tr>';
 				//--------------
 				echo '</table><br />';

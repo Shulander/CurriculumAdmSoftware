@@ -13,6 +13,17 @@
 			exit;
 		}
 	}
+
+	function restritoAdministrador ()
+	{
+		//se nao ta logado volta pra tela de login
+		if ($_SESSION['logado'] == false) {
+			if ($_SESSION['admin'] == false) {	
+				header ("Location: index.php");
+				exit;
+			}
+		}
+	}
 	
 	function restritoVisitante ()
 	{

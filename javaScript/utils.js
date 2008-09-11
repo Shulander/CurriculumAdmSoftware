@@ -17,7 +17,7 @@ function verificaCampoVazio (campo)
 }
 
 function verificaFormDadosPessoais (nome, nacionalidade, nacionalidadeEstrangeira, dataNascimento, sexo, 
-estadoCivil, endereco, numero, cep, cidade, cidadeOutra, estado, estadoOutro, celular, email)
+estadoCivil, endereco, numero, cep, cidade, cidadeOutra, estado, estadoOutro, celular)
 {
 	var retorno = true;
 	if (verificaCampoVazio(nome.value)) {
@@ -74,14 +74,6 @@ estadoCivil, endereco, numero, cep, cidade, cidadeOutra, estado, estadoOutro, ce
 		alert ('É necessário preencher o campo "Celular"!');
 		celular.focus ();
 		retorno = false;
-	} else if (verificaCampoVazio(email.value)) {
-		alert ('É necessário preencher o campo "E-mail"!');
-		email.focus ();
-		retorno = false;
-	} else if (!isEmailValido (email.value)) {
-		alert("Por favor digite um endereço de email válido!");
-		email.focus();
-		retorno = false;
 	}
 	return retorno;
 }
@@ -137,16 +129,24 @@ function isEmailValido(email)
 	return retorno;
 }
 
-function verificaFormularioUsuario (usuario, senha) 
+function verificaFormularioUsuario (email, senha, tipo) 
 {
 	var retorno = true;
-	if (verificaCampoVazio(usuario.value)) {
-		alert ('É necessário preencher o campo Usuário!');		
-		usuario.focus ();
+	if (verificaCampoVazio(email.value)) {
+		alert ('É necessário preencher o campo E-mail!');		
+		email.focus ();
+		retorno = false;
+	} else if (!isEmailValido (email.value)) {
+		alert("Por favor digite um endereço de email válido!");
+		email.focus();
 		retorno = false;
 	} else if (verificaCampoVazio(senha.value)) {
 		alert ('É necessário preencher o campo Senha!');
 		senha.focus ();
+		retorno = false;
+	} else if (tipo.value == 0) {
+		alert ('É necessário selecionar um tipo de inscrição!');
+		tipo.focus ();
 		retorno = false;
 	}
 	return retorno;

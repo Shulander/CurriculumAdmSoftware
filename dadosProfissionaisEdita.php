@@ -1,7 +1,7 @@
-<!-- Cabecalho -->
-<?php include ("cabecalho.php");
+<?php
+	require_once ("utils/sessao.php"); 
+	include ("cabecalho.php");
 	include ("menu.php");
-	require_once ("utils/sessao.php");
 	require_once ("utils/BancoDados.php");
 	require_once ("classes/ExpProfissional.php");
 	require_once ("classes/Pessoa.php");
@@ -68,14 +68,14 @@ if (!$conexaoBD->conecta()) {
 	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) { //se pessoa foi cadastrada
 			$expProfissionais = new ExpProfissional (0, $idLogin, 0, "", "", "", "", "", $conexaoBD);
 			$resultado = $expProfissionais->busca();//retorna array de ids de experiencias profissionais
 			if ($resultado == 0) {
 				echo '<ul class="aviso"><li>Não há experiências profissionais cadastradas. Para cadastrar uma experiência
-				profissional clique <a href="dadosEducacionaisInsere.php">aqui</a>.</li></ul>';	
+				profissional clique <a href="dadosProfissionaisInsere.php">aqui</a>.</li></ul>';	
 			} else if (is_array($resultado)) {
 				$numExpProfissionais = count($resultado);
 				for ($i = 0; $i < $numExpProfissionais; $i++) {
@@ -116,10 +116,14 @@ if (!$conexaoBD->conecta()) {
 						echo '</td></tr>';
 						echo '<tr></tr>';				
 						//-------Data de conclusao-----------
-						echo '<tr><td><a href="#" class="dica">Data de Conclusão: <span>Esse campo deve ter o formato dd/mm/aaaa! Pode ser uma previsão caso você ainda não tenha concluido.</span></a><font class="erro">*</font> </td>';
+						echo '<tr><td><a href="#" class="dica">Data de Conclusão: <span>Esse campo deve ter o formato dd/mm/aaaa!</span></a> </td>';
 						echo '<td><input type="text" readonly value="'.$dataConclusao.'" id="dataConclusao'.$i.'" name="dataConclusao" size="10" maxlength="10">
 						<input type="button" value="Calendário" onClick=displayCalendar($(\'dataConclusao'.$i.'\'),"dd/mm/yyyy",this)>';
 						echo '</td></tr>';	
+						//--------Atividade---------------
+						echo '<tr><td>Atividade: <font class="erro">*</font></td>';
+						echo '<td><textarea cols="40"rows="5" id="atividade" name="atividade">'.$atividade.'</textarea>';
+						echo '</td></tr>';		
 						//--------------
 						echo '</table><br />';
 						echo '<center>';

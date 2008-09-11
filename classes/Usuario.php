@@ -2,36 +2,50 @@
 class Usuario
 {
 	private $id;
-	private $usuario;
+	private $email;
 	private $senha;
+	private $tipo;
 	private $conexaoBD;
+	private $pago;
+	private $dadosPreenchidos;
 	
-	function Usuario ($usuario, $senha, $conexaoBD=false, $id=0)
+	function Usuario ($email, $senha, $tipo, $conexaoBD=false, $id=0)
 	{
 		$this->id = $id;	
-		$this->usuario = $usuario;
+		$this->email = $email;
+		$this->tipo = $tipo;
 		$this->senha = $senha;
 		$this->conexaoBD = $conexaoBD;
 	}
 
-	public function setUsuario ($usuario)
+	public function setEmail ($email)
 	{
-		$this->usuario = usuario;		
+		$this->email = email;		
 	}
 	
-	public function getUsuario ()
+	public function getEmail ()
 	{
-		return $this->usuario;
+		return $this->email;
 	}
 
 	public function setSenha ($senha)
 	{
-		$this->senha = senha;		
+		$this->senha = $senha;		
 	}
 	
 	public function getSenha ()
 	{
 		return $this->senha;
+	}
+
+	public function setTipo ($tipo)
+	{
+		$this->tipo = tipo;		
+	}
+	
+	public function getTipo ()
+	{
+		return $this->tipo;
 	}
 	
 	public function setId ($id)
@@ -43,16 +57,35 @@ class Usuario
 	{
 		return $this->id;
 	}
+
+	public function setPago ($pago)
+	{
+		$this->pago = $pago;
+	}
+	
+	public function getPago ()
+	{
+		return $this->pago;
+	}
+	
+	function isMembro ()
+	{
+		if ($this->tipo == "membro") {
+			return true;
+		} else {
+			return false;
+		}		
+	}
 	
 	/* Insere um novo usuario no sistema */
 	public function insere ()
 	{
 		//checa campos string para ver se nao existem caracteres anormais
-		$this->usuario = strip_tags(htmlspecialchars($this->usuario, ENT_QUOTES));
+		$this->email = strip_tags(htmlspecialchars($this->email, ENT_QUOTES));
 		$this->senha = strip_tags(htmlspecialchars($this->senha, ENT_QUOTES));
-		//verifica se o campo usuario esta preenchido
-		if(empty($this->usuario)) {
-			return "É necessário preencher o campo usuario!";			
+		//verifica se o campo email esta preenchido
+		if(empty($this->email)) {
+			return "É necessário preencher o campo email!";			
 		}
 		//verifica se o campo senha esta preenchido
 		if(empty($this->senha)) {
@@ -62,7 +95,7 @@ class Usuario
 		if($this->conexaoBD == false) {
 			return "Erro de sistema! Contate o administrador do sistema!";	
 		}
-		$sql = "INSERT INTO login (usuario, senha) VALUES ('".$this->usuario."', '".md5($this->senha)."');";
+		$sql = "INSERT INTO login (email, senha, tipo) VALUES ('".$this->email."', '".md5($this->senha)."', '".$this->tipo."');";
 		mysql_query($sql, $this->conexaoBD->getLink());
 		$result = mysql_affected_rows();
 		if ($result == 1) {
@@ -73,6 +106,132 @@ class Usuario
 			} else {
 				return "Erro no cadastro de usuário!";
 			}		
+		}
+	}
+	
+	public function alteraSenha ()
+	{
+		//checa campos string para ver se nao existem caracteres anormais
+		$this->senha = strip_tags(htmlspecialchars($this->senha, ENT_QUOTES));
+		//verifica se o campo senha esta preenchido
+		if(empty($this->senha)) {
+			return "É necessário preencher o campo senha!";			
+		}
+		//verifica se existe conexao do banco de dados
+		if($this->conexaoBD == false) {
+			return "Erro de sistema! Contate o administrador do sistema!";	
+		}
+		$sql = "UPDATE login SET senha='".md5($this->senha)."' WHERE id=".$this->id;
+		mysql_query($sql, $this->conexaoBD->getLink());
+		$result = mysql_affected_rows();
+		if ($result == 1) {
+			return "sucesso";
+		} else {
+			return "Erro na alteração da senha do usuário!";		
+		}
+	}
+	
+	function buscaPorEmail ()
+	{
+		if (empty($this->email)) {
+			return false;
+		}
+		$sql = "SELECT id FROM login WHERE email='".$this->email."'";
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$id = $dados['id'];
+			}
+			return $id;
+		} else {
+			return 0;
+		}
+	}
+	
+	function isPago ()
+	{
+		if (empty($this->id)) {
+			return false;
+		}
+		$sql = "SELECT pago FROM login WHERE id=".$this->id;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$pago = $dados['pago'];
+				if ($pago == 1) {
+					$this->pago = 1;
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function isDadosPreenchidos ()
+	{
+		if (empty($this->id)) {
+			return false;
+		}
+		$sql = "SELECT dadosPreenchidos FROM login WHERE id=".$this->id;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$dadosPreenchidos = $dados['dadosPreenchidos'];
+				if ($dadosPreenchidos == 1) {
+					$this->dadosPreenchidos = 1;
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function setDadosPreenchidos ($valor)
+	{		
+		//verifica se existe conexao do banco de dados
+		if($this->conexaoBD == false) {
+			return "Erro de sistema! Contate o administrador do sistema!";	
+		}
+		$sql = "UPDATE login SET dadosPreenchidos=".$valor." WHERE id=".$this->id;
+		mysql_query($sql, $this->conexaoBD->getLink());
+		$result = mysql_affected_rows();
+		if ($result == 1) {
+			return "sucesso";
+		} else {
+			return "Erro na alteração dos dados preenchidos!";		
+		}
+	}
+
+	function busca ()
+	{
+		if (empty($this->id)) {
+			return false;
+		}
+		$sql = "SELECT * FROM login WHERE id=".$this->id;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$this->dadosPreenchidos = $dados['dadosPreenchidos'];
+				$this->email = $dados['email'];
+				$this->senha = $dados['senha'];
+				$this->pago = $dados['pago'];
+				$this->tipo = $dados['tipo'];
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

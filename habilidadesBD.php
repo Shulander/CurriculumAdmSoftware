@@ -1,9 +1,10 @@
 <?php
 	require_once ("utils/BancoDados.php");
 	require_once ("utils/sessao.php");
-	include ("classes/ExpAcademica.php");
-	include ("classes/Pessoa.php");
-	include ("utils/Validador.php");
+	require_once ("classes/ExpAcademica.php");
+	require_once ("classes/Pessoa.php");
+	require_once ("classes/Usuario.php");
+	require_once ("utils/Validador.php");
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
 	$ingles = $_POST['ingles'];
@@ -15,9 +16,9 @@
 	$outro1Nivel = $_POST['outro1Nivel'];
 	$outro2 = $_POST['outro2'];
 	$outro2Nivel = $_POST['outro2Nivel'];
-	$word = $_POST['word'];
-	$excel = $_POST['excel'];
-	$powerpoint = $_POST['powerpoint'];
+	$office = $_POST['office'];
+	$webdesign = $_POST['webdesign'];
+	$editorImagem = $_POST['editorImagem'];
 	//testa se a variavel contabilidade existe
 	if(isset($_POST['contabilidade'])) {
 		$contabilidade = $_POST['contabilidade'];
@@ -70,7 +71,7 @@
 	}
 	$location = "&ingles=".$ingles."&espanhol=".$espanhol."&italiano=".$italiano."&frances=".$frances
 	."&alemao=".$alemao."&outro1=".$outro1."&outro1Nivel=".$outro1Nivel."&outro2=".$outro2.
-	"&outro2Nivel=".$outro2Nivel."&word=".$word."&excel=".$excel."&powerpoint=".$powerpoint.
+	"&outro2Nivel=".$outro2Nivel."&office=".$office."&webdesign=".$webdesign."&editorImagem=".$editorImagem.
 	"&contabilidade=".$contabilidadeErro."&administracao=".$administracaoErro."&economia=".$economiaErro.
 	"&financas=".$financasErro."&recursosHumanos=".$recursosHumanosErro.
 	"&tecnologiaInformacao=".$tecnologiaInformacaoErro."&marketing=".$marketingErro."&outrosEstudos=".$outrosEstudosErro;
@@ -82,7 +83,7 @@
 		exit();
 	}
 	//Busca idPessoa
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
 	$resultado = $pessoa->busca();
 	if ($resultado == true) {
 		$idPessoa = $pessoa->getId ();
@@ -141,22 +142,22 @@
 			$aviso = "É necessário selecionar o nível do campo 'Outro'!";	
 		}
 	}
-	/*------------word----------------*/
+	/*------------office----------------*/
 	if(is_null ($aviso)) {		
-		if (!$validador->isSelecionado($word)) {
-			$aviso = "É necessário selecionar uma opção no campo 'Word'!";	
+		if (!$validador->isSelecionado($office)) {
+			$aviso = "É necessário selecionar uma opção no campo 'office'!";	
 		}
 	}
-	/*------------excel----------------*/
+	/*------------webdesign----------------*/
 	if(is_null ($aviso)) {		
-		if (!$validador->isSelecionado($excel)) {
-			$aviso = "É necessário selecionar uma opção no campo 'Excel'!";	
+		if (!$validador->isSelecionado($webdesign)) {
+			$aviso = "É necessário selecionar uma opção no campo 'webdesign'!";	
 		}
 	}
-	/*------------powerpoint----------------*/
+	/*------------editorImagem----------------*/
 	if(is_null ($aviso)) {		
-		if (!$validador->isSelecionado($powerpoint)) {
-			$aviso = "É necessário selecionar uma opção no campo 'Powerpoint'!";	
+		if (!$validador->isSelecionado($editorImagem)) {
+			$aviso = "É necessário selecionar uma opção no campo 'editorImagem'!";	
 		}
 	}
 	/*------------Contabilidade----------------*/
@@ -223,8 +224,8 @@
 	/*-----------Inserir habilidades------------------*/
 	$sql = "UPDATE pessoa SET ingles='".$ingles."',espanhol='".$espanhol."',italiano='".$italiano."',
 	frances='".$frances."',alemao='".$alemao."',outro1='".$outro1."',outro2='".$outro2."',
-	outro1Nivel='".$outro1Nivel."',outro2Nivel='".$outro2Nivel."',word='".$word."',
-	excel='".$excel."',powerpoint='".$powerpoint."',contabilidade='".$contabilidadeText."',administracao='".$administracaoText."'
+	outro1Nivel='".$outro1Nivel."',outro2Nivel='".$outro2Nivel."',office='".$office."',
+	webdesign='".$webdesign."',editorImagem='".$editorImagem."',contabilidade='".$contabilidadeText."',administracao='".$administracaoText."'
 	,economia='".$economiaText."',financas='".$financasText."',recursosHumanos='".$recursosHumanosText."'
 	,tecnologiaInformacao='".$tecnologiaInformacaoText."',marketing='".$marketingText."',outrosEstudos='".$outrosEstudosText."' WHERE id=".$idPessoa;
 	$resultado = mysql_query($sql, $conexaoBD->getLink()); 
@@ -233,11 +234,17 @@
 	} else {
 		$aviso = "sucesso";
 	}
-	if ($aviso != sucesso) {	
+	if ($aviso != sucesso) {
 		header("Location:habilidades.php?aviso=".$aviso.$location);
 		exit();
 	} else {
-		header ("Location:habilidades.php?aviso=".$aviso);
+		$result = $pessoa->alteraHabilidadesBD(1);
+		if ($result == "sucesso") {
+			header ("Location:dadosProfissionais.php");		
+		} else {
+			header("Location:habilidades.php?aviso=".$result.$location);
+		}
 	}
+	$conexaoBD->desconecta();
 	exit();
 ?>

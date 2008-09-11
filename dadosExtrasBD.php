@@ -1,6 +1,7 @@
 <?php
 	require_once ("utils/BancoDados.php");
 	require_once ("utils/sessao.php");
+	require_once ("classes/Usuario.php");
 	include ("classes/ExpAcademica.php");
 	include ("classes/Pessoa.php");
 	include ("utils/Validador.php");
@@ -41,7 +42,7 @@
 		exit();
 	}
 	//Busca idPessoa
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
 	$resultado = $pessoa->busca();
 	if ($resultado == true) {
 		$idPessoa = $pessoa->getId ();
@@ -55,17 +56,23 @@
 	}
 	$validador = new Validador ();
 	/*------------Pergunta 4----------------*/
-	if(is_null ($aviso)) {		
-		if (!$validador->isPreenchido($pergunta4)) {
-			$aviso = "É necessário selecionar uma opção na pergunta 4'!";	
-		} else if ($pergunta4 == "Outro") {
-			if (!$validador->isPreenchido($outro1)) {
-				$aviso = "É necessário responder a pergunta 4'!";
+	if(is_null ($aviso)) {
+		if ($pergunta3 == "Sim") {
+			if (!$validador->isPreenchido($pergunta4)) {
+				$aviso = "É necessário selecionar uma opção na pergunta 4'!";	
+			} else if ($pergunta4 == "Outro") {
+				if (!$validador->isPreenchido($outro1)) {
+					$aviso = "É necessário responder a pergunta 4'!";
+				} else {
+					$pergunta4 = $outro1;
+				}
 			} else {
-				$pergunta4 = $outro1;
+				$outro1 = "";
 			}
-		} else {
-			$outro1 = "";
+		} else { //pergunta 3 respondida como nao
+			if ($validador->isPreenchido($pergunta4) || !$validador->isPreenchido($outro1)) {
+				$aviso = "Apenas responder a pergunta 4 se for selecionada a opção Sim na pergunta 3!";
+			}
 		}
 	}
 	/*------------Pergunta 5----------------*/
@@ -128,7 +135,87 @@
     	header("Location:dadosExtras.php?aviso=".$aviso.$location);
 	} else {
 		$aviso = "sucesso";
-		header ("Location:dadosExtras.php?aviso=".$aviso);
+		$result = $pessoa->alteraPesquisaBD(1);
+		if ($result == "sucesso") {
+			//verifica se todos os dados foram preenchidos
+			$retorno = $pessoa->isDadosPreenchidos();
+			if ($retorno == true) {
+				//se todos os dados foram preenchidos seta dados preenchidos em usuario e manda para a pagina principal
+				$usuario = new Usuario ("", "", "", $conexaoBD, $idLogin);
+				if(!$usuario->isDadosPreenchidos()) {
+					$valor = $usuario->setDadosPreenchidos(1);
+					if ($valor == "sucesso") {
+						//envia email para a pessoa dizendo q o cadastro foi salvo com sucesso
+						$dados = $usuario->busca();
+						if ($dados == false) {
+							$aviso = "Erro de sistema! Contate o administrador do sistema1!";
+							header ("Location:dadosExtras.php?aviso=".$aviso.$location);
+						} else {
+							$enviado = enviaEmail($usuario->getEmail());
+							if ($enviado == true) {
+								header ("Location:principal.php");
+							} else {
+								$aviso = "Erro de sistema! Contate o administrador do sistema1!";
+								header ("Location:dadosExtras.php?aviso=".$aviso.$location);			
+							}
+						}
+					} else {
+						header ("Location:dadosExtras.php?aviso=".$valor);
+					}
+				} else {
+					header ("Location:principal.php");
+				}
+			} else { //dados nao foram preenchidos
+				header ("Location:dadosExtras.php?aviso=".$retorno);	
+			}
+		} else {
+			$aviso = "Erro de sistema! Contate o administrador do sistema2!";
+			header ("Location:dadosExtras.php?aviso=".$aviso.$location);
+		}
+
 	}
+	$conexaoBD->desconecta();
 	exit();
+	
+	function enviaEmail ($email)
+	{
+		$remetente = "non-reply@aiesecsm.org";
+		$assunto = "Processo Seletivo AIESEC";
+		$contato = "<a href='mailto:aiesecsmpsel@gmail.com'>aiesecsmpsel@gmail.com</a>";
+		$mensagem= "<b>Caro usuário,</b><br />
+		
+		
+		Seu cadastro foi salvo com sucesso. <br/>
+		Sua inscrição só será confirmada assim que pagar a taxa (R$ 5,00) e entregar o currículo impresso,<br/> 
+		com uma foto 3x4 ou digitalizada, em uma das palestras de apresentação. Ao pagar, aguarde que num <br/>
+		prazo máximo de 48h você será liberado, recebendo um email de confirmação, para marcar sua entrevista,<br/> 
+		em um dos horários disponibilizados pelo sistema. Não se esqueça de participar de uma das palestras, <br/>
+		já que são obrigatórias e de caráter eliminatório. <br/>
+		<b>Datas e locais das palestras de apresentação:</b><br/>
+		<ul>
+		<li>PARA candidatos a intercambistas (escolher um horário):
+			<ul>
+			<li>25/09: Auditório do Centro de Tecnologia, UFSM, campus:  18h</li>
+			<li>26/09: Auditório CCSH, UFSM, centro: 11h.</li>
+			</ul>
+		<li>PARA candidatos a membros:
+		<ul><li>17/09: SENAC: 13:30 às 14:30 ou 18:30 às 19:30.</li></ul>
+		<br/> 
+		Se quiser alterar seus dados ou conferir o andamento do processo favor acessar o endereço 
+		<a href='http://www.aiesecsm.org/psel2008_2/'>http://www.aiesecsm.org/psel2008_2/</a>.<br/>
+		Qualquer dúvida favor entrar em contato no telefone abaixo ou através do email ".$contato."<br/> 
+		<br/>
+		Atenciosamente, <br/>
+		AIESEC em Santa Maria<br/>
+		Rua Floriano Peixoto, 1184, 8° andar do CCSH - Centro<br/>
+		Tel: 3220 9209<br/>
+		Santa Maria - RS - Brasil<br/>
+		<a href='http://www.aiesec.org.br/santamaria'>http://www.aiesec.org.br/santamaria</a><br/>";
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= "From: AIESEC Santa Maria <".$remetente."> \r\n";
+		
+		$retorno = mail($email, $assunto, $mensagem, $headers);
+		return $retorno;
+	}
 ?>

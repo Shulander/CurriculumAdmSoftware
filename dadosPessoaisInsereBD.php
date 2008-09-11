@@ -22,16 +22,17 @@
 	$estadoOutro = $_POST['estadoOutro'];
 	$telResidencial = $_POST['telResidencial'];
 	$celular = $_POST['celular'];
-	$email = $_POST['email'];
 	$conexaoBD = new BancoDados ();
-	//verifica se a conexao ao banco de dados ocorreu corretamente
-	if (!$conexaoBD->conecta()) {
-		$aviso = "Erro de sistema! Contate o administrador do sistema!";
-		header("Location:dadosPessoais.php?aviso=".$aviso."&nome=".$nome."&nacionalidade=".$nacionalidade.
+	$aviso = "";
+	$location = "&nome=".$nome."&nacionalidade=".$nacionalidade.
 		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
 		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
 		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular."&email=".$email);
+		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular;
+	//verifica se a conexao ao banco de dados ocorreu corretamente
+	if (!$conexaoBD->conecta()) {
+		$aviso = "Erro de sistema! Contate o administrador do sistema!";
+		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 		exit();
 	}
 	$aviso = null;
@@ -67,8 +68,17 @@
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($dataNascimento)) {
 			$aviso = "É necessário preencher o campo 'Data de Nascimento'!";	
-		} else if($validador->isData($dataNascimento)) {						
-			$dataNascimentoBD = $validador->converteData ($dataNascimento);
+		} else if($validador->isData($dataNascimento)) {
+			if ($validador->isDataMinima($dataNascimento)) {
+				$dataNascimentoBD = $validador->converteData ($dataNascimento);	
+			} else {
+				$erro = $validador->getErro();
+				if (!is_null($erro)) {
+					$aviso = $erro;
+				} else {
+					$aviso = "Erro de sistema!";
+				}	
+			}
 		} else {
 			$erro = $validador->getErro();
 			if (!is_null($erro)) {
@@ -192,7 +202,6 @@
 		}
 	}
 	/*------------celular----------------*/
-	$celular = $_POST['celular'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($celular)) {
 			$aviso = "É necessário preencher o campo 'Celular'!";	
@@ -201,17 +210,6 @@
 		}/* else if (!$validador->isTelefone($telResidencial)) {
 			$aviso = "Campo 'Telefone Residencial' inválido!";
 		}*/
-	}
-	/*------------email----------------*/
-	$email = $_POST['email'];
-	if(is_null ($aviso)) {
-		if (!$validador->isPreenchido ($email)) {
-			$aviso = "É necessário preencher o campo 'E-mail'!";	
-		} else if (!$validador->comprimento($email, 50)) {
-			$aviso = "O campo 'Email' deve possuir no máximo 50 caracteres!";
-		} else if (!$validador->isEmail($email)) {
-			$aviso = "Campo 'E-mail' inválido!";
-		}
 	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
@@ -224,16 +222,12 @@
 		if (!empty ($estadoOutro)) {
 			$estado = "outro";
 		}
-		header ("Location:dadosPessoais.php?aviso=".$aviso."&nome=".$nome."&nacionalidade=".$nacionalidade.
-		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
-		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
-		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular."&email=".$email);
+		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 		exit ();
 	}
 	/*-----------Inserir pessoa------------------*/
 	$pessoa = new Pessoa ($idLogin, $nome, $nacionalidade, $dataNascimentoBD, $sexo, $estadoCivil, $endereco, $numero,
-	$complemento, $bairro, $cep, $cidade, $estado, $telResidencial, $celular, $email, 0, $conexaoBD);
+	$complemento, $bairro, $cep, $cidade, $estado, $telResidencial, $celular, 0, $conexaoBD);
 	$aviso = $pessoa->insere();
 	if ($aviso != sucesso) {
 		if (!empty ($nacionalidadeEstrangeira)) {
@@ -245,13 +239,15 @@
 		if (!empty ($estadoOutro)) {
 			$estado = "outro";
 		}
-		header ("Location:dadosPessoais.php?aviso=".$aviso."&nome=".$nome."&nacionalidade=".$nacionalidade.
-		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
-		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
-		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular."&email=".$email);
+		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 	} else {
-		header ("Location:dadosPessoais.php?aviso=".$aviso);
+		$result = $pessoa->alteraDadosPessoaisBD (1);
+		if ($result == "sucesso") {
+			header ("Location:dadosEducacionais.php?aviso=".$aviso);
+		} else {
+			$aviso = "Erro de sistema! Contate o administrador do sistema!";
+			header("Location:dadosPessoais.php?aviso=".$aviso.$location);
+		}
 	}
 	exit();
 ?>

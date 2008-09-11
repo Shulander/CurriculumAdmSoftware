@@ -91,6 +91,19 @@ class Validador
 		$data = explode("/", $data);
 		return $data[2]."-".$data[1]."-".$data[0];
 	}
+	//recebe formato dd/mm/aaaa, chamar isData primeiro
+	function isDataMinima ($data)
+	{
+		$data = explode("/", $data);
+		$ano = $data[2];
+		if ($ano > 1992) { 
+			$this->setErro ("A idade mínima para participar do processo seletivo é 16 anos!");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	
 	//Data valida: dd/mm/aaaa
 	function isData ($campo)

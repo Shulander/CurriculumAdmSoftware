@@ -1,9 +1,8 @@
-<!-- Cabecalho -->
 <?php 
+	require_once ("utils/sessao.php");
+	require_once ("utils/BancoDados.php");	
 	include ("cabecalho.php");
 	include ("menu.php");
-	require_once ("utils/sessao.php");	
-	require_once ("utils/BancoDados.php");
 	require_once ("classes/Pessoa.php");	
 	restritoUsuario ();	 
 	$idLogin = $_SESSION['idLogin'];
@@ -122,55 +121,57 @@
 	} else {
 		$email = "";
 	}
+	//testa se a variavel tipo existe
+	if(isset($_REQUEST['tipo'])) {
+		$tipo = $_REQUEST['tipo'];	
+	} else {
+		$tipo = "";
+	}
 ?>
 <!-- Sub-titulo -->
 <h3>Dados Pessoais</h3>
 <?php
 if(!empty($aviso)) {
-	if ($aviso == "sucesso") {
-		echo '<SCRIPT language="Javascript">alert("Dados cadastrados com sucesso!")</SCRIPT>';
-		header ("Location:dadosEducacionais.php");
-	} else {
-		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
-	}						
+	echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
 }
 $conexaoBD = new BancoDados ();
 if (!$conexaoBD->conecta()) {
 	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) {
 			echo '<ul class="ajuda"><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
 			//editar dados pessoais
 			$result = $pessoa->busca();
 			if ($result == true) {
-				$nome = $pessoa->getNome ();
-				$nacionalidade = $pessoa->getNacionalidade();
-				if ($nacionalidade != "Brasileira") {
-					$nacionalidadeEstrangeira = $nacionalidade;
-					$nacionalidade = "Estrangeira"; 
+				if (empty ($aviso)) {
+					$nome = $pessoa->getNome ();
+					$nacionalidade = $pessoa->getNacionalidade();
+					if ($nacionalidade != "Brasileira") {
+						$nacionalidadeEstrangeira = $nacionalidade;
+						$nacionalidade = "Estrangeira"; 
+					}
+					$dataNascimento = $pessoa->converteDataNascimento();
+					$sexo = $pessoa->getSexo();
+					$estadoCivil = $pessoa->getEstadoCivil();
+					$endereco = $pessoa->getEndereco();
+					$numero = $pessoa->getNumero();
+					$complemento = $pessoa->getComplemento();
+					$bairro = $pessoa->getBairro();
+					$cep = $pessoa->getCep();
+					$cidade = $pessoa->getCidade ();
+					if ($cidade == "Outra") {
+						$cidadeOutra = $pessoa->getCidade(); 
+					}
+					$estado = $pessoa->getEstado(); 
+					if ($estado == "Outro") {
+						$estadoOutro = $pessoa->getEstado(); 
+					}
+					$telResidencial = $pessoa->getTelResidencial();
+					$celular = $pessoa->getCelular();
 				}
-				$dataNascimento = $pessoa->converteDataNascimento();
-				$sexo = $pessoa->getSexo();
-				$estadoCivil = $pessoa->getEstadoCivil();
-				$endereco = $pessoa->getEndereco();
-				$numero = $pessoa->getNumero();
-				$complemento = $pessoa->getComplemento();
-				$bairro = $pessoa->getBairro();
-				$cep = $pessoa->getCep();
-				$cidade = $pessoa->getCidade ();
-				if ($cidade == "Outra") {
-					$cidadeOutra = $pessoa->getCidade(); 
-				}
-				$estado = $pessoa->getEstado(); 
-				if ($estado == "Outro") {
-					$estadoOutro = $pessoa->getEstado(); 
-				}
-				$telResidencial = $pessoa->getTelResidencial();
-				$celular = $pessoa->getCelular();
-				$email = $pessoa->getEmail();
 				$pagina = "dadosPessoaisEditaBD.php";
 				include ("dadosPessoaisForm.php");
 			} else {

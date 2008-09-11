@@ -6,6 +6,7 @@
 	include ("utils/Validador.php");
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
+	$idExpProf = $_POST['idExpProf'] + 0;
 	$empresa = $_POST['empresa'];
 	$tipo = $_POST['tipo'];
 	$dataInicio = $_POST['dataInicio'];
@@ -72,39 +73,31 @@
 		if (!$validador->isPreenchido($dataConclusao)) {
 			if($validador->isData($dataConclusao)) {						
 				$dataConclusaoBD = $validador->converteData ($dataConclusao);
-			}
-		} else {
-			$erro = $validador->getErro();
-			if (!is_null($erro)) {
-				if ($erro != "A data deve ser anterior a data atual!") {
+			} else { //nao eh uma data valida
+				$erro = $validador->getErro();
+				if (!is_null($erro)) {
 					$aviso = $erro;
 				} else {
-					$dataConclusaoBD = $validador->converteData ($dataConclusao);
+					$aviso = "Erro de sistema!";
 				}
-			} else {
-				$aviso = "Erro de sistema!";
 			}
+		} else { //se nao esta preenchido	
+			$dataConclusaoBD = "0000-00-00";
 		}
 	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
-		header("Location:dadosProfissionaisInsere.php?aviso=".$aviso.$location);
+		header("Location:dadosProfissionaisEdita.php?aviso=".$aviso.$location);
 		exit();
 	}
-	/*-----------Inserir expProfissional------------------*/
-	$expProfissional = new ExpProfissional (0, $idLogin, $idPessoa, $empresa, $tipo, $atividade, 
+	/*-----------Editar expProfissional------------------*/
+	$expProfissional = new ExpProfissional ($idExpProf, $idLogin, $idPessoa, $empresa, $tipo, $atividade, 
 	$dataInicioBD, $dataConclusaoBD, $conexaoBD);
-	$aviso = $expProfissional->insere();
+	$aviso = $expProfissional->edita();
 	if ($aviso != sucesso) {
-		header("Location:dadosProfissionaisInsere.php?aviso=".$aviso.$location);
-		exit();
+		header("Location:dadosProfissionaisEdita.php?aviso=".$aviso.$location);
 	} else {
-		$result = $pessoa->alteraDadosProfissionaisBD (1);
-		if ($result == "sucesso") {
-			header ("Location:dadosExtras.php");
-		} else {
-			header("Location:dadosProfissionaisInsere.php?aviso=".$result.$location);
-		}
+		header ("Location:dadosProfissionaisEdita.php?aviso=".$aviso);
 	}
 	exit();
 ?>

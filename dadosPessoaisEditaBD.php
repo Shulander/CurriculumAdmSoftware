@@ -5,21 +5,38 @@
 	include ("utils/Validador.php");
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
+	$nome = $_POST['nome'];
+	$nacionalidade = $_POST['nacionalidade'];
+	$nacionalidadeEstrangeira = $_POST['nacionalidadeEstrangeira'];
+	$dataNascimento = $_POST['dataNascimento'];
+	$sexo = $_POST['sexo'];
+	$estadoCivil = $_POST['estadoCivil'];
+	$endereco = $_POST['endereco'];
+	$numero = $_POST['numero'];
+	$complemento = $_POST['complemento'];
+	$bairro = $_POST['bairro'];
+	$cep = $_POST['cep'];
+	$cidade = $_POST['cidade'];
+	$cidadeOutra = $_POST['cidadeOutra'];
+	$estado = $_POST['estado'];
+	$estadoOutro = $_POST['estadoOutro'];
+	$telResidencial = $_POST['telResidencial'];
+	$celular = $_POST['celular'];
 	$conexaoBD = new BancoDados ();
-	//verifica se a conexao ao banco de dados ocorreu corretamente
-	if (!$conexaoBD->conecta()) {
-		$aviso = "Erro de sistema! Contate o administrador do sistema!";
-		header("Location:dadosPessoais.php?aviso=".$aviso."&nome=".$nome."&nacionalidade=".$nacionalidade.
+	$location = "&nome=".$nome."&nacionalidade=".$nacionalidade.
 		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
 		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
 		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular."&email=".$email);
+		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular;
+	//verifica se a conexao ao banco de dados ocorreu corretamente
+	if (!$conexaoBD->conecta()) {
+		$aviso = "Erro de sistema! Contate o administrador do sistema!";
+		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 		exit();
 	}
 	$aviso = null;
 	$validador = new Validador ();
 	/*------------Nome----------------*/
-	$nome = $_POST['nome'];
 	if(is_null ($aviso)) {		
 		if (!$validador->isPreenchido ($nome)) {
 			$aviso = "É necessário preencher o campo 'Nome'!";	
@@ -28,8 +45,6 @@
 		}
 	}
 	/*---------Nacionalidade-----------*/
-	$nacionalidade = $_POST['nacionalidade'];
-	$nacionalidadeEstrangeira = $_POST['nacionalidadeEstrangeira'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($nacionalidade)) {
 			$aviso = "É necessário preencher o campo 'Nacionalidade'!";	
@@ -49,12 +64,20 @@
 		}
 	}
 	/*---------Data de Nascimento-----------*/	
-	$dataNascimento = $_POST['dataNascimento'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($dataNascimento)) {
-			$aviso = "É necessário preencher o campo 'Data de Nascimento'!";	
-		} else if($validador->isData($dataNascimento)) {						
-			$dataNascimentoBD = $validador->converteData ($dataNascimento);
+				$aviso = "É necessário preencher o campo 'Data de Nascimento'!";	
+		} else if($validador->isData($dataNascimento)) {
+			if ($validador->isDataMinima($dataNascimento)) {
+				$dataNascimentoBD = $validador->converteData ($dataNascimento);	
+			} else {
+				$erro = $validador->getErro();
+				if (!is_null($erro)) {
+					$aviso = $erro;
+				} else {
+					$aviso = "Erro de sistema!";
+				}	
+			}
 		} else {
 			$erro = $validador->getErro();
 			if (!is_null($erro)) {
@@ -65,7 +88,6 @@
 		}
 	}
 	/*---------Sexo-----------*/	
-	$sexo = $_POST['sexo'];
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($sexo)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Sexo'!";	
@@ -76,7 +98,6 @@
 		}
 	}
 	/*---------Estado Civil------------*/
-	$estadoCivil = $_POST['estadoCivil'];
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($estadoCivil)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Estado civil'!";	
@@ -84,11 +105,10 @@
 			$aviso = "Campo 'Estado civil' inválido!";
 		} else if ($estadoCivil != "Solteiro" && $estadoCivil != "Casado" && $estadoCivil != "Viúvo" && 
 		$estadoCivil != "Separado" && $estadoCivil != "Divorciado") {
-			$aviso = "O campo 'Estado Civil' deve possuir valor Solteiro/Casado/Viúvo/Separado/Divorciado!";
+			$aviso = "O campo 'Sexo' deve possuir valor Solteiro/Casado/Viúvo/Separado/Divorciado!";
 		}
 	}
 	/*------------Endereco----------------*/
-	$endereco = $_POST['endereco'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($endereco)) {
 			$aviso = "É necessário preencher o campo 'Endereço'!";	
@@ -97,7 +117,6 @@
 		}
 	}
 	/*------------Numero----------------*/
-	$numero = $_POST['numero'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($numero)) {
 			$aviso = "É necessário preencher o campo 'Numero'!";	
@@ -108,7 +127,6 @@
 		}
 	}
 	/*------------Complemento----------------*/
-	$complemento = $_POST['complemento'];
 	if(is_null ($aviso)) {
 		if (!empty ($complemento)) {
 			if (!$validador->comprimento($complemento, 50)) {
@@ -117,7 +135,6 @@
 		}
 	}
 	/*------------Bairro----------------*/
-	$bairro = $_POST['bairro'];
 	if(is_null ($aviso)) {
 		if (!empty ($bairro)) {
 			if (!$validador->comprimento($bairro, 50)) {
@@ -126,7 +143,6 @@
 		}
 	}
 	/*------------CEP----------------*/
-	$cep = $_POST['cep'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($cep)) {
 			$aviso = "É necessário preencher o campo 'CEP'!";	
@@ -137,8 +153,6 @@
 		}
 	}
 	/*---------Cidade-----------*/
-	$cidade = $_POST['cidade'];
-	$cidadeOutra = $_POST['cidadeOutra'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($cidade)) {
 			$aviso = "É necessário preencher o campo 'Cidade'!";	
@@ -158,8 +172,6 @@
 		}
 	}
 	/*---------Estado-----------*/
-	$estado = $_POST['estado'];
-	$estadoOutro = $_POST['estadoOutro'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($estado)) {
 			$aviso = "É necessário preencher o campo 'Estado'!";	
@@ -179,7 +191,6 @@
 		}
 	}
 	/*------------telResidencial----------------*/
-	$telResidencial = $_POST['telResidencial'];
 	if(is_null ($aviso)) {
 		if (!empty ($telResidencial)) {
 			if (!$validador->comprimento($telResidencial, 16)) {
@@ -190,7 +201,6 @@
 		}
 	}
 	/*------------celular----------------*/
-	$celular = $_POST['celular'];
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($celular)) {
 			$aviso = "É necessário preencher o campo 'Celular'!";	
@@ -199,17 +209,6 @@
 		}/* else if (!$validador->isTelefone($telResidencial)) {
 			$aviso = "Campo 'Telefone Residencial' inválido!";
 		}*/
-	}
-	/*------------email----------------*/
-	$email = $_POST['email'];
-	if(is_null ($aviso)) {
-		if (!$validador->isPreenchido ($email)) {
-			$aviso = "É necessário preencher o campo 'E-mail'!";	
-		} else if (!$validador->comprimento($email, 50)) {
-			$aviso = "O campo 'Email' deve possuir no máximo 50 caracteres!";
-		} else if (!$validador->isEmail($email)) {
-			$aviso = "Campo 'E-mail' inválido!";
-		}
 	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
@@ -222,16 +221,12 @@
 		if (!empty ($estadoOutro)) {
 			$estado = "outro";
 		}
-		header ("Location:dadosPessoais.php?aviso=".$aviso."&nome=".$nome."&nacionalidade=".$nacionalidade.
-		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
-		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
-		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular."&email=".$email);
+		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 		exit ();
 	}
 	/*-----------Editar pessoa------------------*/
 	$pessoa = new Pessoa ($idLogin, $nome, $nacionalidade, $dataNascimentoBD, $sexo, $estadoCivil, $endereco, $numero,
-	$complemento, $bairro, $cep, $cidade, $estado, $telResidencial, $celular, $email, 0, $conexaoBD);
+	$complemento, $bairro, $cep, $cidade, $estado, $telResidencial, $celular, 0, $conexaoBD);
 	$aviso = $pessoa->edita();
 	if ($aviso != sucesso) {
 		if (!empty ($nacionalidadeEstrangeira)) {
@@ -243,13 +238,9 @@
 		if (!empty ($estadoOutro)) {
 			$estado = "outro";
 		}
-		header ("Location:dadosPessoais.php?aviso=".$aviso."&nome=".$nome."&nacionalidade=".$nacionalidade.
-		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
-		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
-		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular."&email=".$email);
+		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 	} else {
-		header ("Location:dadosPessoais.php?aviso=".$aviso);
+		header ("Location:dadosEducacionais.php?aviso=".$aviso);
 	}
 	exit();
 ?>

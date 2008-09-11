@@ -26,7 +26,7 @@
 		exit();
 	}
 	//Busca idPessoa
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
 	$resultado = $pessoa->busca();
 	if ($resultado == true) {
 		$idPessoa = $pessoa->getId ();
@@ -101,14 +101,6 @@
 			}
 		}
 	}
-	/*---------Turno-----------*/	
-	if(is_null ($aviso)) {
-		if (!$validador->isSelecionado($turno)) {
-			$aviso = "É necessário selecionar uma opção do campo 'Turno'!";	
-		} else if(!$validador->isLetra($turno)) {
-			$aviso = "Campo 'Turno' inválido!";
-		}
-	}
 	/*---------Semestre------------*/
 	if(is_null ($aviso)) {
 		if ($validador->isPreenchido ($semestre)) {
@@ -141,7 +133,12 @@
 		header("Location:dadosEducacionaisInsere.php?aviso=".$aviso.$location);
 		exit();
 	} else {
-		header ("Location:dadosEducacionaisInsere.php?aviso=".$aviso);
+		$result = $pessoa->alteraDadosEducacionaisBD (1);
+		if ($result == "sucesso") {
+			header ("Location:habilidades.php");
+		} else {
+			header("Location:dadosEducacionaisInsere.php?aviso=".$aviso.$location);
+		}
 	}
 	exit();
 ?>

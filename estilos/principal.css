@@ -110,7 +110,12 @@ ul.none
 	font-weight: normal;
 	list-style: disc;	
 }
-
+.aiesecRodape
+{
+	text-align: center;
+	font-size: smaller;
+	font-weight: bold;
+}
 p.p_logout
 {
 	text-align: right;
@@ -187,6 +192,24 @@ a:hover {
 	list-style-image: url(../imagens/help.gif);
 	color: #002F99;
 	text-align: center;
+}
+
+.intercambista
+{
+	font-size: larger;
+	font-weight: bold;
+}
+
+.item
+{
+	list-style:none;
+	color: #002F99;
+	text-align: center;	
+}
+
+.membro
+{
+	font-size: smaller;
 }
 
 .sucesso
