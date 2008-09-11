@@ -21,6 +21,7 @@
 				echo '<ul>';
 				echo '<li><a href="dadosEducacionaisInsere.php">Inserir nova experiência acadêmica</a></li>';
 				echo '<li><a href="dadosEducacionaisEdita.php">Editar experiência acadêmica existente</a></li>';
+				echo '<li><a href="habilidades.php">Ir para o próximo passo</a></li>';
 				echo '</ul>';
 				echo '</li></ul>';
 				echo '<center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';

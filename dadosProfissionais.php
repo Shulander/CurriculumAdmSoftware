@@ -7,8 +7,17 @@
 	require_once ("classes/Pessoa.php");	
 	restritoUsuario ();	
 	$idLogin = $_SESSION['idLogin'];
+	//testa se a variavel aviso existe
+	if(isset($_GET['aviso'])) {
+		$aviso = $_GET['aviso'];	
+	} else {
+		$aviso = "";
+	}
 	//titulo
 	echo '<h3>Experiência Profissional</h3>';
+	if(!empty($aviso)) {
+		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';					
+	}
 	$conexaoBD = new BancoDados ();
 	if (!$conexaoBD->conecta()) {
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
@@ -21,6 +30,7 @@
 				echo '<ul>';
 				echo '<li><a href="dadosProfissionaisInsere.php">Inserir nova experiência profissional</a></li>';
 				echo '<li><a href="dadosProfissionaisEdita.php">Editar experiência profissional existente</a></li>';
+				echo '<li><a href="dadosProfissionaisAusente.php">Não tenho experiência profissional</a></li>';
 				echo '</ul>';
 				echo '</li></ul>';
 				echo '<center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
