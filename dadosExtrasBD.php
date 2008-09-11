@@ -70,7 +70,7 @@
 				$outro1 = "";
 			}
 		} else { //pergunta 3 respondida como nao
-			if ($validador->isPreenchido($pergunta4) || !$validador->isPreenchido($outro1)) {
+			if ($validador->isPreenchido($pergunta4) || $validador->isPreenchido($outro1)) {
 				$aviso = "Apenas responder a pergunta 4 se for selecionada a opção Sim na pergunta 3!";
 			}
 		}
