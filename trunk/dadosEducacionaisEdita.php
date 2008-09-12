@@ -96,13 +96,7 @@ function abreCursosUniversidade(selecionado,formId) {
 </script>
 <?php
 if(!empty($aviso)) {
-	if ($aviso == "sucesso") {
-		//echo '<ul class="sucesso"><li>Formação acadêmica alterada com sucesso!</li></ul>';
-		echo '<SCRIPT language="Javascript">alert("Formação acadêmica alterada com sucesso!")</SCRIPT>';
-		header ("Location:habilidades.php");
-	} else {
-		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
-	}						
+	echo '<ul class="erro"><li>'.$aviso.'</li></ul>';						
 }
 $conexaoBD = new BancoDados ();
 if (!$conexaoBD->conecta()) {
