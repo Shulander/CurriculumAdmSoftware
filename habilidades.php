@@ -13,6 +13,9 @@
 	} else {
 		$aviso = "";
 	}
+/*	echo '<pre>';
+	var_dump($_GET);
+	exit(0);*/
 	//testa se a variavel ingles existe
 	if(isset($_REQUEST['ingles'])) {
 		$ingles = $_REQUEST['ingles'];	
@@ -163,30 +166,30 @@
 					if ($habilidades == false) {
 						echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 					} else {
-						$ingles = $pessoa->getIngles();
-						$espanhol = $pessoa->getEspanhol();
-						$frances = $pessoa->getFrances();
-						$italiano = $pessoa->getItaliano();
-						$alemao = $pessoa->getAlemao();
-						$outro1 = $pessoa->getOutro1();
-						$outro1Nivel = $pessoa->getOutro1Nivel();
-						$outro2 = $pessoa->getOutro2();
-						$outro2Nivel = $pessoa->getOutro2Nivel();
-						$office = $pessoa->getOffice();
-						$webdesign = $pessoa->getWebdesign();
-						$editorImagem = $pessoa->getEditorImagem();
-						$contabilidade = array_flip(explode(",", $pessoa->getContabilidade()));
+						$ingles = (empty($ingles)?$pessoa->getIngles():$ingles);
+						$espanhol = (empty($espanhol)?$pessoa->getEspanhol():$espanhol);
+						$frances = (empty($frances)?$pessoa->getFrances():$frances);
+						$italiano = (empty($italiano)?$pessoa->getItaliano():$italiano);
+						$alemao = (empty($alemao)?$pessoa->getAlemao():$alemao);
+						$outro1 = (empty($outro1)?$pessoa->getOutro1():$outro1);
+						$outro1Nivel = (empty($outro1Nivel)?$pessoa->getOutro1Nivel():$outro1Nivel);
+						$outro2 = (empty($outro2)?$pessoa->getOutro2():$outro2);
+						$outro2Nivel = (empty($outro2Nivel)?$pessoa->getOutro2Nivel():$outro2Nivel);
+						$office = (empty($office)?$pessoa->getOffice():$office);
+						$webdesign = (empty($webdesign)?$pessoa->getWebdesign():$webdesign);
+						$editorImagem = (empty($editorImagem)?$pessoa->getEditorImagem():$editorImagem);
+						$contabilidade = (empty($contabilidade)?array_flip(explode(",", $pessoa->getContabilidade())):$contabilidade);
 						/*echo count ($contabilidade);
 						for ($i = 0; $i < count ($contabilidade); $i++) {
 							echo $contabilidade[$i];
 						}*/
-						$administracao = array_flip(explode(",", $pessoa->getAdministracao()));
-						$economia = array_flip(explode(",", $pessoa->getEconomia()));
-						$financas = array_flip(explode(",", $pessoa->getFinancas()));
-						$recursosHumanos = array_flip(explode(",", $pessoa->getRecursosHumanos()));
-						$tecnologiaInformacao = array_flip(explode(",", $pessoa->getTecnologiaDaInformacao()));
-						$marketing = array_flip(explode(",", $pessoa->getMarketing()));
-						$outrosEstudos = array_flip(explode(",", $pessoa->getOutrosEstudos()));
+						$administracao = (empty($administracao)?array_flip(explode(",", $pessoa->getAdministracao())):$administracao);
+						$economia = (empty($economia)?array_flip(explode(",", $pessoa->getEconomia())):$economia);
+						$financas = (empty($financas)?array_flip(explode(",", $pessoa->getFinancas())):$financas);
+						$recursosHumanos = (empty($recursosHumanos)?array_flip(explode(",", $pessoa->getRecursosHumanos())):$recursosHumanos);
+						$tecnologiaInformacao = (empty($tecnologiaInformacao)?array_flip(explode(",", $pessoa->getTecnologiaDaInformacao())):$tecnologiaInformacao);
+						$marketing = (empty($marketing)?array_flip(explode(",", $pessoa->getMarketing())):$marketing);
+						$outrosEstudos = (empty($outrosEstudos)?array_flip(explode(",", $pessoa->getOutrosEstudos())):$outrosEstudos);
 						echo '<form action="habilidadesBD.php" method="POST">';
 						echo '<h4>Idiomas</h4>';
 						echo '<table class="tabela">';
