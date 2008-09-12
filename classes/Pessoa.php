@@ -223,7 +223,7 @@ class Pessoa
 	/*Verifica se existe uma pessoa relacionada ao usuario que esta utilizando o sistema ja cadastrada*/
 	function buscaPorIdUsuario ()
 	{
-		$sql = "SELECT COUNT(*) AS resultado FROM pessoa,login WHERE pessoa.idLogin=login.id AND login.id=".$this->idLogin;
+		$sql = "SELECT COUNT(*) AS resultado FROM pessoa as p join login as l on p.idLogin=l.id WHERE l.id=".$this->idLogin;
 		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
 		if ($numLinhas != 0) {
