@@ -49,6 +49,13 @@
 	} else {
 		$curso = "";
 	}
+	//testa se a variavel cursoOutro existe
+	if(isset($_REQUEST['cursoOutro'])) {
+		$cursoOutro = $_REQUEST['cursoOutro'];	
+	} else {
+		$cursoOutro = "";
+	}
+	
 	//testar se a variavel dataIngresso existe
 	if(isset($_GET['dataIngresso'])) {
 		$dataIngresso = $_GET['dataIngresso'];	
