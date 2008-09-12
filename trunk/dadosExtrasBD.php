@@ -243,8 +243,8 @@
 		já que são obrigatórias e de caráter eliminatório. <br/>
 		<b>Datas e locais das palestras de apresentação:</b><br/>
 		<ul>
-			<li>25/09: Auditório do Centro de Tecnologia, UFSM, campus:  18h</li>
-			<li>26/09: Auditório CCSH, UFSM, centro: 11h.</li>
+			<li>Dia 17/09 no SENAC (Rua Professor Braga, 60 - Centro) às 13:30h</li>
+			<li>Dia 17/09 no SENAC (Rua Professor Braga, 60 - Centro) às 18:30 até 19:30</li>
 		</ul>
 		<br/> 
 		Para alterar seus dados ou conferir o andamento do processo favor acessar o endereço 
