@@ -33,7 +33,7 @@
 	}
 	//testar se a variavel dataInicio existe
 	if(isset($_REQUEST['dataInicio'])) {
-		$dataInicio = $_RESQUEST['dataInicio'];	
+		$dataInicio = $_REQUEST['dataInicio'];	
 	} else {
 		$dataInicio = "";
 	}

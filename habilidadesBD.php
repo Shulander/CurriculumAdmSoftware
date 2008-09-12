@@ -24,6 +24,7 @@
 		$contabilidade = $_POST['contabilidade'];
 		$contabilidadeErro = serialize(array_flip($contabilidade));
 	} else {
+		$contabilidade = "";
 		$contabilidadeErro = serialize(array());	
 	}
 	//testa se a variavel administracao existe
@@ -31,43 +32,50 @@
 		$administracao = $_POST['administracao'];
 		$administracaoErro = serialize(array_flip($administracao));	
 	} else {
+		$administracao = "";
 		$administracaoErro = serialize(array());	
 	}//testa se a variavel economia existe
 	if(isset($_POST['economia'])) {
 		$economia = $_POST['economia'];
 		$economiaErro = serialize(array_flip($economia));		
 	} else {
+		$economia = "";
 		$economiaErro = serialize(array());	
 	}//testa se a variavel financas existe
 	if(isset($_POST['financas'])) {
 		$financas = $_POST['financas'];
 		$financasErro = serialize(array_flip($financas));	
 	} else {
+		$financas = "";
 		$financasErro = serialize(array());	
 	}//testa se a variavel recursosHumanos existe
 	if(isset($_POST['recursosHumanos'])) {
 		$recursosHumanos = $_POST['recursosHumanos'];
 		$recursosHumanosErro = serialize(array_flip($recursosHumanos));	
 	} else {
+		$recursosHumanos = "";
 		$recursosHumanosErro = serialize(array());	
 	}//testa se a variavel tecnologiaInformacao existe
 	if(isset($_POST['tecnologiaInformacao'])) {
 		$tecnologiaInformacao = $_POST['tecnologiaInformacao'];
 		$tecnologiaInformacaoErro = serialize(array_flip($tecnologiaInformacao));	
 	} else {
+		$tecnologiaInformacao = "";
 		$tecnologiaInformacaoErro = serialize(array());	
 	}//testa se a variavel marketing existe
 	if(isset($_POST['marketing'])) {
 		$marketing = $_POST['marketing'];
 		$marketingErro = serialize(array_flip($marketing));	
 	} else {
+		$marketing = "";
 		$marketingErro = serialize(array());	
 	}//testa se a variavel outrosEstudos existe
 	if(isset($_POST['outrosEstudos'])) {
 		$outrosEstudos = $_POST['outrosEstudos'];
 		$outrosEstudosErro = serialize(array_flip($outrosEstudos));	
 	} else {
-		$outrosEstudos = serialize(array());	
+		$outrosEstudos = "";
+		$outrosEstudosErro = serialize(array());	
 	}
 	$location = "&ingles=".$ingles."&espanhol=".$espanhol."&italiano=".$italiano."&frances=".$frances
 	."&alemao=".$alemao."&outro1=".$outro1."&outro1Nivel=".$outro1Nivel."&outro2=".$outro2.
