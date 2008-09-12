@@ -205,8 +205,8 @@
 		<b>Datas e locais das palestras de apresentação (escolher um horário):</b><br/>
 		<ul>
 			<li>Dia 24/09: 11h, na Faculdade de Comunicação, prédio 21, UFSM - Campus.</li>
-			<li>Dia 25/09: 11h no auditório do CCSH - UFSM, Centro.</li>
-			<li>Dia 26/09: Local e horário a confirmar.</li>
+			<li>Dia 24/09: 18h no auditório do CCSH - UFSM, Centro.</li>
+			<li>Dia 25/09: 11h, no auditório do CCSH - UFSM, Centro.</li>
 		</ul>
 		<br/> 
 		Para alterar seus dados ou conferir o andamento do processo favor acessar o endereço 

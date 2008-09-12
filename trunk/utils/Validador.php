@@ -104,6 +104,35 @@ class Validador
 		}
 	}
 	
+	/*Compara duas datas no formato dd/mm/aaaa, retorna true se a data de inicio eh menor ou igual a data de fim*/
+	function comparaDatas ($dataInicio, $dataFim)
+	{
+		$dataInicial = explode("/", $dataInicio);
+		$diaInicial = $dataInicial[0];
+		$mesInicial = $dataInicial[1];
+		$anoInicial = $dataInicial[2];
+		$dataFinal = explode("/", $dataFim);
+		$diaFinal = $dataFinal[0];
+		$mesFinal = $dataFinal[1];
+		$anoFinal = $dataFinal[2];
+		if ($anoInicial > $anoFinal) {
+			return false;
+		} else if ($anoInicial == $anoFinal) {
+			if ($mesInicial > $mesFinal) {
+				return false; 
+			} else if ($mesInicial == $mesFinal) {
+				if ($diaInicial > $diaFinal) {
+					return false;
+				} else { //entao eh igual ou menor
+					return true;
+				}
+			} else { //entao mesInicial eh menor
+				return true;
+			}
+		} else { //entao anoInicial eh menor
+			return true;
+		}	
+	}
 	
 	//Data valida: dd/mm/aaaa
 	function isData ($campo)

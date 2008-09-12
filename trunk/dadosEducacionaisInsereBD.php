@@ -101,6 +101,12 @@
 			}
 		}
 	}
+	//compara as datas
+	if (is_null($aviso)) {
+		if (!$validador->comparaDatas($dataIngresso,$dataConclusao)) {
+			$aviso = "A data de ingresso deve ser anterior a data de conclusão!";
+		}
+	}
 	/*---------Semestre------------*/
 	if(is_null ($aviso)) {
 		if ($validador->isPreenchido ($semestre)) {
@@ -135,7 +141,8 @@
 	} else {
 		$result = $pessoa->alteraDadosEducacionaisBD (1);
 		if ($result == "sucesso") {
-			header ("Location:dadosEducacionais.php");
+			$aviso = "sucesso";
+			header ("Location:dadosEducacionais.php?aviso=".$aviso);
 		} else {
 			header("Location:dadosEducacionaisInsere.php?aviso=".$aviso.$location);
 		}

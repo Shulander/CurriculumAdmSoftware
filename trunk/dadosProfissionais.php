@@ -16,7 +16,11 @@
 	//titulo
 	echo '<h3>Experiência Profissional</h3>';
 	if(!empty($aviso)) {
-		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';					
+		if ($aviso == "sucesso") {
+			echo '<ul class="sucesso"><li>Alteração concluída com sucesso!</li></ul>';
+		} else {
+			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
+		}				
 	}
 	$conexaoBD = new BancoDados ();
 	if (!$conexaoBD->conecta()) {
@@ -31,6 +35,7 @@
 				echo '<li><a href="dadosProfissionaisInsere.php">Inserir nova experiência profissional</a></li>';
 				echo '<li><a href="dadosProfissionaisEdita.php">Editar experiência profissional existente</a></li>';
 				echo '<li><a href="dadosProfissionaisAusente.php">Não tenho experiência profissional</a></li>';
+				echo '<li><a href="dadosExtras.php">Ir para o próximo passo</a></li>';
 				echo '</ul>';
 				echo '</li></ul>';
 				echo '<center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
