@@ -156,7 +156,7 @@ class Pessoa
 		dataNascimento='".$this->dataNascimento."', sexo='".$this->sexo."', estadoCivil='".$this->estadoCivil."', 
 		endereco='".$this->endereco."', numero=".$this->numero.", complemento='".$this->complemento."', 
 		bairro='".$this->bairro."', cep=".$this->cep.", cidade='".$this->cidade."', estado='".$this->estado."', 
-		telResidencial='".$this->telResidencial."', celular='".$this->celular."'";
+		telResidencial='".$this->telResidencial."', celular='".$this->celular."' WHERE idLogin=".$this->idLogin;
 		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
 		if (!$result) {
     		return "Erro no alteração dos dados pessoais!".mysql_error();
