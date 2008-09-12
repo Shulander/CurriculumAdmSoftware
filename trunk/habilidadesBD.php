@@ -153,19 +153,19 @@
 	/*------------office----------------*/
 	if(is_null ($aviso)) {		
 		if (!$validador->isSelecionado($office)) {
-			$aviso = "É necessário selecionar uma opção no campo 'office'!";	
+			$aviso = "É necessário selecionar uma opção no campo 'Pacote office'!";	
 		}
 	}
 	/*------------webdesign----------------*/
 	if(is_null ($aviso)) {		
 		if (!$validador->isSelecionado($webdesign)) {
-			$aviso = "É necessário selecionar uma opção no campo 'webdesign'!";	
+			$aviso = "É necessário selecionar uma opção no campo 'Webdesign'!";	
 		}
 	}
 	/*------------editorImagem----------------*/
 	if(is_null ($aviso)) {		
 		if (!$validador->isSelecionado($editorImagem)) {
-			$aviso = "É necessário selecionar uma opção no campo 'editorImagem'!";	
+			$aviso = "É necessário selecionar uma opção no campo 'Editor de Imagem'!";	
 		}
 	}
 	/*------------Contabilidade----------------*/
