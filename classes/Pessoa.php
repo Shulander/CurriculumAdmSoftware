@@ -469,7 +469,7 @@ class Pessoa
 				$this->economia = $dados['economia'];
 				$this->financas = $dados['financas'];
 				$this->recursosHumanos = $dados['recursosHumanos'];
-				$this->tecnologiaInformacao = $dados['tecnologiaInformacao'];
+				$this->tecnologiaDaInformacao = $dados['tecnologiaInformacao'];
 				$this->marketing = $dados['marketing'];
 				$this->outrosEstudos = $dados['outrosEstudos'];
 			}

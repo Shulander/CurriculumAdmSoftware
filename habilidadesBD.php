@@ -5,7 +5,7 @@
 	require_once ("classes/Pessoa.php");
 	require_once ("classes/Usuario.php");
 	require_once ("utils/Validador.php");
-	restritoUsuario();
+	restritoUsuario();	
 	$idLogin = $_SESSION['idLogin'] + 0;
 	$ingles = $_POST['ingles'];
 	$espanhol = $_POST['espanhol'];
@@ -236,6 +236,7 @@
 	webdesign='".$webdesign."',editorImagem='".$editorImagem."',contabilidade='".$contabilidadeText."',administracao='".$administracaoText."'
 	,economia='".$economiaText."',financas='".$financasText."',recursosHumanos='".$recursosHumanosText."'
 	,tecnologiaInformacao='".$tecnologiaInformacaoText."',marketing='".$marketingText."',outrosEstudos='".$outrosEstudosText."' WHERE id=".$idPessoa;
+
 	$resultado = mysql_query($sql, $conexaoBD->getLink()); 
 	if (!$resultado) {
     	$aviso = "Erro no inserção das habilidades!".mysql_error();
