@@ -14,6 +14,12 @@
 	} else {
 		$aviso = "";
 	}
+	//testa se a variavel mensagem existe
+	if(isset($_GET['mensagem'])) {
+		$mensagem = $_GET['mensagem'];	
+	} else {
+		$mensagem = "";
+	}
 	$pago = 0;
 	$dadosPreenchidos = 0;
 	$conexaoBD = new BancoDados ();
