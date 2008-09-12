@@ -37,7 +37,7 @@
 		para agendar sua entrevista.</li>
 		<li><b>Datas e locais das palestras de apresentação</b> (escolha apenas <u>um</u> dos horários):  
 		<ul>
-			<li>Dia 24/09: 11h, na Faculdade de Comunicação, prédio 21, UFSM - Campus.</li>
+			<li>Dia 24/09: 11h, na Faculdade de Comunicação, prédio 21, segundo andar, UFSM - Campus.</li>
 			<li>Dia 25/09: 11h no auditório do CCSH - UFSM, Centro.</li>
 			<li>Dia 26/09: Local e horário a confirmar.</li>
 		</ul>

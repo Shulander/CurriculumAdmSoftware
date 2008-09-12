@@ -33,14 +33,18 @@
 		$atividade = "";
 	}
 	//testar se a variavel dataInicio existe
-	if(isset($_GET['dataInicio'])) {
-		$dataInicio = $_GET['dataInicio'];	
+	if(isset($_REQUEST['dataInicio'])) {
+		$dataInicio = $_REQUEST['dataInicio'];	
 	} else {
 		$dataInicio = "";
 	}
 	//testa se a variavel dataConclusao existe
 	if(isset($_REQUEST['dataConclusao'])) {
-		$dataConclusao = $_REQUEST['dataConclusao'];	
+		if ($_REQUEST['dataConclusao'] == "00/00/0000") {
+			$dataConclusao = "";
+		} else {
+			$dataConclusao = $_REQUEST['dataConclusao'];
+		}	
 	} else {
 		$dataConclusao = "";
 	}
@@ -56,8 +60,7 @@
 <?php
 if(!empty($aviso)) {
 	if ($aviso == "sucesso") {
-		//echo '<ul class="sucesso"><li>Experiência profissional alterada com sucesso!</li></ul>';
-		echo '<SCRIPT language="Javascript">alert("Experiência profissional alterada com sucesso!")</SCRIPT>';
+		echo '<ul class="sucesso"><li>Experiência profissional alterada com sucesso!</li></ul>';
 		header ("Location:dadosExtras.php");
 	} else {
 		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	

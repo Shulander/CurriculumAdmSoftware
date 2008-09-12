@@ -8,6 +8,12 @@
 	$nome = $_SESSION['nome'];
 	$idLogin = $_SESSION['idLogin'];
 	$tipo = $_SESSION['tipo'];
+	//testa se a variavel aviso existe
+	if(isset($_GET['aviso'])) {
+		$aviso = $_GET['aviso'];	
+	} else {
+		$aviso = "";
+	}
 	$pago = 0;
 	$dadosPreenchidos = 0;
 	$conexaoBD = new BancoDados ();
@@ -16,6 +22,13 @@
 <h4>Olá <?php echo $nome; ?>!</h4>
 <ul>
 <?php 
+	if(!empty($aviso)) {
+		if ($aviso == "sucesso") {
+			echo '<ul class="sucesso"><li>'.$mensagem.'</li></ul>';
+		} else {
+			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';										
+		}
+	}
 	if (!$conexaoBD->conecta()) {
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {

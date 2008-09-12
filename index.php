@@ -30,6 +30,7 @@
 <br>
 <ul class="ajuda">
 <li>Esqueci meu login ou senha! Clique <a class="link_cadastro" href="recuperaUsuario.php">aqui!</a></li>
+<li>Reportar problemas no sistema? Favor contate-nos através do e-mail: <a href="mailto:aiesecsmpsel@gmail.com">aiesecsmpsel@gmail.com</a>.</li>
 <li>Ainda não tem cadastro?</li>
 </ul>
 <ul class="item">
