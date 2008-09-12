@@ -32,8 +32,8 @@
 		$atividade = "";
 	}
 	//testar se a variavel dataInicio existe
-	if(isset($_GET['dataInicio'])) {
-		$dataInicio = $_GET['dataInicio'];	
+	if(isset($_REQUEST['dataInicio'])) {
+		$dataInicio = $_RESQUEST['dataInicio'];	
 	} else {
 		$dataInicio = "";
 	}

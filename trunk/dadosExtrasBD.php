@@ -148,28 +148,39 @@
 						//envia email para a pessoa dizendo q o cadastro foi salvo com sucesso
 						$dados = $usuario->busca();
 						if ($dados == false) {
-							$aviso = "Erro de sistema! Contate o administrador do sistema1!";
+							$aviso = "Erro de sistema! Contate o administrador do sistema!";
 							header ("Location:dadosExtras.php?aviso=".$aviso.$location);
 						} else {
-							$enviado = enviaEmail($usuario->getEmail());
-							if ($enviado == true) {
-								header ("Location:principal.php");
+							if ($usuario->getTipo () == "membro") {
+								$enviado = enviaEmailMembro($usuario->getEmail());
+							} else if ($usuario->getTipo () == "intercambista") {
+								$enviado = enviaEmailIntercambista($usuario->getEmail());
 							} else {
-								$aviso = "Erro de sistema! Contate o administrador do sistema1!";
+								$enviado = false;
+							}
+							if ($enviado == true) {
+								$aviso = "sucesso";
+								$mensagem = "Inscrição realizada com sucesso!";
+								header ("Location:principal.php?aviso=".$aviso."&mensagem=".$mensagem);
+							} else {
+								$aviso = "Erro de sistema! Contate o administrador do sistema!";
 								header ("Location:dadosExtras.php?aviso=".$aviso.$location);			
 							}
 						}
 					} else {
 						header ("Location:dadosExtras.php?aviso=".$valor);
 					}
-				} else {
-					header ("Location:principal.php");
+				} else { //os dados ja estao todos preenchidos
+					$aviso = "sucesso";
+					$mensagem = "Dados alterados com sucesso!";
+					header ("Location:principal.php?aviso=".$aviso."&mensagem=".$mensagem);
 				}
 			} else { //dados nao foram preenchidos
-				header ("Location:dadosExtras.php?aviso=".$retorno);	
+				$aviso = "Para concluir sua inscrição é necessário preencher todos os dados!";
+				header ("Location:dadosExtras.php?aviso=".$aviso);	
 			}
 		} else {
-			$aviso = "Erro de sistema! Contate o administrador do sistema2!";
+			$aviso = "Erro de sistema! Contate o administrador do sistema!";
 			header ("Location:dadosExtras.php?aviso=".$aviso.$location);
 		}
 
@@ -177,7 +188,7 @@
 	$conexaoBD->desconecta();
 	exit();
 	
-	function enviaEmail ($email)
+	function enviaEmailIntercambista ($email)
 	{
 		$remetente = "non-reply@aiesecsm.org";
 		$assunto = "Processo Seletivo AIESEC";
@@ -187,21 +198,56 @@
 		
 		Seu cadastro foi salvo com sucesso. <br/>
 		Sua inscrição só será confirmada assim que pagar a taxa (R$ 5,00) e entregar o currículo impresso,<br/> 
-		com uma foto 3x4 ou digitalizada, em uma das palestras de apresentação. Ao pagar, aguarde que num <br/>
+		com uma foto 3x4 ou digitalizada, em uma das palestras de apresentação. Ao pagar, aguarde que em um <br/>
+		prazo máximo de 48h você será liberado, recebendo um email de confirmação, para marcar sua entrevista,<br/> 
+		em um dos horários disponibilizados pelo sistema. Não se esqueça de participar de uma das palestras, <br/>
+		já que são obrigatórias e de caráter eliminatório. <br/>
+		<b>Datas e locais das palestras de apresentação (escolher um horário):</b><br/>
+		<ul>
+			<li>Dia 24/09: 11h, na Faculdade de Comunicação, prédio 21, UFSM - Campus.</li>
+			<li>Dia 25/09: 11h no auditório do CCSH - UFSM, Centro.</li>
+			<li>Dia 26/09: Local e horário a confirmar.</li>
+		</ul>
+		<br/> 
+		Para alterar seus dados ou conferir o andamento do processo favor acessar o endereço 
+		<a href='http://www.aiesecsm.org/psel2008_2/'>http://www.aiesecsm.org/psel2008_2/</a>.<br/>
+		Qualquer dúvida favor entrar em contato no telefone abaixo ou através do email ".$contato."<br/> 
+		<br/>
+		Atenciosamente, <br/>
+		AIESEC em Santa Maria<br/>
+		Rua Floriano Peixoto, 1184, 8° andar do CCSH - Centro<br/>
+		Tel: 3220 9209<br/>
+		Santa Maria - RS - Brasil<br/>
+		<a href='http://www.aiesec.org.br/santamaria'>http://www.aiesec.org.br/santamaria</a><br/>";
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= "From: AIESEC Santa Maria <".$remetente."> \r\n";
+		
+		$retorno = mail($email, $assunto, $mensagem, $headers);
+		return $retorno;
+	}
+
+	function enviaEmailMembro($email)
+	{
+		$remetente = "non-reply@aiesecsm.org";
+		$assunto = "Processo Seletivo AIESEC";
+		$contato = "<a href='mailto:aiesecsmpsel@gmail.com'>aiesecsmpsel@gmail.com</a>";
+		$mensagem= "<b>Caro usuário,</b><br />
+		
+		
+		Seu cadastro foi salvo com sucesso. <br/>
+		Sua inscrição só será confirmada assim que pagar a taxa (R$ 5,00) e entregar o currículo impresso,<br/> 
+		com uma foto 3x4 ou digitalizada, em uma das palestras de apresentação. Ao pagar, aguarde que em um <br/>
 		prazo máximo de 48h você será liberado, recebendo um email de confirmação, para marcar sua entrevista,<br/> 
 		em um dos horários disponibilizados pelo sistema. Não se esqueça de participar de uma das palestras, <br/>
 		já que são obrigatórias e de caráter eliminatório. <br/>
 		<b>Datas e locais das palestras de apresentação:</b><br/>
 		<ul>
-		<li>PARA candidatos a intercambistas (escolher um horário):
-			<ul>
 			<li>25/09: Auditório do Centro de Tecnologia, UFSM, campus:  18h</li>
 			<li>26/09: Auditório CCSH, UFSM, centro: 11h.</li>
-			</ul>
-		<li>PARA candidatos a membros:
-		<ul><li>17/09: SENAC: 13:30 às 14:30 ou 18:30 às 19:30.</li></ul>
+		</ul>
 		<br/> 
-		Se quiser alterar seus dados ou conferir o andamento do processo favor acessar o endereço 
+		Para alterar seus dados ou conferir o andamento do processo favor acessar o endereço 
 		<a href='http://www.aiesecsm.org/psel2008_2/'>http://www.aiesecsm.org/psel2008_2/</a>.<br/>
 		Qualquer dúvida favor entrar em contato no telefone abaixo ou através do email ".$contato."<br/> 
 		<br/>

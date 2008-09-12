@@ -69,18 +69,9 @@
 	}
 	/*---------Data de Conclusao-----------*/
 	if(is_null ($aviso)) {
-		if (!$validador->isPreenchido($dataConclusao)) {
+		if ($validador->isPreenchido($dataConclusao)) {
 			if($validador->isData($dataConclusao)) {						
 				$dataConclusaoBD = $validador->converteData ($dataConclusao);
-			}
-		} else {
-			$erro = $validador->getErro();
-			if (!is_null($erro)) {
-				if ($erro != "A data deve ser anterior a data atual!") {
-					$aviso = $erro;
-				} else {
-					$dataConclusaoBD = $validador->converteData ($dataConclusao);
-				}
 			} else {
 				$aviso = "Erro de sistema!";
 			}
@@ -101,7 +92,7 @@
 	} else {
 		$result = $pessoa->alteraDadosProfissionaisBD (1);
 		if ($result == "sucesso") {
-			header ("Location:dadosExtras.php");
+			header ("Location:dadosProfissionais.php");
 		} else {
 			header("Location:dadosProfissionaisInsere.php?aviso=".$result.$location);
 		}

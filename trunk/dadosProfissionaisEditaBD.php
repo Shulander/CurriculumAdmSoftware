@@ -97,7 +97,7 @@
 	if ($aviso != sucesso) {
 		header("Location:dadosProfissionaisEdita.php?aviso=".$aviso.$location);
 	} else {
-		header ("Location:dadosProfissionaisEdita.php?aviso=".$aviso);
+		header ("Location:dadosProfissionais.php?aviso=".$aviso);
 	}
 	exit();
 ?>

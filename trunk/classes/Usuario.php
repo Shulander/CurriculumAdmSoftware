@@ -181,7 +181,7 @@ class Usuario
 		$sql = "SELECT dadosPreenchidos FROM login WHERE id=".$this->id;
 		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
-		if ($resultado != 0) {
+		if ($numLinhas != 0) {
 			while ($dados  = mysql_fetch_array ($resultado)) {
 				$dadosPreenchidos = $dados['dadosPreenchidos'];
 				if ($dadosPreenchidos == 1) {
