@@ -102,9 +102,7 @@
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($estadoCivil)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Estado civil'!";	
-		} else if(!$validador->isLetra($estadoCivil)) {
-			$aviso = "Campo 'Estado civil' inválido!";
-		}
+		} 
 	}
 	/*------------Endereco----------------*/
 	if(is_null ($aviso)) {

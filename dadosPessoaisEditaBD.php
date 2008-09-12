@@ -101,11 +101,6 @@
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($estadoCivil)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Estado civil'!";	
-		} else if(!$validador->isLetra($estadoCivil)) {
-			$aviso = "Campo 'Estado civil' inválido!";
-		} else if ($estadoCivil != "Solteiro" && $estadoCivil != "Casado" && $estadoCivil != "Viúvo" && 
-		$estadoCivil != "Separado" && $estadoCivil != "Divorciado") {
-			$aviso = "O campo 'Sexo' deve possuir valor Solteiro/Casado/Viúvo/Separado/Divorciado!";
 		}
 	}
 	/*------------Endereco----------------*/
