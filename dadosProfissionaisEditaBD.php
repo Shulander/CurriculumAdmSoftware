@@ -70,9 +70,13 @@
 	}
 	/*---------Data de Conclusao-----------*/
 	if(is_null ($aviso)) {
-		if (!$validador->isPreenchido($dataConclusao)) {
+		if ($validador->isPreenchido($dataConclusao)) {
 			if($validador->isData($dataConclusao)) {						
-				$dataConclusaoBD = $validador->converteData ($dataConclusao);
+				if (!$validador->comparaDatas($dataInicio,$dataConclusao)) {
+					$aviso = "A data de ingresso deve ser anterior a data de conclusão!";
+				} else {			
+					$dataConclusaoBD = $validador->converteData ($dataConclusao);
+				}
 			} else { //nao eh uma data valida
 				$erro = $validador->getErro();
 				if (!is_null($erro)) {

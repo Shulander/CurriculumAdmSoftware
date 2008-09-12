@@ -70,8 +70,12 @@
 	/*---------Data de Conclusao-----------*/
 	if(is_null ($aviso)) {
 		if ($validador->isPreenchido($dataConclusao)) {
-			if($validador->isData($dataConclusao)) {						
-				$dataConclusaoBD = $validador->converteData ($dataConclusao);
+			if($validador->isData($dataConclusao)) {
+				if (!$validador->comparaDatas($dataInicio,$dataConclusao)) {
+					$aviso = "A data de ingresso deve ser anterior a data de conclusão!";
+				} else {			
+					$dataConclusaoBD = $validador->converteData ($dataConclusao);
+				}
 			} else {
 				$aviso = "Erro de sistema!";
 			}
@@ -92,7 +96,8 @@
 	} else {
 		$result = $pessoa->alteraDadosProfissionaisBD (1);
 		if ($result == "sucesso") {
-			header ("Location:dadosProfissionais.php");
+			$aviso = "sucesso";
+			header ("Location:dadosProfissionais.php?aviso=".$aviso);
 		} else {
 			header("Location:dadosProfissionaisInsere.php?aviso=".$result.$location);
 		}

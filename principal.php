@@ -39,14 +39,6 @@
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
-			if ($tipo == "membro") {
-				echo '<li>Você está participando do processo seletivo da AIESEC Santa Maria como <u>Membro</u>.</li>';
-			} else if ($tipo == "intercambista") {
-				echo '<li>Você está participando do processo seletivo da AIESEC Santa Maria como <u>Intercambista</u>.</li>'; 
-			} else {
-				echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
-				//nao pode entrar nessa pagina, se for admin tem q ir pra controle.php				
-			}
 			$usuario = new Usuario ($nome, "", $tipo, $conexaoBD, $idLogin);
 			$pago = $usuario->isPago();
 			$dadosPreenchidos = $usuario->isDadosPreenchidos();

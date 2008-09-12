@@ -20,6 +20,40 @@ class Pessoa
 	var $celular;
 	var $conexaoBD;
 	
+	//Habilidades
+	var $ingles;
+	var $espanhol;
+	var $frances;
+	var $italiano;
+	var $alemao;
+	var $outro1;
+	var $outro1Nivel;
+	var $outro2;
+	var $outro2Nivel;
+	var $office;
+	var $webdesign;
+	var $editorImagem;
+	var $contabilidade;
+	var $administracao;
+	var $economia;
+	var $financas;
+	var $recursosHumanos;
+	var $tecnologiaDaInformacao;
+	var $marketing;
+	var $outrosEstudos;
+	
+	//pesquisa
+	var $pergunta1;
+	var $pergunta2;
+	var $pergunta3;
+	var $pergunta4;
+	var $pergunta5;
+	var $pergunta6;
+	var $outro1P;
+	var $outro2P;
+	var $outro3P;
+	var $recomendador;
+	
 	function Pessoa ($idLogin=0, $nome="", $nacionalidade="", $dataNascimento="", $sexo="", $estadoCivil="",
 	$endereco="", $numero="", $complemento="", $bairro="", $cep="", $cidade="", $estado="", $telResidencial="",
 	$celular="", $id=0, $conexaoBD=false)
@@ -121,6 +155,145 @@ class Pessoa
 	{
 		return $this->celular;
 	}
+	
+	//Habilidades
+	function getIngles()
+	{ 
+		return $this->ingles;
+	}
+	
+	function getEspanhol()
+	{ 
+		return $this->espanhol;
+	}
+	
+	function getFrances()
+	{ 
+		return $this->frances;
+	}
+	
+	function getItaliano()
+	{ 
+		return $this->italiano;
+	}
+	
+	function getAlemao()
+	{ 
+		return $this->alemao;
+	}
+	
+	function getOutro1()
+	{ 
+		return $this->outro1;
+	}
+	
+	function getOutro1Nivel()
+	{ 
+		return $this->outro1Nivel;
+	}
+	
+	function getOutro2()
+	{ 
+		return $this->outro2;
+	}
+	
+	function getOutro2Nivel()
+	{ 
+		return $this->outro2Nivel;
+	}
+	
+	function getOffice()
+	{ 
+		return $this->office;
+	}
+	
+	function getWebdesign()
+	{ 
+		return $this->webdesign;
+	}
+	
+	function getEditorImagem()
+	{ 
+		return $this->editorImagem;
+	}
+
+	function getContabilidade()
+	{ 
+		return $this->contabilidade;
+	}
+
+	function getAdministracao()
+	{ 
+		return $this->administracao;
+	}
+
+	function getEconomia()
+	{ 
+		return $this->economia;
+	}
+	
+	function getFinancas()
+	{ 
+		return $this->financas;
+	}
+	
+	function getRecursosHumanos()
+	{ 
+		return $this->recursosHumanos;
+	}
+	
+	function getTecnologiaDaInformacao()
+	{ 
+		return $this->tecnologiaDaInformacao;
+	}
+	
+	function getMarketing()
+	{ 
+		return $this->marketing;
+	}
+	
+	function getOutrosEstudos()
+	{ 
+		return $this->outrosEstudos;
+	}
+
+	//Pesquisa
+	function getPergunta1()
+	{ 
+		return $this->pergunta1;
+	}
+	
+	function getPergunta2()
+	{ 
+		return $this->pergunta2;
+	}
+
+	function getPergunta3()
+	{ 
+		return $this->pergunta3;
+	}
+
+	function getPergunta4()
+	{ 
+		return $this->pergunta4;
+	}
+
+	function getPergunta5()
+	{ 
+		return $this->pergunta5;
+	}
+
+	function getPergunta6()
+	{ 
+		return $this->pergunta6;
+	}
+	
+	function getRecomendador()
+	{ 
+		return $this->recomendador;
+	}
+	
+	
 	
 	/*Recebe uma data em formato aaaa-mm-dd e converte em uma data no formato dd/mm/aaaa*/
 	function converteDataNascimento ()
@@ -264,6 +437,63 @@ class Pessoa
 				$this->telResidencial = $dados['telResidencial'];
 				$this->celular = $dados['celular'];
 				$this->id = $dados['id'];
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/*Busca dados de habilidades da pessoa no BD. Retorna false se nao existe pessoa cadastrada relacionada ao id do usuario*/
+	function buscaHabilidades ()
+	{
+		$sql = "SELECT * FROM pessoa WHERE id=".$this->id;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$this->ingles = $dados['ingles'];
+				$this->espanhol = $dados['espanhol'];
+				$this->italiano = $dados['italiano'];
+				$this->frances = $dados['frances'];
+				$this->alemao = $dados['alemao'];
+				$this->outro1 = $dados['outro1'];
+				$this->outro2 = $dados['outro2'];
+				$this->outro1Nivel = $dados['outro1Nivel'];
+				$this->outro2Nivel = $dados['outro2Nivel'];
+				$this->office = $dados['office'];
+				$this->webdesign = $dados['webdesign'];
+				$this->editorImagem = $dados['editorImagem'];
+				$this->contabilidade = $dados['contabilidade'];
+				$this->administracao = $dados['administracao'];
+				$this->economia = $dados['economia'];
+				$this->financas = $dados['financas'];
+				$this->recursosHumanos = $dados['recursosHumanos'];
+				$this->tecnologiaInformacao = $dados['tecnologiaInformacao'];
+				$this->marketing = $dados['marketing'];
+				$this->outrosEstudos = $dados['outrosEstudos'];
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/*Busca dados de pesquisa da pessoa no BD. Retorna false se nao existe pessoa cadastrada relacionada ao id do usuario*/
+	function buscaPesquisa ()
+	{
+		$sql = "SELECT * FROM pessoa WHERE id=".$this->id;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($resultado != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$this->pergunta1 = $dados['pergunta1'];
+				$this->pergunta2 = $dados['pergunta2'];
+				$this->pergunta3 = $dados['pergunta3'];
+				$this->pergunta4 = $dados['pergunta4'];
+				$this->pergunta5 = $dados['pergunta5'];
+				$this->pergunta6 = $dados['pergunta6'];
+				$this->recomendador = $dados['recomendador'];
 			}
 			return true;
 		} else {

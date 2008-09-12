@@ -7,8 +7,21 @@
 	require_once ("classes/Pessoa.php");	
 	restritoUsuario ();	
 	$idLogin = $_SESSION['idLogin'];
+	//testa se a variavel aviso existe
+	if(isset($_GET['aviso'])) {
+		$aviso = $_GET['aviso'];	
+	} else {
+		$aviso = "";
+	}
 	//titulo
 	echo '<h3>Formação Acadêmica</h3>';
+	if(!empty($aviso)) {
+		if ($aviso == "sucesso") {
+			echo '<ul class="sucesso"><li>Alteração concluída com sucesso!</li></ul>';
+		} else {
+			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
+		}				
+	}
 	$conexaoBD = new BancoDados ();
 	if (!$conexaoBD->conecta()) {
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';

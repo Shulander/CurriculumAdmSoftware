@@ -248,7 +248,8 @@
 	} else {
 		$result = $pessoa->alteraHabilidadesBD(1);
 		if ($result == "sucesso") {
-			header ("Location:dadosProfissionais.php");		
+			$aviso = "sucesso";
+			header ("Location:dadosProfissionais.php?aviso=".$aviso);		
 		} else {
 			header("Location:habilidades.php?aviso=".$result.$location);
 		}

@@ -32,14 +32,14 @@
 </li>
 <li>Informações Gerais
 	<ol class="etapas">  
-		<li><b>Período de inscrições:</b> 08/09 até 26/09</li>
+		<li><b>Período de inscrições:</b> 11/09 até 23/09</li>
 		<li><b>Valor da taxa de inscrição:</b> R$ 5,00 (cinco reais) a ser paga após a palestra de apresentação 
 		para agendar sua entrevista.</li>
 		<li><b>Datas e locais das palestras de apresentação</b> (escolha apenas <u>um</u> dos horários):  
 		<ul>
 			<li>Dia 24/09: 11h, na Faculdade de Comunicação, prédio 21, segundo andar, UFSM - Campus.</li>
-			<li>Dia 25/09: 11h no auditório do CCSH - UFSM, Centro.</li>
-			<li>Dia 26/09: Local e horário a confirmar.</li>
+			<li>Dia 24/09: 18h, no auditório do CCSH - UFSM, Centro.</li>
+			<li>Dia 25/09: 11h, no auditório do CCSH - UFSM, Centro.</li>
 		</ul>
 		</li>
 		<li><b>Local das entrevistas:</b> Escritório da AIESEC em Santa Maria (Rua Floriano Peixoto, 1184, 8° andar do 
