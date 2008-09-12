@@ -79,6 +79,13 @@
 	} else {
 		$webdesign = "";
 	}
+	//testar se a variavel editorImagem existe
+	if(isset($_GET['editorImagem'])) {
+		$editorImagem = $_GET['editorImagem'];	
+	} else {
+		$editorImagem = "";
+	}
+	
 	//testar se a variavel powerpoint existe
 	if(isset($_GET['powerpoint'])) {
 		$powerpoint = $_GET['powerpoint'];	
