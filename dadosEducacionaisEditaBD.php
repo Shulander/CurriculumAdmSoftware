@@ -134,7 +134,7 @@
 		header("Location:dadosEducacionaisEdita.php?aviso=".$aviso.$location);
 		exit();
 	} else {
-		header ("Location:dadosEducacionaisEdita.php?aviso=".$aviso);
+		header ("Location:habilidades.php");
 	}
 	exit();
 ?>
