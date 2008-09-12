@@ -92,6 +92,7 @@ if (!$conexaoBD->conecta()) {
 						$atividade = $expProf->getAtividade();
 						$dataInicio = $expProf->converteDataInicio();
 						$dataConclusao = $expProf->converteDataConclusao();
+						$dataConclusao = ($dataConclusao=='00/00/0000'?'':$dataConclusao);
 						echo '<ul>';
 						echo '<li>'.$empresa.' - '.$tipo.' | <a href="javascript: void(0);" onclick="blocoExibe(\'expProf\', '.($i+1).', '.$numExpProfissionais.');">editar</a>';
 						echo '<span id="expProf'.($i+1).'" style="display: none;">';
