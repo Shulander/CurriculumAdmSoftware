@@ -57,7 +57,7 @@
 	$validador = new Validador ();
 	/*------------Pergunta 4----------------*/
 	if(is_null ($aviso)) {
-		if ($pergunta3 == "Sim") {
+		if ($pergunta3 == "sim") {
 			if (!$validador->isPreenchido($pergunta4)) {
 				$aviso = "É necessário selecionar uma opção na pergunta 4'!";	
 			} else if ($pergunta4 == "Outro") {

@@ -100,20 +100,20 @@ if (!$conexaoBD->conecta()) {
 					if ($pesquisa == false) {
 						echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 					} else {
-						/*$pergunta1 = $pessoa->getPergunta1();
+						$pergunta1 = $pessoa->getPergunta1();
 						$pergunta2 = $pessoa->getPergunta2();
 						$pergunta3 = $pessoa->getPergunta3();
 						$pergunta4 = $pessoa->getPergunta4();
-						$pergunta5 = $pessoa->getPergunta5();
+						$pergunta5 = array_flip(explode(",", $pessoa->getPergunta5()));
 						$pergunta6 = $pessoa->getPergunta6();
-						$recomendador = $pessoa->getRecomendador();*/
+						$recomendador = $pessoa->getRecomendador();
 						echo '<form action="dadosExtrasBD.php" method="POST">';
 						//-------------Pergunta 1---------------
 						echo '<ol class="normal">';
 						echo '<li>Você conhecia a AIESEC antes do processo seletivo?<font class="erro">*</font>';
 							echo '<ul class="none">';
-							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="Sim" '.($pergunta1 == "Sim"?'CHECKED"':"").'>Sim</li>';
-							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="Não" '.($pergunta1 == "Não"?'CHECKED"':"").'>Não</li>';
+							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="sim" '.($pergunta1 == "sim"?'CHECKED"':"").'>Sim</li>';
+							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="não" '.($pergunta1 == "não"?'CHECKED"':"").'>Não</li>';
 							echo '</ul>';
 						echo '</li>';
 						echo '<br/>'; 
@@ -130,8 +130,8 @@ if (!$conexaoBD->conecta()) {
 						//-------------Pergunta 3---------------
 						echo '<li>Já teve experiência internacional?<font class="erro">*</font>';
 							echo '<ul class="none">';
-							echo '<li><input type="radio" id="pergunta3" name="pergunta3" value="Sim" '.($pergunta3 == "Sim"?'CHECKED"':"").'>Sim</li>';
-							echo '<li><input type="radio" id="pergunta3" name="pergunta3" value="Não" '.($pergunta3 == "Não"?'CHECKED"':"").'>Não</li>';
+							echo '<li><input type="radio" id="pergunta3" name="pergunta3" value="sim" '.($pergunta3 == "sim"?'CHECKED"':"").'>Sim</li>';
+							echo '<li><input type="radio" id="pergunta3" name="pergunta3" value="nao" '.($pergunta3 == "nao"?'CHECKED"':"").'>Não</li>';
 							echo '</ul>';
 						echo '</li>';
 						echo '<br/>';

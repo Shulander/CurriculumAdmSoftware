@@ -175,18 +175,18 @@
 						$office = $pessoa->getOffice();
 						$webdesign = $pessoa->getWebdesign();
 						$editorImagem = $pessoa->getEditorImagem();
-						$contabilidade = explode(",", $pessoa->getContabilidade());
+						$contabilidade = array_flip(explode(",", $pessoa->getContabilidade()));
 						/*echo count ($contabilidade);
 						for ($i = 0; $i < count ($contabilidade); $i++) {
 							echo $contabilidade[$i];
 						}*/
-						$administracao = explode(",", $pessoa->getAdministracao());
-						$economia = explode(",", $pessoa->getEconomia());
-						$financas = explode(",", $pessoa->getFinancas());
-						$recursosHumanos = explode(",", $pessoa->getRecursosHumanos());
-						$tecnologiaDaInformacao = explode(",", $pessoa->getTecnologiaDaInformacao());
-						$marketing = explode(",", $pessoa->getMarketing());
-						$outrosEstudos = explode(",", $pessoa->getOutrosEstudos());
+						$administracao = array_flip(explode(",", $pessoa->getAdministracao()));
+						$economia = array_flip(explode(",", $pessoa->getEconomia()));
+						$financas = array_flip(explode(",", $pessoa->getFinancas()));
+						$recursosHumanos = array_flip(explode(",", $pessoa->getRecursosHumanos()));
+						$tecnologiaInformacao = array_flip(explode(",", $pessoa->getTecnologiaDaInformacao()));
+						$marketing = array_flip(explode(",", $pessoa->getMarketing()));
+						$outrosEstudos = array_flip(explode(",", $pessoa->getOutrosEstudos()));
 						echo '<form action="habilidadesBD.php" method="POST">';
 						echo '<h4>Idiomas</h4>';
 						echo '<table class="tabela">';
