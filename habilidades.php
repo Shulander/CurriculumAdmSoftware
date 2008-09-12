@@ -365,7 +365,7 @@
 				echo '<tr><td><input type="checkbox" id="engenhariaIndustrial" name="outrosEstudos[]" value="Engenharia Industrial" '.(isset($outrosEstudos["Engenharia Industrial"])?'CHECKED="CHECKED"':"").'>Engenharia Industrial</td><td></td></tr>';
 				echo '<tr><td><input type="checkbox" id="engenhariaMecanica" name="outrosEstudos[]" value="Engenharia Mecânica" '.(isset($outrosEstudos["Engenharia Mecânica"])?'CHECKED="CHECKED"':"").'>Engenharia Mecânica</td><td></td></tr>';
 				echo '<tr><td><input type="checkbox" id="jornalismo" name="outrosEstudos[]" value="Jornalismo" '.(isset($outrosEstudos["Jornalismo"])?'CHECKED="CHECKED"':"").'>Jornalismo</td><td></td></tr>';
-				echo '<tr><td><input type="checkbox" id="cienciasocial" name="outrosEstudos[]" value="Ciência Social" '.(isset($outrosEstudos["Ciência Social"])?'CHECKED="CHECKED"':"").'>Ciência Social</td><td></td></tr>';
+				echo '<tr><td><input type="checkbox" id="cienciasocial" name="outrosEstudos[]" value="Ciência Social" '.(isset($outrosEstudos["Ciência Social"])?'CHECKED="CHECKED"':"").'>Ciências Sociais</td><td></td></tr>';
 				echo '</table><br />';
 				echo '<center>';
 				echo '<table cellpadding="15">';
