@@ -17,7 +17,7 @@
 	if(isset($_REQUEST['pergunta1'])) {
 		$pergunta1 = $_REQUEST['pergunta1'];	
 	} else {
-		$pergunta1 = "Não";
+		$pergunta1 = "nao";
 	}
 	//testa se a variavel pergunta2 existe
 	if(isset($_REQUEST['pergunta2'])) {
@@ -29,13 +29,13 @@
 	if(isset($_REQUEST['pergunta3'])) {
 		$pergunta3 = $_REQUEST['pergunta3'];	
 	} else {
-		$pergunta3 = "Não";
+		$pergunta3 = "nao";
 	}
 	//testa se a variavel pergunta4 existe
 	if(isset($_REQUEST['pergunta4'])) {
 		$pergunta4 = $_REQUEST['pergunta4'];	
 	} else {
-		$pergunta4 = "Não";
+		$pergunta4 = "";
 	}	
 	//testa se a variavel outro1 existe
 	if(isset($_REQUEST['outro1'])) {
@@ -100,9 +100,9 @@ if (!$conexaoBD->conecta()) {
 					if ($pesquisa == false) {
 						echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 					} else {
-						$pergunta1 = (empty($pergunta1)?$pessoa->getPergunta1():$pergunta1);
+						$pergunta1 = ($pergunta1=='nao'?$pessoa->getPergunta1():$pergunta1);
 						$pergunta2 = (empty($pergunta2)?$pessoa->getPergunta2():$pergunta2);
-						$pergunta3 = (empty($pergunta3)?$pessoa->getPergunta3():$pergunta3);
+						$pergunta3 = ($pergunta3=='nao'?$pessoa->getPergunta3():$pergunta3);
 						$pergunta4 = (empty($pergunta4)?$pessoa->getPergunta4():$pergunta4);
 						$pergunta5 = (empty($pergunta5)?array_flip(explode(",", $pessoa->getPergunta5())):$pergunta5);
 						$pergunta6 = (empty($pergunta6)?$pessoa->getPergunta6():$pergunta6);
