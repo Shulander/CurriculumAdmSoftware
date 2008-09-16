@@ -113,7 +113,7 @@ if (!$conexaoBD->conecta()) {
 						echo '<li>Você conhecia a AIESEC antes do processo seletivo?<font class="erro">*</font>';
 							echo '<ul class="none">';
 							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="sim" '.($pergunta1 == "sim"?'CHECKED"':"").'>Sim</li>';
-							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="não" '.($pergunta1 == "não"?'CHECKED"':"").'>Não</li>';
+							echo '<li><input type="radio" id="pergunta1" name="pergunta1" value="nao" '.($pergunta1 == "nao"?'CHECKED"':"").'>Não</li>';
 							echo '</ul>';
 						echo '</li>';
 						echo '<br/>'; 
