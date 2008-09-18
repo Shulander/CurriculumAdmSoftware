@@ -30,11 +30,11 @@
 	}
 	$idPessoa = $pessoa->getId();
 	//busca id da entrevista
-	echo $idLogin."<br>";
-	echo $idPessoa."<br>";
-	echo $area."<br>";
-	echo $data."<br>";
-	echo $hora."<br>";
+	echo "idlogin:".$idLogin."<br>";
+	echo "idpessoa:".$idPessoa."<br>";
+	echo "area:".$area."<br>";
+	echo "data:".$data."<br>";
+	echo "hora:".$hora."<br>";
 	exit ();
 	$horario = new Horario (0, $idLogin, $idPessoa, $area, "", $data, $hora, "nao", $conexaoBD);
 	$result = $horario->buscaPorEntrevista ();

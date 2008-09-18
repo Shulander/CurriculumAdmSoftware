@@ -11,7 +11,7 @@ class Horario
 	private $disponivel;
 	private $conexaoBD;
 	
-	function Horatio ($id=0, $idLogin=0, $idPessoa=0, $area="", $tipo="", $data="", $hora="", $disponivel="sim", $conexaoBD=false)
+	function Horario ($id=0, $idLogin=0, $idPessoa=0, $area="", $tipo="", $data="", $hora="", $disponivel="sim", $conexaoBD=false)
 	{
 		$this->id = $id + 0;
 		$this->idPessoa = $idPessoa + 0;
@@ -145,12 +145,14 @@ class Horario
 	}
 	
 	/*Retorna o id da entrevista*/
-	function buscaPorEntrevista ($data, $hora, $area)
+	function buscaPorEntrevista ()
 	{
 		if ($this->idPessoa == 0) {
 			return;
 		}
 		$sql = "SELECT id FROM horario WHERE data='".$this->data."' AND hora='".$this->hora."' AND area='".$this->area;
+		echo $sql;
+		exit ();
 		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
 		if ($numLinhas != 0) {

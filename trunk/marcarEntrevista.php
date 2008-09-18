@@ -58,7 +58,7 @@
 				echo '<ul class="erro"><li>Erro! Contate o administrador do sistema!2</li></ul>';
 			} else { //mostrar horarios das entrevistas
 				if ($usuario->isPago()) {
-					$entrevistas = buscaTodosHorariosDisponiveis($conexaoBD, $usuario->getTipo());
+					$entrevistas = buscaTodosHorariosDisponiveis($conexaoBD, $usuario->getTipo(), $idLogin);
 					if ($entrevistas == 0) {
 						echo '<ul class="aviso"><li>Não há mais horários disponíveis!</li></ul>';	
 					} else {
@@ -116,7 +116,7 @@
 	include ("rodape.php");
 
 	/*Busca todos os horario de entrevistas disponiveis cadastrados no BD*/
-	function buscaTodosHorariosDisponiveis ($conexaoBD, $tipo)
+	function buscaTodosHorariosDisponiveis ($conexaoBD, $tipo, $idLogin)
 	{
 		$sql = "SELECT * FROM horario WHERE disponivel='sim' AND tipo='".$tipo."'";
 		$resultado = mysql_query($sql, $conexaoBD->getLink());
