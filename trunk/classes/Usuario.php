@@ -234,5 +234,45 @@ class Usuario
 			return false;
 		}
 	}
+	
+	function isEntrevistaMarcada ()
+	{
+		if (empty($this->id)) {
+			return false;
+		}
+		$sql = "SELECT entrevistaMarcada FROM login WHERE id=".$this->id;
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		if ($numLinhas != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$entrevistaMarcada = $dados['entrevistaMarcada'];
+				if ($entrevistaMarcada == 1) {
+					$this->entrevistaMarcada = 1;
+					return true;
+				} else {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}		
+	}
+	
+	function setEntrevistaMarcada ()
+	{
+		//verifica se existe conexao do banco de dados
+		if($this->conexaoBD == false) {
+			return "Erro de sistema! Contate o administrador do sistema!";	
+		}
+		$sql = "UPDATE login SET entrevistaMarcada=1 WHERE id=".$this->id;
+		mysql_query($sql, $this->conexaoBD->getLink());
+		$result = mysql_affected_rows();
+		if ($result == 1) {
+			return "sucesso";
+		} else {
+			return "Erro ao setar entrevista como marcada!";		
+		}		
+	}
 }
 ?>

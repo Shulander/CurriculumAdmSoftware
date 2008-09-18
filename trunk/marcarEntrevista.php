@@ -4,6 +4,7 @@
 	include ("cabecalho.php");
 	require_once ("utils/BancoDados.php");
 	require_once ("classes/Usuario.php");
+	require_once ("classes/Pessoa.php");
 	require_once ("classes/Horario.php");		
 	//Variavel usuario	
 	$nome = $_SESSION['nome'];
@@ -43,64 +44,90 @@
 <?php 
 	if(!empty($aviso)) {
 		if ($aviso == "sucesso") {
-			echo '<ul class="sucesso"><li>'.$aviso.'</li></ul>';
+			echo '<ul class="sucesso"><li>Sua entrevista foi marcada com sucesso!</li></ul><br/>';
 		} else {
 			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';										
 		}
 	}
 	if (!$conexaoBD->conecta()) {
-		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!1</li></ul>';
+		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema 1!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
 			$usuario = new Usuario ($nome, "", $tipo, $conexaoBD, $idLogin);
 			$resultado = $usuario->busca();
 			if ($resultado == false) {
-				echo '<ul class="erro"><li>Erro! Contate o administrador do sistema!2</li></ul>';
+				echo '<ul class="erro"><li>Erro! Contate o administrador do sistema 2!</li></ul>';
 			} else { //mostrar horarios das entrevistas
 				if ($usuario->isPago()) {
 					$entrevistas = buscaTodosHorariosDisponiveis($conexaoBD, $usuario->getTipo(), $idLogin);
 					if ($entrevistas == 0) {
 						echo '<ul class="aviso"><li>Não há mais horários disponíveis!</li></ul>';	
 					} else {
-						$ultimaData = $entrevistas[0]->getDataConvertida();
-						$nDias = 1;
-						//tabela de formatacao horizontal
-						echo '<table>';
-						echo '<tr><td class="hora" style="border:none;">';
-						echo '<table class="horario">'; 
-						echo '<tr><td class="hora" colspan="2"><b>'.$entrevistas[0]->getDataConvertida().'</b></td></tr>';
-						echo '<tr><td class="hora"><b>Horário</b></td><td class="hora"><b>Área</b></td></tr>';
-						foreach ($entrevistas as $indice => $horario) {
-							if($ultimaData!=$horario->getDataConvertida()) {
-								echo '</table>';
-								echo '<form action="marcarEntrevistaBD.php" method="POST">';
-								// responsavel pela tabela do posicionamento horizontal
-								// cria uma nova linha, após 3 elementos sendo mostrados
-								echo '</td>';
-								if (($nDias++ % 3) ==0) echo '</tr><tr>'; 
-								echo '<td class="hora" style="border:none;">';								
-								$ultimaData = $horario->getDataConvertida();
-								echo '<table class="horario">';
-								echo '<tr><td class="hora" colspan="2"><b>'.$horario->getDataConvertida().'</b></td></tr>';
-								echo '<tr><td class="hora"><b>Horário</b></td><td class="hora"><b>Área</b></td></tr>';							
+						if ($usuario->isEntrevistaMarcada()) { //entrevista ja foi marcada
+							//mostra o horario da pessoa
+							//1) pega o id da pessoa
+							$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+							$retorno = $pessoa->busca ();
+							if ($retorno == false) {
+								echo '<ul class="erro"><li>Erro! Contate o administrador do sistema 3 !</li></ul>';
+							} else {
+								$idPessoa = $pessoa->getId();
+								//pega o horario referente a pessoa
+								$horarioPessoa = new Horario (0, $idLogin, $idPessoa, "", "", "", "", "", $conexaoBD);
+								$result = $horarioPessoa->buscaPorIdPessoa();
+								if ($result == false) {
+									echo '<ul class="erro"><li>Erro! Contate o administrador do sistema 4!</li></ul>';	
+								} else {
+									$area = $horarioPessoa->getArea ();
+									$hora = $horarioPessoa->getHora ();
+									$data = $horarioPessoa->getDataConvertida();
+									echo '<ul class="ajuda"><li>Sua entrevista está marcada para o
+									dia '.$data.' às '.$hora.' para o time '.$area.'. O não comparecimento
+									implica na eliminação do candidato do processo seletivo!</li></ul><br/>';
+									echo '<center><a href="principal.php">Voltar para a página principal</a></center>';
+								}
 							}
-							if (empty($data)) {
-								$data = $horario->getData();
+						} else {
+							$ultimaData = $entrevistas[0]->getDataConvertida();
+							$nDias = 1;
+							//tabela de formatacao horizontal
+							echo '<table>';
+							echo '<tr><td class="hora" style="border:none;">';
+							echo '<table class="horario">'; 
+							echo '<tr><td class="hora" colspan="2"><b>'.$entrevistas[0]->getDataConvertida().'</b></td></tr>';
+							echo '<tr><td class="hora"><b>Horário</b></td><td class="hora"><b>Área</b></td></tr>';
+							echo '<form action="marcarEntrevistaBD.php" method="POST">';
+							foreach ($entrevistas as $indice => $horario) {
+								if($ultimaData!=$horario->getDataConvertida()) {
+									echo '</table>';
+									// responsavel pela tabela do posicionamento horizontal
+									// cria uma nova linha, após 3 elementos sendo mostrados
+									echo '</td>';
+									if (($nDias++ % 3) ==0) echo '</tr><tr>'; 
+									echo '<td class="hora" style="border:none;">';								
+									$ultimaData = $horario->getDataConvertida();
+									echo '<table class="horario">';
+									echo '<tr><td class="hora" colspan="2"><b>'.$horario->getDataConvertida().'</b></td></tr>';
+									echo '<tr><td class="hora"><b>Horário</b></td><td class="hora"><b>Área</b></td></tr>';							
+								}
+								if (empty($data)) {
+									$data = $horario->getData();
+								}
+								if (empty($hora)) {
+									$hora = $horario->getHora();
+								}
+								if (empty($area)) {
+									$area = $horario->getArea();
+								}							
+								$entrevista = $hora.'_'.$data.'_'.$area;
+								echo '<tr><td class="hora"><input type="radio" id="entrevista" name="entrevista" value="'.$entrevista.'">'.$horario->getHora().'</td><td class="hora">'.$horario->getArea ().'</td></tr>';	
 							}
-							if (empty($hora)) {
-								$hora = $horario->getHora();
-							}
-							if (empty($area)) {
-								$area = $horario->getArea();
-							}							
-							$entrevista = $hora.'_'.$data.'_'.$area;
-							echo '<tr><td class="hora"><input type="radio" id="entrevista" name="entrevista" value="'.$entrevista.'">'.$horario->getHora().'</td><td class="hora">'.$horario->getArea ().'</td></tr>';	
+							echo '</table>';
+							//tabela de formatacao horizontal
+							echo '</td></tr>';
+							echo '</table>';
+							echo '<br><center><input type="submit" value="Marcar entrevista"></form></center>';
 						}
-						echo '</table>';
-						//tabela de formatacao horizontal
-						echo '</td></tr>';
-						echo '</table>';
-						echo '<br><center><input type="submit" value="Marcar entrevista"></form></center>';
 					}
 				} else {
 					echo '<ul class="aviso"><li>Para marcar sua entrevista é necessário ter preenchido 
