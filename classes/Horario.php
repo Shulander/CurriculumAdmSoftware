@@ -150,9 +150,7 @@ class Horario
 		if ($this->idPessoa == 0) {
 			return;
 		}
-		$sql = "SELECT id FROM horario WHERE data='".$this->data."' AND hora='".$this->hora."' AND area='".$this->area;
-		echo $sql;
-		exit ();
+		$sql = "SELECT id,tipo FROM horario WHERE data='".$this->data."' AND hora='".$this->hora."' AND area='".$this->area."'";
 		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
 		if ($numLinhas != 0) {
