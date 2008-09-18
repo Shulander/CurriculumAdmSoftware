@@ -85,6 +85,6 @@ Status:
 <br/>
 </p>
 <center><form action="dadosPessoais.php"><input type="submit" value="Preencher dados"></form></center><br />
-<center><input type="button" <?php if ($pago == 0) {  echo "disabled='disabled'"; } ?> value="Marcar entrevista"></center>
+<center><form action="marcarEntrevista.php"><input type="submit" <?php if ($pago == 0) {  echo "disabled='disabled'"; } ?> value="Marcar entrevista"></form></center>
 <!-- Rodape -->
 <?php include ("rodape.php"); ?>

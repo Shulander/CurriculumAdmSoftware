@@ -35,7 +35,8 @@
 </ul>
 <ul class="item">
 <li class="intercambista">Para se cadastrar como <u>intercambista</u>, clique <a class="link_cadastro" href="informacao_intercambista.php">aqui!</a></li>
-<li class="membro">Para se cadastrar como membro, clique <a class="link_cadastro" href="informacao_membro.php">aqui!</a></li>
+<li class="membro"><font class="erro">ATENÇÃO!</font> Inscrições para membros encerradas!!</li>
+<!--  <li class="membro">Para se cadastrar como membro, clique <a class="link_cadastro" href="informacao_membro.php">aqui!</a></li> -->
 </ul>
 </center>
 <!-- Rodape -->

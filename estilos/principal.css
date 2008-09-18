@@ -24,6 +24,20 @@ p
 	color:#002F99;
 }
 
+.horario
+{
+	color:#002F99;
+}
+
+td.hora
+{
+	vertical-align: top;
+	width: 225px;
+	border-style: solid;
+	border-color: #FF9933;
+	border-width: thin;
+	text-align: center;
+}
 
 .tabela
 {
