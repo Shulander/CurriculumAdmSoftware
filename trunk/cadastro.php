@@ -51,7 +51,7 @@
 	<option value="0"> -- Selecione -- </option>
 	<?php 
 	echo '<option value="Intercambista"  '.($tipo == "Intercambista"?'selected="selected"':"").' >Intercambista</option>'; 
-	echo '<option value="Membro" '.($tipo == "Membro"?'selected="selected"':"").'>Membro</option>';
+	//echo '<option value="Membro" '.($tipo == "Membro"?'selected="selected"':"").'>Membro</option>';
 	?>
 	</select></td></tr>
 </table>
