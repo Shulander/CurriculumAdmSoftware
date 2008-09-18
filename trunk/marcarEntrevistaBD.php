@@ -28,7 +28,7 @@
 	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
 	$resultado = $pessoa->busca ();
 	if ($resultado == false) {
-		$aviso = "Erro de sistema! Contate o administrador do sistema!";
+		$aviso = "Erro de sistema (5)! Contate o administrador do sistema!";
 		header("Location:marcarEntrevista.php?aviso=".$aviso);
 		exit ();
 	}
@@ -37,14 +37,14 @@
 	$horario = new Horario (0, $idLogin, $idPessoa, $area, "", $data, $hora, "nao", $conexaoBD);
 	$result = $horario->buscaPorEntrevista ();
 	if ($result == false) {
-		$aviso = "Erro de sistema! Contate o administrador do sistema!";
+		$aviso = "Erro de sistema (6)! Contate o administrador do sistema!";
 		header("Location:marcarEntrevista.php?aviso=".$aviso);
 		exit ();
 	}
 	//atualiza entrevista com o id da pessoa
 	$aviso = $horario->marcaEntrevista ();
 	if ($aviso == false) {
-		$aviso = "Erro de sistema! Contate o administrador do sistema!";
+		$aviso = "Erro de sistema (7)! Contate o administrador do sistema!";
 		header("Location:marcarEntrevista.php?aviso=".$aviso);
 		exit ();
 	}
