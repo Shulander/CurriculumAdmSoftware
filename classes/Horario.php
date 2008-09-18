@@ -147,7 +147,13 @@ class Horario
 	/*Retorna o id da entrevista*/
 	function buscaPorEntrevista ()
 	{
-		if ($this->idPessoa == 0) {
+		if ($this->data == 0) {
+			return;
+		}
+		if ($this->hora == 0) {
+			return;
+		}
+		if ($this->area == 0) {
 			return;
 		}
 		$sql = "SELECT id,tipo FROM horario WHERE data='".$this->data."' AND hora='".$this->hora."' AND area='".$this->area."'";

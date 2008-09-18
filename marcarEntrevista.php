@@ -46,17 +46,17 @@
 		if ($aviso == "sucesso") {
 			echo '<ul class="sucesso"><li>Sua entrevista foi marcada com sucesso!</li></ul><br/>';
 		} else {
-			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';										
+			echo '<ul class="erro"><li>'.$aviso.'</li></ul><br />';										
 		}
 	}
 	if (!$conexaoBD->conecta()) {
-		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema 1!</li></ul>';
+		echo '<ul class="erro"><li>Erro de sistema (1)! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
 			$usuario = new Usuario ($nome, "", $tipo, $conexaoBD, $idLogin);
 			$resultado = $usuario->busca();
 			if ($resultado == false) {
-				echo '<ul class="erro"><li>Erro! Contate o administrador do sistema 2!</li></ul>';
+				echo '<ul class="erro"><li>Erro de sistema (2)! Contate o administrador do sistema!</li></ul>';
 			} else { //mostrar horarios das entrevistas
 				if ($usuario->isPago()) {
 					$entrevistas = buscaTodosHorariosDisponiveis($conexaoBD, $usuario->getTipo(), $idLogin);
@@ -69,14 +69,14 @@
 							$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
 							$retorno = $pessoa->busca ();
 							if ($retorno == false) {
-								echo '<ul class="erro"><li>Erro! Contate o administrador do sistema 3 !</li></ul>';
+								echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';
 							} else {
 								$idPessoa = $pessoa->getId();
 								//pega o horario referente a pessoa
 								$horarioPessoa = new Horario (0, $idLogin, $idPessoa, "", "", "", "", "", $conexaoBD);
 								$result = $horarioPessoa->buscaPorIdPessoa();
 								if ($result == false) {
-									echo '<ul class="erro"><li>Erro! Contate o administrador do sistema 4!</li></ul>';	
+									echo '<ul class="erro"><li>Erro de sistema (4)! Contate o administrador do sistema!</li></ul>';	
 								} else {
 									$area = $horarioPessoa->getArea ();
 									$hora = $horarioPessoa->getHora ();
@@ -127,11 +127,13 @@
 							echo '</td></tr>';
 							echo '</table>';
 							echo '<br><center><input type="submit" value="Marcar entrevista"></form></center>';
+							echo '<br><center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
 						}
 					}
 				} else {
 					echo '<ul class="aviso"><li>Para marcar sua entrevista é necessário ter preenchido 
 					todos os seus dados e pago a taxa de inscrição!</li></ul>';
+					echo '<br><center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
 				}
 			}
 		}
