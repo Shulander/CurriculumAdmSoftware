@@ -16,26 +16,6 @@
 	} else {
 		$aviso = "";
 	}
-	//testa se a variavel hora existe
-	if(isset($_GET['hora'])) {
-		$hora = $_GET['hora'];	
-	} else {
-		$hora = "";
-	}
-	//testa se a variavel data existe
-	if(isset($_GET['data'])) {
-		$data = $_GET['data'];	
-	} else {
-		$data = "";
-	}
-	//testa se a variavel area existe
-	if(isset($_GET['area'])) {
-		$area = $_GET['area'];	
-	} else {
-		$area = "";
-	}
-	$pago = 0;
-	$dadosPreenchidos = 0;
 	$conexaoBD = new BancoDados ();
 ?>
 <h3>Marcar Entrevista</h3>
@@ -51,6 +31,7 @@
 	}
 	if (!$conexaoBD->conecta()) {
 		echo '<ul class="erro"><li>Erro de sistema (1)! Contate o administrador do sistema!</li></ul>';
+		echo '<br><center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
 	} else {
 		if (isset($idLogin)) {
 			$usuario = new Usuario ($nome, "", $tipo, $conexaoBD, $idLogin);
@@ -65,14 +46,14 @@
 					} else {
 						if ($usuario->isEntrevistaMarcada()) { //entrevista ja foi marcada
 							//mostra o horario da pessoa
-							//1) pega o id da pessoa
+							//pega o id da pessoa
 							$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
 							$retorno = $pessoa->busca ();
 							if ($retorno == false) {
 								echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';
-							} else {
+							} else {								
 								$idPessoa = $pessoa->getId();
-								//pega o horario referente a pessoa
+								//pega o horario referente a pessoa								
 								$horarioPessoa = new Horario (0, $idLogin, $idPessoa, "", "", "", "", "", $conexaoBD);
 								$result = $horarioPessoa->buscaPorIdPessoa();
 								if ($result == false) {
@@ -82,7 +63,7 @@
 									$hora = $horarioPessoa->getHora ();
 									$data = $horarioPessoa->getDataConvertida();
 									echo '<ul class="ajuda"><li>Sua entrevista está marcada para o
-									dia '.$data.' às '.$hora.' para o time '.$area.'. O não comparecimento
+									dia '.$data.' às '.$hora.' para a área: '.$area.'. O não comparecimento
 									implica na eliminação do candidato do processo seletivo!</li></ul><br/>';
 									echo '<center><a href="principal.php">Voltar para a página principal</a></center>';
 								}
@@ -110,15 +91,9 @@
 									echo '<tr><td class="hora" colspan="2"><b>'.$horario->getDataConvertida().'</b></td></tr>';
 									echo '<tr><td class="hora"><b>Horário</b></td><td class="hora"><b>Área</b></td></tr>';							
 								}
-								if (empty($data)) {
-									$data = $horario->getData();
-								}
-								if (empty($hora)) {
-									$hora = $horario->getHora();
-								}
-								if (empty($area)) {
-									$area = $horario->getArea();
-								}							
+								$data = $horario->getData();
+								$hora = $horario->getHora();
+								$area = $horario->getArea();
 								$entrevista = $hora.'_'.$data.'_'.$area;
 								echo '<tr><td class="hora"><input type="radio" id="entrevista" name="entrevista" value="'.$entrevista.'">'.$horario->getHora().'</td><td class="hora">'.$horario->getArea ().'</td></tr>';	
 							}
@@ -147,7 +122,7 @@
 	/*Busca todos os horario de entrevistas disponiveis cadastrados no BD*/
 	function buscaTodosHorariosDisponiveis ($conexaoBD, $tipo, $idLogin)
 	{
-		$sql = "SELECT * FROM horario WHERE disponivel='sim' AND tipo='".$tipo."'";
+		$sql = "SELECT * FROM horario WHERE disponivel='sim' AND tipo='".$tipo."' ORDER BY data, hora";
 		$resultado = mysql_query($sql, $conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
 		$horarios = array ();
