@@ -160,12 +160,14 @@ class Curriculo
 	
 	function imprimeIdiomas ()
 	{
-		if (!empty ($this->pessoa->getOutro1())) {
+		$outro1 = $this->pessoa->getOutro1();
+		if (!empty ($outro1)) {
 			$outro1 = "<li>".$this->pessoa->getOutro1().": ".$this->pessoa->getOutro1Nivel()." </li>"; 
 		} else {
 			$outro1 = "";
 		}
-		if (!empty ($this->pessoa->getOutro2())) {
+		$outro2 = $this->pessoa->getOutro2();
+		if (!empty ($outro2)) {
 			$outro2 = "<li>".$this->pessoa->getOutro2().": ".$this->pessoa->getOutro2Nivel()." </li>"; 
 		} else {
 			$outro2 = "";
@@ -211,7 +213,8 @@ class Curriculo
 	
 	function imprimePesquisaImagem ()
 	{
-		if (!empty($this->pessoa->getRecomendador())) {
+		$recomendador = $this->pessoa->getRecomendador();
+		if (!empty($recomendador)) {
 			$recomendador = $this->pessoa->getRecomendador();
 		} else {
 			$recomendador = "";
