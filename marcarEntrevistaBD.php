@@ -20,7 +20,7 @@
 	//conexaoBD
 	$conexaoBD = new BancoDados ();
 	if (!$conexaoBD->conecta()) {
-		$aviso = "Erro de sistema! Contate o administrador do sistema!";
+		$aviso = "Erro de sistema (8)! Contate o administrador do sistema!";
 		header("Location:marcarEntrevista.php?aviso=".$aviso);
 		exit ();
 	}
