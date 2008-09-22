@@ -56,28 +56,27 @@
 							if ($result2 != true) {
 								echo '<ul class="erro"><li>Erro de sistema(5)! Contate o administrador do sistema!</li></ul>';
 							} else {
-								//busca expprofissional
-								$expProfissionais = new ExpProfissional (0, $idLogin, 0, "", "", "", "", "", $conexaoBD);
-								$result3 = $expProfissionais->busca();//retorna array de ids de experiencias profissionais
-								if ($result3 == 0) {
-									echo '<ul class="aviso"><li>Não há experiências profissionais cadastradas.</li></ul>';	
-								} else if (is_array($result3)) {
-									$numExpProfissionais = count($result3);
-									for ($i = 0; $i < $numExpProfissionais; $i++) {
-										$idExpProf = $result3[$i];
-										$expProf = new ExpProfissional ($result3[$i], $idLogin, 0, "", "", "", "", "", $conexaoBD);
-										$result4 = $expProf->buscaPorIdPessoa();
-										if ($result4 == true) {
-										}
-									}
-								} else {
-										
-								}
 							}
 						}
 					} else {
 						echo '<ul class="erro"><li>Erro de sistema (6)! Contate o administrador do sistema!</li></ul>';
 						echo '<br><center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';	
+					}
+			
+					//busca expprofissional
+					$expProfissionais = new ExpProfissional (0, $idLogin, 0, "", "", "", "", "", $conexaoBD);
+					$result3 = $expProfissionais->busca();//retorna array de ids de experiencias profissionais
+					if ($result3 == 0) {
+						echo '<ul class="aviso"><li>Não há experiências profissionais cadastradas.</li></ul>';	
+					} else if (is_array($result3)) {
+						$numExpProfissionais = count($result3);
+						for ($i = 0; $i < $numExpProfissionais; $i++) {
+							$idExpProf = $result3[$i];
+							$expProf = new ExpProfissional ($result3[$i], $idLogin, 0, "", "", "", "", "", $conexaoBD);
+							$result4 = $expProf->buscaPorIdPessoa();
+							if ($result4 == true) {
+							}
+						}
 					}
 				}
 			}
