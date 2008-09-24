@@ -101,7 +101,7 @@ if (!$conexaoBD->conecta()) {
 						echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 					} else {
 						$pergunta1 = ($pergunta1=='nao'?$pessoa->getPergunta1():$pergunta1);
-						$pergunta2 = (empty($pergunta2)?$pessoa->getPergunta2():$pergunta2);
+						$pergunta2 = ($pergunta2=='Não pretendo'?$pessoa->getPergunta2():$pergunta2);						
 						$pergunta3 = ($pergunta3=='nao'?$pessoa->getPergunta3():$pergunta3);
 						$pergunta4 = (empty($pergunta4)?$pessoa->getPergunta4():$pergunta4);
 						$pergunta5 = (empty($pergunta5)?array_flip(explode(",", $pessoa->getPergunta5())):$pergunta5);
