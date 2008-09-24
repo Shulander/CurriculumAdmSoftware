@@ -62,9 +62,9 @@
 	pagar a taxa de inscrição no valor de R$ 5,00 (cinco reais). Então você poderá marcar a entrevista no horário 
 	que lhe melhor convier 	dentre os disponíveis pelo sistema. Para isso, clique em "Marcar entrevista". O botão 
 	marcar entrevista estará liberado assim que for registrado o pagamento da taxa de inscrição.</li>
-	<li><u>Aviso para Intercambistas:</u> No dia da palestra de apresentação o candidato deverá levar o currículo impresso 
+	<li><u>ATENÇÃO:</u> No dia da palestra de apresentação <B>NÃO</B> será necessário levar o currículo impresso!<!-- 
 	(o botão "Imprimir currículo" estará disponível assim que todos os dados estiverem preenchidos. Não esqueça de levar 
-	uma foto 3x4 ou digitalizada.</li>
+	uma foto 3x4 ou digitalizada.--></li>
 	<li>Caso tenha quaisquer dúvidas, entrar em contato através do email <a href="mailto:aiesecsmpsel@gmail.com">
 	aiesecsmpsel@gmail.com</a>.</li>
 	</ul>
