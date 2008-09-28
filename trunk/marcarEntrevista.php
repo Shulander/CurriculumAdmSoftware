@@ -40,34 +40,37 @@
 				echo '<ul class="erro"><li>Erro de sistema (2)! Contate o administrador do sistema!</li></ul>';
 			} else { //mostrar horarios das entrevistas
 				if ($usuario->isPago()) {
-					$entrevistas = buscaTodosHorariosDisponiveis($conexaoBD, $usuario->getTipo(), $idLogin);
-					if ($entrevistas == 0) {
-						echo '<ul class="aviso"><li>Não há mais horários disponíveis!</li></ul>';	
-					} else {
-						if ($usuario->isEntrevistaMarcada()) { //entrevista ja foi marcada
-							//mostra o horario da pessoa
-							//pega o id da pessoa
-							$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
-							$retorno = $pessoa->busca ();
-							if ($retorno == false) {
-								echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';
-							} else {								
-								$idPessoa = $pessoa->getId();
-								//pega o horario referente a pessoa								
-								$horarioPessoa = new Horario (0, $idLogin, $idPessoa, "", "", "", "", "", $conexaoBD);
-								$result = $horarioPessoa->buscaPorIdPessoa();
-								if ($result == false) {
-									echo '<ul class="erro"><li>Erro de sistema (4)! Contate o administrador do sistema!</li></ul>';	
-								} else {
-									$area = $horarioPessoa->getArea ();
-									$hora = $horarioPessoa->getHora ();
-									$data = $horarioPessoa->getDataConvertida();
-									echo '<ul class="ajuda"><li>Sua entrevista está marcada para o
-									dia '.$data.' às '.$hora.' para a área: '.$area.'. O não comparecimento
-									implica na eliminação do candidato do processo seletivo!</li></ul><br/>';
-									echo '<center><a href="principal.php">Voltar para a página principal</a></center>';
-								}
+					//checa se o usuario ja marcou sua entrevista
+					if ($usuario->isEntrevistaMarcada()) { //entrevista ja foi marcada
+						//mostra o horario da pessoa
+						//pega o id da pessoa
+						$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+						$retorno = $pessoa->busca ();
+						if ($retorno == false) {
+							echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';
+						} else {								
+							$idPessoa = $pessoa->getId();
+							//pega o horario referente a pessoa								
+							$horarioPessoa = new Horario (0, $idLogin, $idPessoa, "", "", "", "", "", $conexaoBD);
+							$result = $horarioPessoa->buscaPorIdPessoa();
+							if ($result == false) {
+								echo '<ul class="erro"><li>Erro de sistema (4)! Contate o administrador do sistema!</li></ul>';	
+							} else {
+								$area = $horarioPessoa->getArea ();
+								$hora = $horarioPessoa->getHora ();
+								$data = $horarioPessoa->getDataConvertida();
+								echo '<ul class="ajuda"><li>Sua entrevista está marcada para o
+								dia '.$data.' às '.$hora.' para a área: '.$area.'. O não comparecimento
+								implica na eliminação do candidato do processo seletivo!</li></ul><br/>';
+								echo '<center><a href="principal.php">Voltar para a página principal</a></center>';
 							}
+						}
+					} else {
+						//busca todos os horarios disponiveis
+						$entrevistas = buscaTodosHorariosDisponiveis($conexaoBD, $usuario->getTipo(), $idLogin);
+						if ($entrevistas == 0) {
+							echo '<ul class="aviso"><li>Não há mais horários disponíveis!</li></ul>';
+							echo '<center><a href="principal.php">Voltar para a página anterior</a></center>';	
 						} else {
 							$ultimaData = $entrevistas[0]->getDataConvertida();
 							$nDias = 1;
@@ -142,5 +145,7 @@
 			return 0;
 		}
 	}
+	
+	
 	
 ?>

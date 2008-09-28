@@ -107,7 +107,7 @@ $conexaoBD = new BancoDados ();
 			$resultado = $pessoa->buscaPorIdUsuario ();
 			if ($resultado == true) { //se pessoa foi cadastrada
 				echo '<form action="dadosEducacionaisInsereBD.php" method="POST" name="dadosEducacionaisForm"
-				 onsubmit="return verificaFormDadosEducacionais($(\'curso\'), $(\'tipo\'), $(\'instituicao\'), $(\'dataIngresso\'));">';
+				 onsubmit="return verificaFormDadosEducacionais($(\''.(empty($cursoOutro)?$curso:$cursoOutro).'\'), $(\'tipo\'), $(\'instituicao\'), $(\'dataIngresso\'));">';
 				echo '<table class="tabela">';
 				//--------instituicao---------------
 				echo '<tr><td>Instituição: <font class="erro">*</font></td>';
