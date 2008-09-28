@@ -31,11 +31,11 @@
 <ul class="ajuda">
 <li>Esqueci minha senha! Clique <a class="link_cadastro" href="recuperaUsuario.php">aqui!</a></li>
 <li>Reportar problemas no sistema? Favor contate-nos através do e-mail: <a href="mailto:aiesecsmpsel@gmail.com">aiesecsmpsel@gmail.com</a>.</li>
-<li>Ainda não tem cadastro?</li>
+<!-- <li>Ainda não tem cadastro?</li>-->
 </ul>
 <ul class="item">
-<li class="intercambista">Para se cadastrar como <u>intercambista</u>, clique <a class="link_cadastro" href="informacao_intercambista.php">aqui!</a></li>
-<li class="membro"><font class="erro">ATENÇÃO!</font> Inscrições para membros encerradas!!</li>
+<li class="intercambista"><font class="erro">ATENÇÃO!</font> Inscrições encerradas!!</li>
+<!--<li class="intercambista">Para se cadastrar como <u>intercambista</u>, clique <a class="link_cadastro" href="informacao_intercambista.php">aqui!</a></li>-->
 <!--  <li class="membro">Para se cadastrar como membro, clique <a class="link_cadastro" href="informacao_membro.php">aqui!</a></li> -->
 </ul>
 </center>
