@@ -37,7 +37,7 @@
 					echo '<ul class="erro"><li>Você não pode acessar essa página!</li></ul>';	
 				} else {
 					//busca nomes de quem marcou a entrevista
-					$sql1 = "select pessoa.nome from pessoa, login where login.id=pessoa.idLogin and login.entrevistaMarcada=1";
+					$sql1 = "select pessoa.nome from pessoa, login where login.id=pessoa.idLogin and login.entrevistaMarcada=1 and login.tipo='intercambista'";
 					$consulta1 = mysql_query($sql1, $conexaoBD->getLink());
 					$numLinhas1 = mysql_num_rows ($consulta1);
 					if ($numLinhas1 != 0) {
