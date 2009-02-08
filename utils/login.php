@@ -19,7 +19,7 @@
 		voltaParaPaginaInicial ($aviso);
 	}
 	//verifica se o usuario e a senha estao corretos	
-	$sql = "SELECT tipo,id as idLogin FROM login WHERE email='".$email."' AND senha='".md5($senha)."'";
+	$sql = "SELECT tipo,id as idLogin FROM login WHERE email LIKE '".$email."' AND senha LIKE '".md5($senha)."'";
 	$result = mysql_query($sql, $conexao->getLink());
 	if (mysql_num_rows ($result)!= 1){
 		$aviso = "Erro de login! Os campos usuário e/ou senha estão incorretos!";
