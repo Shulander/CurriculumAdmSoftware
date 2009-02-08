@@ -146,23 +146,46 @@ if (!$conexaoBD->conecta()) {
 						echo '</li>';
 						echo '<br/>';
 						//-------------Pergunta 5---------------
-						echo '<li><a href="#" class="dica">Por que você está se inscrevendo para o processo seletivo da AIESEC? <span>Pode-se marcar mais de uma opção nessa pergunta.</span></a> <font class="erro">*</font>';
+						echo '<li><a href="#" class="dica">Por que você está se inscrevendo para o processo seletivo da AIESEC? <span>Assinale no máximo 3 opções, enumerando de 1 a 3, sendo 1 o principal motivo para a inscrição.</span></a> <font class="erro">*</font>';
 							echo '<ul class="none">';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Desenvolvimento profissional e pessoal" '.(isset($pergunta5["Desenvolvimento profissional e pessoal"])?'CHECKED="CHECKED"':"").'>Desenvolvimento pessoal e profissional</li>';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Conhecimento sobre outras culturas" '.(isset($pergunta5["Conhecimento sobre outras culturas"])?'CHECKED="CHECKED"':"").'>Conhecimento sobre outras culturas</li>';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Intercâmbio profissional" '.(isset($pergunta5["Intercâmbio profissional"])?'CHECKED="CHECKED"':"").'>Intercâmbio profissional</li>';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Contribuir com o desenvolvimento social" '.(isset($pergunta5["Contribuir com o desenvolvimento social"])?'CHECKED="CHECKED"':"").'>Contribuir com o desenvolvimento social</li>';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Desenvolvimento de liderança" '.(isset($pergunta5["Desenvolvimento de liderança"])?'CHECKED="CHECKED"':"").'>Desenvolvimento de liderança</li>';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Contato com pessoas e organizações" '.(isset($pergunta5["Contato com pessoas e organizações"])?'CHECKED="CHECKED"':"").'>Contato com pessoas e organizações</li>';
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Networking profisional" '.(isset($pergunta5["Networking profisional"])?'CHECKED="CHECKED"':"").'>Networking profisional</li>';		
-							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Outro" '.(isset($pergunta5["Outro"])?'CHECKED="CHECKED"':"").'>Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Desenvolvimento profissional e pessoal">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Desenvolvimento profissional e pessoal">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Desenvolvimento profissional e pessoal">3 &nbsp;&nbsp;&nbsp;Desenvolvimento profissional e pessoal</li>';
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Conhecimento sobre outras culturas">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Conhecimento sobre outras culturas">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Conhecimento sobre outras culturas">3 &nbsp;&nbsp;&nbsp;Conhecimento sobre outras culturas</li>';							
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Intercâmbio profissional">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Intercâmbio profissional">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Intercâmbio profissional">3 &nbsp;&nbsp;&nbsp;Intercâmbio profissional</li>';							
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Contribuir com o desenvolvimento social">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Contribuir com o desenvolvimento social">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Contribuir com o desenvolvimento social">3 &nbsp;&nbsp;&nbsp;Contribuir com o desenvolvimento social</li>';							
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Desenvolvimento de liderança">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Desenvolvimento de liderança">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Desenvolvimento de liderança">3 &nbsp;&nbsp;&nbsp;Desenvolvimento de liderança</li>';											
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Contato com pessoas e organizações">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Contato com pessoas e organizações">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Contato com pessoas e organizações">3 &nbsp;&nbsp;&nbsp;Contato com pessoas e organizações</li>';
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Networking profisional">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Networking profisional">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Networking profisional">3 &nbsp;&nbsp;&nbsp;Networking profisional</li>';	
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Outro">1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Outro">2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Networking profisional">3 &nbsp;&nbsp;&nbsp;Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';	
 							echo '</ul>';
 						echo '</li>';
 						echo '<br/>';
 						//-------------Pergunta 6---------------
 						echo '<li>Como ficou sabendo sobre a AIESEC?<font class="erro">*</font>';
 							echo '<ul class="none">';
-							echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="membro_alumnus" '.($pergunta6 == "membro_alumnus"?'CHECKED"':"").'>Recomendação de pessoa que faz (ou já fez) parte da AIESEC
+
+
+							echo '<li><input type="checkbox" id="pergunta5" name="pergunta5[]" value="Outro" '.(isset($pergunta5["Outro"])?'CHECKED="CHECKED"':"").'>Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';
+
+
+							echo '<li><input type="checkbox" id="pergunta6" name="pergunta6[]" value="membro_alumnus" 
+							'.(isset($pergunta6["membro_alumnus"])?'CHECKED="CHECKED"':"").'>
+							'.($pergunta6 == "membro_alumnus"?'CHECKED"':"").'>Recomendação de pessoa que faz (ou já fez) parte da AIESEC
 							<ul><li>Nome: <input type="text" value="'.$recomendador.'" id="recomendador" name="recomendador" size="40" maxlength="40"></li></ul></li>';
 							echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="recomendacao_outros" '.($pergunta6 == "recomendacao_outros"?'CHECKED"':"").'>Recomendação de outros</li>';
 							echo '<li><input type="radio" id="pergunta6" name="pergunta6" value="website" '.($pergunta6 == "website"?'CHECKED"':"").'>Website da AIESEC</li>';
