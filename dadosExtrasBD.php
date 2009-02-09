@@ -131,7 +131,6 @@
 		if (!$validador->isPreenchido($pergunta6)) {
 			$aviso = "É necessário selecionar pelo menos uma opção na pergunta 6'!";	
 		} else if (isset($pergunta6Invert['Outro'])) {
-			$recomendador = "";
 			if (!$validador->isPreenchido($outro3)) {
 				$aviso = "É necessário responder a pergunta 6'!";
 			} else {
