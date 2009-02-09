@@ -10,7 +10,7 @@ class BancoDados
  	private $tipo;
  	private $nome;
 
- 	function BancoDados ($usuario='root', $senha='eumeamomesmo22')
+ 	function BancoDados ($usuario='root', $senha='vampire1942')
  	{ 		
  		$this->host = 'localhost';
  		$this->usuario = $usuario;

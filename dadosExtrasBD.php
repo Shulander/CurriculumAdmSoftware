@@ -5,6 +5,20 @@
 	include ("classes/ExpAcademica.php");
 	include ("classes/Pessoa.php");
 	include ("utils/Validador.php");
+//var_dump($_POST);
+//	$pergunta5Temp = array();
+//	for ($i=1; $i<=3; $i++) {
+//		if (isset($_POST['pergunta5_'.$i]) && !isset($pergunta5Temp[$_POST['pergunta5_'.$i]])) {
+//			$pergunta5[$i] = $_POST['pergunta5_'.$i];
+//			$pergunta5Temp[$_POST['pergunta5_'.$i]] = true;
+//		}
+//	}
+//var_dump($pergunta5);
+//var_dump(array_flip($pergunta5));
+//exit();
+
+//foreach($_POST['pergunta6'] as $value) echo $value.'<br />';
+//exit(0);
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
 	$pergunta1 = $_POST['pergunta1'];
@@ -15,24 +29,42 @@
 	} else {
 		$pergunta4 = "";
 	}
-	if (isset($_POST['pergunta5'])) {
-		$pergunta5 = $_POST['pergunta5'];
-		$pergunta5Erro = serialize(array_flip($pergunta5));	
-	} else {
+	$pergunta5Temp = array();
+	for ($i=1; $i<=3; $i++) {
+		if (isset($_POST['pergunta5_'.$i]) && !isset($pergunta5Temp[$_POST['pergunta5_'.$i]])) {
+			$pergunta5[] = $_POST['pergunta5_'.$i];
+			$pergunta5Temp[$_POST['pergunta5_'.$i]] = true;
+		}
+	}
+	unset($pergunta5Temp);
+	if (!isset($pergunta5)){
 		$aviso = "É necessário selecionar pelo menos uma opção na pergunta 5'!";
 		$pergunta5Erro = serialize(array());
-	}
-	if (isset($_POST['pergunta6'])) {
-		$pergunta6 = $_POST['pergunta6'];	
 	} else {
-		$pergunta6 = "";
+		$pergunta5Erro = serialize(array_flip($pergunta5));
 	}
+	
+	if (isset($_POST['pergunta6'])) {
+		$pergunta6 = $_POST['pergunta6'];
+		$pergunta6Erro = serialize(array_flip($pergunta6));	
+	} else {
+		$aviso = "É necessário selecionar pelo menos uma opção na pergunta 6'!";
+		$pergunta6Erro = serialize(array());
+	}
+	if(is_array($pergunta6) && count($pergunta6)>3) {
+		$aviso = "É permitido selecionar até 3 opção na pergunta 6'!";
+	}
+//	if (isset($_POST['pergunta6'])) {
+//		$pergunta6 = $_POST['pergunta6'];	
+//	} else {
+//		$pergunta6 = "";
+//	}
 	$outro1 = $_POST['outro1'];
 	$outro2 = $_POST['outro2'];
 	$outro3 = $_POST['outro3'];
 	$recomendador = $_POST['recomendador'];
 	$location = "&pergunta1=".$pergunta1."&pergunta2=".$pergunta2."&pergunta3=".$pergunta3."&pergunta4=".$pergunta4
-	."&pergunta5=".$pergunta5Erro."&pergunta6=".$pergunta6."&outro1=".$outro1."&outro2=".$outro2.
+	."&pergunta5=".$pergunta5Erro."&pergunta6=".$pergunta6Erro."&outro1=".$outro1."&outro2=".$outro2.
 	"&outro3=".$outro3."&recomendador=".$recomendador;
 	$conexaoBD = new BancoDados ();
 	//verifica se a conexao ao banco de dados ocorreu corretamente
@@ -95,16 +127,17 @@
 	}
 	/*------------Pergunta 6----------------*/
 	if(is_null ($aviso)) {
+		$pergunta6Invert = array_flip($pergunta6);
 		if (!$validador->isPreenchido($pergunta6)) {
 			$aviso = "É necessário selecionar pelo menos uma opção na pergunta 6'!";	
-		} else if ($pergunta6 == "Outro") {
+		} else if (isset($pergunta6Invert['Outro'])) {
 			$recomendador = "";
 			if (!$validador->isPreenchido($outro3)) {
 				$aviso = "É necessário responder a pergunta 6'!";
 			} else {
-				$pergunta6 = $outro3;
+				$pergunta6[$pergunta6Invert['Outro']] = $outro3;
 			}
-		} else if ($pergunta6 == "membro_alumnus") {
+		} else if (isset($pergunta6Invert['membro_alumnus'])) {
 			$outro3 = "";
 			if (!$validador->isPreenchido($recomendador)) {
 				$aviso = "É necessário preencher o nome da pessoa que recomendou a AIESEC na pergunta 6'!";
@@ -113,6 +146,7 @@
 			$outro3 = "";
 			$recomendador = "";
 		}
+		$pergunta6Text = implode($pergunta6,",");
 	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
@@ -121,15 +155,12 @@
 	}
 	/*-----------Inserir dadosExtras------------------*/
 	$sql = "UPDATE pessoa SET pergunta1='".$pergunta1."',pergunta2='".$pergunta2."',pergunta3='".$pergunta3."',
-	pergunta4='".$pergunta4."',pergunta5='".$pergunta5Text."',pergunta6='".$pergunta6."',recomendador='".$recomendador."' 
+	pergunta4='".$pergunta4."',pergunta5='".$pergunta5Text."',pergunta6='".$pergunta6Text."',recomendador='".$recomendador."' 
 	WHERE id=".$idPessoa;
 	$resultado = mysql_query($sql, $conexaoBD->getLink()); 
 	if (!$resultado) {
 		if (!empty($outro1)) {
 			$pergunta4 = $outro1;
-		}
-		if (!empty($outro3)) {
-			$pergunta6 = $outro3;
 		}
     	$aviso = "Erro no inserção da pesquisa de imagem!".mysql_error();
     	header("Location:dadosExtras.php?aviso=".$aviso.$location);

@@ -57,7 +57,7 @@
 	}
 	//testa se a variavel pergunta6 existe
 	if(isset($_REQUEST['pergunta6'])) {
-		$pergunta6 = $_REQUEST['pergunta6'];	
+		$pergunta6 = unserialize($_REQUEST['pergunta6']);	
 	} else {
 		$pergunta6 = "";
 	}
@@ -100,13 +100,58 @@ if (!$conexaoBD->conecta()) {
 					if ($pesquisa == false) {
 						echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 					} else {
+						$resposasPergunta5 = array(
+							'Desenvolvimento profissional e pessoal' => 1,
+							'Conhecimento sobre outras culturas' => 1,
+							'Intercâmbio profissional' => 1,
+							'Contribuir com o desenvolvimento social' => 1,
+							'Desenvolvimento de liderança' => 1,
+							'Contato com pessoas e organizações' => 1,
+							'Networking profisional' => 1);
+						$respostasPergunta6 = array (
+							'membro_alumnus' => 1,
+							'recomendacao_outros' => 1,
+							'website' => 1,
+							'panfleto_flyer' => 1,
+							'cartaz_poster_painelEletronico' => 1,
+							'faixa_banner' => 1,
+							'newsletter_malaDireta' => 1,
+							'internet' => 1,
+							'evento' => 1,
+							'TV' => 1,
+							'revista' => 1,
+							'jornal' => 1,
+							'radio' => 1,
+							'sala_de_aula' => 1,
+							'Outro' => 1);
 						$pergunta1 = ($pergunta1=='nao'?$pessoa->getPergunta1():$pergunta1);
 						$pergunta2 = ($pergunta2=='Não pretendo'?$pessoa->getPergunta2():$pergunta2);						
 						$pergunta3 = ($pergunta3=='nao'?$pessoa->getPergunta3():$pergunta3);
 						$pergunta4 = (empty($pergunta4)?$pessoa->getPergunta4():$pergunta4);
 						$pergunta5 = (empty($pergunta5)?array_flip(explode(",", $pessoa->getPergunta5())):$pergunta5);
-						$pergunta6 = (empty($pergunta6)?$pessoa->getPergunta6():$pergunta6);
+						$pergunta6 = (empty($pergunta6)?array_flip(explode(",", $pessoa->getPergunta6())):$pergunta6);
+						
 						$recomendador = (empty($recomendador)?$pessoa->getRecomendador():$recomendador);
+						// esquema para funcionar a opcao outro no cadastro
+						if(!empty($pergunta5) && empty($outro2)) {
+							foreach ($pergunta5 as $key => $value) {
+								if(!isset($resposasPergunta5[$key])){
+									unset ($pergunta5[$key]);
+									$pergunta5['Outro'] = $value;
+									$outro2 = $key;
+								}
+							}
+						}
+						// esquema para funcionar a opcao outro no cadastro
+						if(!empty($pergunta6) && empty($outro3)) {
+							foreach ($pergunta6 as $key => $value) {
+								if(!isset($respostasPergunta6[$key])){
+									unset ($pergunta6[$key]);
+									$pergunta6['Outro'] = $value;
+									$outro3 = $key;
+								}
+							}
+						}
 						echo '<form action="dadosExtrasBD.php" method="POST">';
 						//-------------Pergunta 1---------------
 						echo '<ol class="normal">';
@@ -148,30 +193,30 @@ if (!$conexaoBD->conecta()) {
 						//-------------Pergunta 5---------------
 						echo '<li><a href="#" class="dica">Por que você está se inscrevendo para o processo seletivo da AIESEC? <span>Assinale no máximo 3 opções, enumerando de 1 a 3, sendo 1 o principal motivo para a inscrição.</span></a> <font class="erro">*</font>';
 							echo '<ul class="none">';
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Desenvolvimento profissional e pessoal">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Desenvolvimento profissional e pessoal">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Desenvolvimento profissional e pessoal">3 &nbsp;&nbsp;&nbsp;Desenvolvimento profissional e pessoal</li>';
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Conhecimento sobre outras culturas">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Conhecimento sobre outras culturas">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Conhecimento sobre outras culturas">3 &nbsp;&nbsp;&nbsp;Conhecimento sobre outras culturas</li>';							
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Intercâmbio profissional">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Intercâmbio profissional">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Intercâmbio profissional">3 &nbsp;&nbsp;&nbsp;Intercâmbio profissional</li>';							
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Contribuir com o desenvolvimento social">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Contribuir com o desenvolvimento social">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Contribuir com o desenvolvimento social">3 &nbsp;&nbsp;&nbsp;Contribuir com o desenvolvimento social</li>';							
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Desenvolvimento de liderança">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Desenvolvimento de liderança">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Desenvolvimento de liderança">3 &nbsp;&nbsp;&nbsp;Desenvolvimento de liderança</li>';											
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Contato com pessoas e organizações">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Contato com pessoas e organizações">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Contato com pessoas e organizações">3 &nbsp;&nbsp;&nbsp;Contato com pessoas e organizações</li>';
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Networking profisional">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Networking profisional">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Networking profisional">3 &nbsp;&nbsp;&nbsp;Networking profisional</li>';	
-							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Outro">1
-									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Outro">2
-									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Networking profisional">3 &nbsp;&nbsp;&nbsp;Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';	
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Desenvolvimento profissional e pessoal" '.(@$pergunta5['Desenvolvimento profissional e pessoal'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Desenvolvimento profissional e pessoal" '.(@$pergunta5['Desenvolvimento profissional e pessoal'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Desenvolvimento profissional e pessoal" '.(@$pergunta5['Desenvolvimento profissional e pessoal'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Desenvolvimento profissional e pessoal</li>';
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Conhecimento sobre outras culturas" '.(@$pergunta5['Conhecimento sobre outras culturas'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Conhecimento sobre outras culturas" '.(@$pergunta5['Conhecimento sobre outras culturas'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Conhecimento sobre outras culturas" '.(@$pergunta5['Conhecimento sobre outras culturas'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Conhecimento sobre outras culturas</li>';							
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Intercâmbio profissional" '.(@$pergunta5['Intercâmbio profissional'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Intercâmbio profissional" '.(@$pergunta5['Intercâmbio profissional'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Intercâmbio profissional" '.(@$pergunta5['Intercâmbio profissional'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Intercâmbio profissional</li>';							
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Contribuir com o desenvolvimento social" '.(@$pergunta5['Contribuir com o desenvolvimento social'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Contribuir com o desenvolvimento social" '.(@$pergunta5['Contribuir com o desenvolvimento social'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Contribuir com o desenvolvimento social" '.(@$pergunta5['Contribuir com o desenvolvimento social'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Contribuir com o desenvolvimento social</li>';							
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Desenvolvimento de liderança" '.(@$pergunta5['Desenvolvimento de liderança'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Desenvolvimento de liderança" '.(@$pergunta5['Desenvolvimento de liderança'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Desenvolvimento de liderança" '.(@$pergunta5['Desenvolvimento de liderança'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Desenvolvimento de liderança</li>';											
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Contato com pessoas e organizações" '.(@$pergunta5['Contato com pessoas e organizações'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Contato com pessoas e organizações" '.(@$pergunta5['Contato com pessoas e organizações'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Contato com pessoas e organizações" '.(@$pergunta5['Contato com pessoas e organizações'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Contato com pessoas e organizações</li>';
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Networking profisional" '.(@$pergunta5['Networking profisional'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Networking profisional" '.(@$pergunta5['Networking profisional'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Networking profisional" '.(@$pergunta5['Networking profisional'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Networking profisional</li>';	
+							echo '<li><input type="radio" id="pergunta5_1" name="pergunta5_1" value="Outro" '.(@$pergunta5['Outro'] === 0?'CHECKED"':"").'>1
+									<input type="radio" id="pergunta5_2" name="pergunta5_2" value="Outro" '.(@$pergunta5['Outro'] == 1?'CHECKED"':"").'>2
+									<input type="radio" id="pergunta5_3" name="pergunta5_3" value="Outro" '.(@$pergunta5['Outro'] == 2?'CHECKED"':"").'>3 &nbsp;&nbsp;&nbsp;Outro&nbsp;&nbsp;<input type="text" value="'.$outro2.'" id="outro2" name="outro2" size="50" maxlength="50"></li>';	
 							echo '</ul>';
 						echo '</li>';
 						echo '<br/>';
