@@ -1,0 +1,5 @@
+-- Vicentini
+-- 08/02/2009
+-- alterando o tipo do campo pergunta6 para suportar mais opcoes
+ALTER TABLE pessoa
+  CHANGE COLUMN pergunta6 pergunta6 text NULL;
