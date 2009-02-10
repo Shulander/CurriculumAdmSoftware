@@ -1,5 +1,4 @@
 <?php
-var_dump($_SESSION);
 echo '<form action="'.$pagina.'" method="POST" enctype="multipart/form-data"
 onsubmit="return verificaFormDadosPessoais($(\'nome\'), $(\'nacionalidade\'), $(\'nacionalidadeEstrangeira\'), 
 $(\'dataNascimento\'), $(\'sexo\'), $(\'estadoCivil\'), $(\'endereco\'), $(\'numero\'), $(\'cep\'), $(\'cidade\'), 
