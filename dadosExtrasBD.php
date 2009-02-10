@@ -5,20 +5,6 @@
 	include ("classes/ExpAcademica.php");
 	include ("classes/Pessoa.php");
 	include ("utils/Validador.php");
-//var_dump($_POST);
-//	$pergunta5Temp = array();
-//	for ($i=1; $i<=3; $i++) {
-//		if (isset($_POST['pergunta5_'.$i]) && !isset($pergunta5Temp[$_POST['pergunta5_'.$i]])) {
-//			$pergunta5[$i] = $_POST['pergunta5_'.$i];
-//			$pergunta5Temp[$_POST['pergunta5_'.$i]] = true;
-//		}
-//	}
-//var_dump($pergunta5);
-//var_dump(array_flip($pergunta5));
-//exit();
-
-//foreach($_POST['pergunta6'] as $value) echo $value.'<br />';
-//exit(0);
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
 	$pergunta1 = $_POST['pergunta1'];

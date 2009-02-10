@@ -1,5 +1,6 @@
 <?php
-echo '<form action="'.$pagina.'" method="POST" 
+var_dump($_SESSION);
+echo '<form action="'.$pagina.'" method="POST" enctype="multipart/form-data"
 onsubmit="return verificaFormDadosPessoais($(\'nome\'), $(\'nacionalidade\'), $(\'nacionalidadeEstrangeira\'), 
 $(\'dataNascimento\'), $(\'sexo\'), $(\'estadoCivil\'), $(\'endereco\'), $(\'numero\'), $(\'cep\'), $(\'cidade\'), 
 $(\'cidadeOutra\'), $(\'estado\'), $(\'estadoOutro\'), $(\'celular\'));">';
@@ -98,8 +99,9 @@ echo '<td><input type="text" id="celular" name="celular" value="'.$celular.'" si
 maxlength="16"></td></tr>';
 //-----------------------------Foto-------------------------------------
 echo '<tr><td><a href="#" class="dica">Foto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp.</span></a><font class="erro">*</font></td>';
+echo '<input type="hidden" name="MAX_FILE_SIZE" value="2000000">';
 echo '<td><input type="file" name="foto"></td></tr>';
-echo '<tr><td colspan="2"><center><img border="1" src="foto" width="100" height="120"></center></td></tr>';
+echo '<tr><td colspan="2"><center><img border="1" src="foto.php?id='.$_SESSION['idLogin'].'" width="100" height="120"></center></td></tr>';
 //--------
 echo '</table><br />';
 echo '<center>';

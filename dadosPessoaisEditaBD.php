@@ -205,6 +205,36 @@
 			$aviso = "Campo 'Telefone Residencial' inválido!";
 		}*/
 	}
+	/*------------foto----------------*/
+	if(is_null ($aviso)) {	
+		if(isset($_FILES['foto']) && $_FILES['foto']['size'] >  0)
+		{
+			$fileName = $_FILES['foto']['name'];
+			$tmpName  = $_FILES['foto']['tmp_name'];
+			$fileSize = $_FILES['foto']['size'];
+			$fileType = $_FILES['foto']['type'];
+			
+			$tiposPermitidosArquivo = array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1);
+			if(!isset($tiposPermitidosArquivo[$fileType])) {
+				$aviso = "A imagem deve ser dos tipos jpg, gif, png, bmp!";
+			} else {			
+				$fp      = fopen($tmpName, 'r');
+				$content = fread($fp, filesize($tmpName));
+				$content = addslashes($content);
+				fclose($fp);
+				
+				if(!get_magic_quotes_gpc())
+				{
+				    $fileName = addslashes($fileName);
+				}
+				
+				$query = "REPLACE INTO fotos (fk_login, name, size, type, content ) ".
+				"VALUES ('".$_SESSION['idLogin']."', '$fileName', '$fileSize', '$fileType', '$content')";
+				
+				mysql_query($query) or die('Error, query failed'. mysql_error());
+			}
+		}
+	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
 		if (!empty ($nacionalidadeEstrangeira)) {
@@ -219,6 +249,7 @@
 		header("Location:dadosPessoais.php?aviso=".$aviso.$location);
 		exit ();
 	}
+
 	/*-----------Editar pessoa------------------*/
 	$pessoa = new Pessoa ($idLogin, $nome, $nacionalidade, $dataNascimentoBD, $sexo, $estadoCivil, $endereco, $numero,
 	$complemento, $bairro, $cep, $cidade, $estado, $telResidencial, $celular, 0, $conexaoBD);

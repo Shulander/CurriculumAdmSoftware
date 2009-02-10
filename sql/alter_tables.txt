@@ -3,3 +3,15 @@
 -- alterando o tipo do campo pergunta6 para suportar mais opcoes
 ALTER TABLE pessoa
   CHANGE COLUMN pergunta6 pergunta6 text NULL;
+
+-- alterado para adiçao de fotos ao sistema.
+CREATE TABLE fotos (
+  fk_login int(11) NOT NULL,
+  name varchar(30) NOT NULL,
+  type varchar(30) NOT NULL,
+  size int(11) NOT NULL,
+  content mediumblob NOT NULL,
+  PRIMARY KEY  (fk_login),
+  CONSTRAINT fotos_ibfk_1 FOREIGN KEY (fk_login) REFERENCES login (id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ 
