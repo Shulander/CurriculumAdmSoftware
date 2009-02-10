@@ -91,12 +91,16 @@ echo '<tr><td><a href="#" class="dica">Telefone Residencial:<span>Esse campo dev
 dddd-dddd, onde prefixo é o número do prefixo e d é um dígito(número)!</span></a></td>';
 echo '<td><input type="text" id="telResidencial" value="'.$telResidencial.'" NAME="telResidencial" 
 size="20" maxlength="16"></td></tr>';
-//Celular
+//----------------------------Celular---------------------------------
 echo '<tr><td><a href="#" class="dica">Celular: <span>Esse campo deve ter o formato (prefixo)dddd-dddd, 
 onde prefixo é o número do prefixo e d é um dígito(número)!</span></a><font class="erro">*</font></td>';
 echo '<td><input type="text" id="celular" name="celular" value="'.$celular.'" size="20" 
 maxlength="16"></td></tr>';
-//--------------
+//-----------------------------Foto-------------------------------------
+echo '<tr><td><a href="#" class="dica">Foto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp.</span></a><font class="erro">*</font></td>';
+echo '<td><input type="file" name="foto"></td></tr>';
+echo '<tr><td colspan="2"><center><img border="1" src="foto" width="100" height="120"></center></td></tr>';
+//--------
 echo '</table><br />';
 echo '<center>';
 echo '<table cellpadding="15">';
