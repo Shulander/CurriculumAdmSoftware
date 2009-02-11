@@ -131,6 +131,26 @@ class Usuario
 		}
 	}
 	
+	public function setPagoBD ()
+	{
+		//verifica se o campo id esta preenchido
+		if(empty($this->id)) {
+			return "É necessário preencher o campo id!";			
+		}
+		//verifica se existe conexao do banco de dados
+		if($this->conexaoBD == false) {
+			return "Erro de sistema! Contate o administrador do sistema!";	
+		}
+		$sql = "UPDATE login SET pago='".$this->pago."' WHERE id=".$this->id;
+		mysql_query($sql, $this->conexaoBD->getLink());
+		$result = mysql_affected_rows();
+		if ($result == 1) {
+			return "sucesso";
+		} else {
+			return "Erro ao setar o pagamento do inscrito!";		
+		}
+	}
+
 	function buscaPorEmail ()
 	{
 		if (empty($this->email)) {
