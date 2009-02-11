@@ -209,6 +209,82 @@ class Validador
 		return true;
 	}
 	
+	//Data valida: dd/mm/aaaa
+	function isData2 ($campo)
+	{
+		$this->setErro (null);
+		/*----------Erros--------------*/
+		$erroFormatoData = "A data deve possuir o formato 'dd/mm/aaaa'!";
+		$erroDataMenor = "A data deve ser posterior a data atual!";
+		/*------------------------------*/
+		$tamCampo = strlen ($campo);
+		//testa se o campo data tem 10 caracteres
+		if ($tamCampo != 10) {
+			$this->setErro ($erroFormatoData);
+			return false;
+		}
+		//determina o numero de '/' na variavel campo
+		$numBarras = substr_count ($campo, "/");
+		if ($numBarras != 2) {
+			$this->setErro ($erroFormatoData);
+			return false;
+		}
+		$data = explode("/", $campo);
+		if (is_array ($data)) {
+			$tamanhoArrayData = count($data);
+		} else {
+			$this->setErro ($erroFormatoData);
+			return false;
+		}
+		if ($tamanhoArrayData != 3) {
+			$this->setErro ($erroFormatoData);
+			return false;
+		} 
+		$dia = $data[0];
+		$mes = $data[1];
+		$ano = $data[2];
+		if (!is_numeric ($dia)) { 
+			$this->setErro ("O valor do dia deve ser numérico!");
+			return false;
+		}
+		if (!is_numeric($mes)) {
+			$this->setErro ("O valor do mês deve ser numérico!");
+			return false;
+		}
+		if (!is_numeric($ano)) {
+			$this->setErro ("O valor do ano deve ser numérico!");
+			return false;
+		}
+		if (!checkdate($mes, $dia, $ano)) {
+			$this->setErro ("Data inválida!");
+			return false;
+		}
+		if ($ano < 1900) {
+			$this->setErro ("Ano inválido!");
+			return false;
+		}
+		$hoje = getdate();
+		$diaAtual = $hoje['mday'];
+		$mesAtual = $hoje['mon'];
+		$anoAtual = $hoje['year'];
+		if ($ano < $anoAtual) {
+			$this->setErro ($erroDataMenor);
+			return false;
+		} else if ($anoAtual == $ano) {
+			if ($mes < $mesAtual) {
+				$this->setErro ($erroDataMenor);
+				return false;
+			} else if ($mesAtual == $mes) {
+				if ($dia < $diaAtual) {
+					$this->setErro ($erroDataMenor);
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+
 	//formato: +dd(dd)dddd-dddd	
 	function isTelefone ($campo)
 	{
