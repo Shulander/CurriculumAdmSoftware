@@ -168,6 +168,8 @@ class Horario
 			return;
 		}
 		$sql = "SELECT id,tipo FROM horario WHERE data='".$this->data."' AND hora='".$this->hora."' AND area='".$this->area."' AND tipo='".$this->tipo."'"  ;
+		echo $sql;
+		exit ();
 		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
 		$numLinhas = mysql_num_rows ($resultado);
 		if ($numLinhas != 0) {
