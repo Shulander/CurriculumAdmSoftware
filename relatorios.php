@@ -23,7 +23,10 @@
 <li><a href="relatorioEPsInscritos.php">Relação de EPs inscritos</a></li>
 <li><a href="relatorioMembrosInscritos.php">Relação de membros inscritos</a></li>
 <li><a href="relatorioInscritosPorCurso.php">Relação de inscritos por curso</a></li>
+<li><a href="relatorioEPsInscritosPorCurso.php">Relação de EPs inscritos por curso</a></li>
+<li><a href="relatorioMembrosInscritosPorCurso.php">Relação de membros inscritos por curso</a></li>
 <li><a href="relatorioInscritosPago.php">Relação de inscritos com inscrição paga</a></li>
+<li><a href="relatorioEntrevistaArea.php">Relação de entrevistas por área</a></li>
 </ul>
 <center><a href="admin.php">Voltar para a página principal do módulo administrador</a></center>
 <!-- Rodape -->
