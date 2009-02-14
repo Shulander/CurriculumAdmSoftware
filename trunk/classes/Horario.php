@@ -180,5 +180,30 @@ class Horario
 			return false;	
 		}
 	}
+
+
+	/*Busca todos os horario de entrevistas marcados*/
+	function buscaHorariosEntrevistasMarcados ()
+	{
+		$sql = "SELECT * FROM horario WHERE disponivel='nao' ORDER BY data, hora";
+		$resultado = mysql_query($sql, $this->conexaoBD->getLink());
+		$numLinhas = mysql_num_rows ($resultado);
+		$horarios = array ();
+		if ($numLinhas != 0) {
+			while ($dados  = mysql_fetch_array ($resultado)) {
+				$horario = new Horario (0, $idLogin, 0, "", "", "", "", $conexaoBD);
+				$horario->setId ($dados['id']);
+				$horario->setTipo ($dados['tipo']);
+				$horario->setArea ($dados['area']);
+				$horario->setData ($dados['data']);
+				$horario->setHora ($dados['hora']);
+				$horario->setDisponivel ($dados['disponivel']);
+				$horarios[] = $horario;
+			}
+			return $horarios;
+		} else {
+			return 0;
+		}
+	}
 }
 ?>
