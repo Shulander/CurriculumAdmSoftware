@@ -34,12 +34,12 @@
 	echo "<hr>";
 	for ($i = 0; $i < $numCursos; $i++) {
 		echo '<h4><A NAME="'.$cursos[$i].'">'.$cursos[$i].'</A></h4>';
-		$sqlNome = "SELECT distinct nome from pessoa,expacademica WHERE pessoa.id=expacademica.idPessoa and expacademica.curso='".$cursos[$i]."' ORDER BY nome ASC";
+		$sqlNome = "SELECT distinct idLogin,nome from pessoa,expacademica WHERE pessoa.id=expacademica.idPessoa and expacademica.curso='".$cursos[$i]."' ORDER BY nome ASC";
 		$resultadoNome = mysql_query($sqlNome, $conexaoBD->getLink());
 		if ($resultadoNome != 0) {
 			echo '<ol class="normal">';
 			while ($dadosNome  = mysql_fetch_array ($resultadoNome)) {
-				echo "<li>".$dadosNome['nome']."</li>";
+				echo '<li><a href="http://localhost/Curriculo/fpdf/index.php?id='.$dadosNome['idLogin'].'">'.$dadosNome['nome'].'</a></li>';
 			}
 			echo "</ol>";
 			echo '<p align="right"><a href="#topo"><u>Topo</u></a></p>';

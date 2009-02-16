@@ -13,14 +13,14 @@
 		header("Location:relatorios.php?aviso=".$aviso);
 		exit();
 	}
-	$sql = "SELECT nome FROM pessoa,login WHERE login.id=pessoa.idLogin and login.tipo<>'admin' ORDER BY nome ASC";
+	$sql = "SELECT idLogin, nome FROM pessoa,login WHERE login.id=pessoa.idLogin and login.tipo<>'admin' ORDER BY nome ASC";
 	$resultado = mysql_query($sql, $conexaoBD->getLink());
 	$numLinhas = mysql_num_rows ($resultado);
 
 	if ($resultado != 0) {
 		echo '<ol class="normal">';
 		while ($dados  = mysql_fetch_array ($resultado)) {
-			echo "<li>".$dados['nome']."</li>";
+			echo '<li><a href="http://localhost/Curriculo/fpdf/index.php?id='.$dados['idLogin'].'">'.$dados['nome'].'</a></li>';
 		}
 		echo "</ol>";
 		echo "<center>Total de inscritos: ".$numLinhas."</center>";
