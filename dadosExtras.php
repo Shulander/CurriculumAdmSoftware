@@ -124,11 +124,11 @@ if (!$conexaoBD->conecta()) {
 							'radio' => 1,
 							'sala_de_aula' => 1,
 							'Outro' => 1);
-						$pergunta1 = ($pergunta1=='nao'?$pessoa->getPergunta1():$pergunta1);
-						$pergunta2 = ($pergunta2=='Não pretendo'?$pessoa->getPergunta2():$pergunta2);						
-						$pergunta3 = ($pergunta3=='nao'?$pessoa->getPergunta3():$pergunta3);
-						$pergunta4 = (empty($pergunta4)?$pessoa->getPergunta4():$pergunta4);
-						$pergunta5 = (empty($pergunta5)?array_flip(explode(",", $pessoa->getPergunta5())):$pergunta5);
+						$pergunta1 = ($pergunta1=='nao'&&$pessoa->getPergunta1()!=''?$pessoa->getPergunta1():$pergunta1);
+						$pergunta2 = ($pergunta2=='Não pretendo'&&$pessoa->getPergunta2()!=''?$pessoa->getPergunta2():$pergunta2);						
+						$pergunta3 = ($pergunta3=='nao'&&$pessoa->getPergunta3()!=''?$pessoa->getPergunta3():$pergunta3);
+						$pergunta4 = (empty($pergunta4)&&$pessoa->getPergunta4()!=''?$pessoa->getPergunta4():$pergunta4);
+						$pergunta5 = (empty($pergunta5)&&$pessoa->getPergunta5()!=''?array_flip(explode(",", $pessoa->getPergunta5())):$pergunta5);
 						$pergunta6 = (empty($pergunta6)?array_flip(explode(",", $pessoa->getPergunta6())):$pergunta6);
 						
 						$recomendador = (empty($recomendador)?$pessoa->getRecomendador():$recomendador);
