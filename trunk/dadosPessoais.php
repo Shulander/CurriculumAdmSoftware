@@ -19,65 +19,17 @@
 	} else {
 		$nome = "";
 	}
-	//testa se a variavel nacionalidade existe
-	if(isset($_REQUEST['nacionalidade'])) {
-		$nacionalidade = $_REQUEST['nacionalidade'];	
-	} else {
-		$nacionalidade = "";
-	}
-	//testa se a variavel nacionalidade existe
-	if(isset($_REQUEST['nacionalidadeEstrangeira'])) {
-		$nacionalidadeEstrangeira = $_REQUEST['nacionalidadeEstrangeira'];	
-	} else {
-		$nacionalidadeEstrangeira = "";
-	}
 	//testa se a variavel dataNascimento existe
 	if(isset($_REQUEST['dataNascimento'])) {
 		$dataNascimento = $_REQUEST['dataNascimento'];	
 	} else {
 		$dataNascimento = "";
 	}
-	//testa se a variavel endereco existe
-	if(isset($_REQUEST['estadoCivil'])) {
-		$estadoCivil = $_REQUEST['estadoCivil'];	
-	} else {
-		$estadoCivil = "";
-	}
 	//testa se a variavel sexo existe
 	if(isset($_REQUEST['sexo'])) {
 		$sexo = $_REQUEST['sexo'];	
 	} else {
 		$sexo = "";
-	}
-	//testa se a variavel endereco existe
-	if(isset($_REQUEST['endereco'])) {
-		$endereco = $_REQUEST['endereco'];	
-	} else {
-		$endereco = "";
-	}
-	//testa se a variavel numero existe
-	if(isset($_REQUEST['numero'])) {
-		$numero = $_REQUEST['numero'];	
-	} else {
-		$numero = "";
-	}
-	//testa se a variavel complemento existe
-	if(isset($_REQUEST['complemento'])) {
-		$complemento = $_REQUEST['complemento'];	
-	} else {
-		$complemento = "";
-	}
-	//testa se a variavel bairro existe
-	if(isset($_REQUEST['bairro'])) {
-		$bairro = $_REQUEST['bairro'];	
-	} else {
-		$bairro = "";
-	}
-	//testa se a variavel cep existe
-	if(isset($_REQUEST['cep'])) {
-		$cep = $_REQUEST['cep'];	
-	} else {
-		$cep = "";
 	}
 	//testa se a variavel cidade existe
 	if(isset($_REQUEST['cidade'])) {
@@ -121,6 +73,24 @@
 	} else {
 		$email = "";
 	}
+	//testa se a variavel msn existe
+	if(isset($_REQUEST['msn'])) {
+		$msn = $_REQUEST['msn'];	
+	} else {
+		$msn = "";
+	}
+	//testa se a variavel orkut existe
+	if(isset($_REQUEST['orkut'])) {
+		$orkut = $_REQUEST['orkut'];	
+	} else {
+		$orkut = "";
+	}
+	//testa se a variavel email existe
+	if(isset($_REQUEST['email'])) {
+		$email = $_REQUEST['email'];	
+	} else {
+		$email = "";
+	}
 	//testa se a variavel tipo existe
 	if(isset($_REQUEST['tipo'])) {
 		$tipo = $_REQUEST['tipo'];	
@@ -129,38 +99,27 @@
 	}
 ?>
 <!-- Sub-titulo -->
-<h3>Dados Pessoais</h3>
+<h3><u>Passo 1:</u> Dados Pessoais</h3>
 <?php
 if(!empty($aviso)) {
 	echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
 }
+
 $conexaoBD = new BancoDados ();
+//verifica se a conexao ao banco de dados ocorreu corretamente
 if (!$conexaoBD->conecta()) {
-	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
+	echo '<ul class="erro"><li>Erro de sistema (1)! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) {
-			echo '<ul class="ajuda"><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
-			//editar dados pessoais
 			$result = $pessoa->busca();
 			if ($result == true) {
 				if (empty ($aviso)) {
-					$nome = $pessoa->getNome ();
-					$nacionalidade = $pessoa->getNacionalidade();
-					if ($nacionalidade != "Brasileira") {
-						$nacionalidadeEstrangeira = $nacionalidade;
-						$nacionalidade = "Estrangeira"; 
-					}
+					$nome = $pessoa->getNome ();				
 					$dataNascimento = $pessoa->converteDataNascimento();
 					$sexo = $pessoa->getSexo();
-					$estadoCivil = $pessoa->getEstadoCivil();
-					$endereco = $pessoa->getEndereco();
-					$numero = $pessoa->getNumero();
-					$complemento = $pessoa->getComplemento();
-					$bairro = $pessoa->getBairro();
-					$cep = $pessoa->getCep();
 					$cidade = $pessoa->getCidade ();
 					if ($cidade == "Outra") {
 						$cidadeOutra = $pessoa->getCidade(); 
@@ -171,21 +130,93 @@ if (!$conexaoBD->conecta()) {
 					}
 					$telResidencial = $pessoa->getTelResidencial();
 					$celular = $pessoa->getCelular();
+					$msn = $pessoa->getMsn();
+					$orkut = $pessoa->getOrkut();
+				} else {
+					echo '<ul class="erro"><li>Erro de sistema (2)! Contate o administrador do sistema!</li></ul>';
 				}
-				$pagina = "dadosPessoaisEditaBD.php";
-				include ("dadosPessoaisForm.php");
 			} else {
-				echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
+					echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';
 			}
-		} else {
-			//cadastrar dados pessoais
-			$pagina = "dadosPessoaisInsereBD.php";
-			include ("dadosPessoaisForm.php");
-		}	
+		}
 	} else {
-		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
+		echo '<ul class="erro"><li>Erro de sistema (4)! Contate o administrador do sistema!</li></ul>';
 	}
 }
+
+echo '<form action="dadosPessoaisBD.php" method="POST" enctype="multipart/form-data">';
+echo '<table class="tabela">';
+//-------------Nome---------------
+echo '<tr><td>Nome:<font class="erro">*</font></td>';
+echo '<td><input type="text" id="nome" name="nome" value="'.$nome.'" size="50" maxlength="50"></td></tr>';
+//----------Data de Nascimento---------
+echo '<tr><td><a href="#" class="dica">Data de Nascimento:<span>Esse campo deve ter o formato dd/mm/aaaa!</span>
+</a><font class="erro">*</font>&nbsp;&nbsp;</td>';
+echo '<td><input type="text" value="'.$dataNascimento.'" readonly id="dataNascimento" name="dataNascimento" size="10" maxlength="10">
+<input type="button" value="Calendário" onClick=displayCalendar(document.forms[0].dataNascimento,"dd/mm/yyyy",this)>';
+echo '</td></tr>';
+echo '<tr></tr>';
+//----------Sexo----------------------
+echo '<tr><td>Sexo:<font class="erro">*</font></td>';
+echo '<td><select id="sexo" name="sexo">';
+echo '<option value="0"> -- Selecione -- </option>';
+echo '<option value="Feminino" '.($sexo == "Feminino"?'selected="selected"':"").'>Feminino</option>';
+echo '<option value="Masculino" '.($sexo == "Masculino"?'selected="selected"':"").'>Masculino</option>';
+echo '</select></td></tr>';
+//--------------------------Cidade------------------------------
+echo '<tr><td>Cidade: <font class="erro">*</font></td>';
+echo '<td><select id="cidade" name="cidade" onchange="
+if(this.options[this.selectedIndex].value==\'Outra\') { 
+	blocoAbre($(\'blocoOutra\')); 
+} else { blocoFecha($(\'blocoOutra\')); }
+">';
+echo '<option value="Santa Maria" '.($cidade == "Santa Maria"?'selected="selected"':"").'>Santa Maria</option>';
+echo '<option value="Outra" '.($cidade == "Outra"?'selected="selected"':"").'>Outra</option>';
+echo '</select><span id="blocoOutra" '.($cidade == "Outra"?'':'style="display:none"').'>
+&nbsp;&nbsp;<input type="text" name="cidadeOutra" id="cidadeOutra" 
+value="'.$cidadeOutra.'" size="30" maxlength="30"/></span></td></tr>';
+echo '</td></tr>';
+//------------------------Estado---------------------------------
+echo '<tr><td>Estado: <font class="erro">*</font></td>';
+echo '<td><select id="estado" name="estado" onchange="
+if(this.options[this.selectedIndex].value==\'Outro\') { 
+	blocoAbre($(\'blocoOutro\')); 
+} else { blocoFecha($(\'blocoOutro\')); }
+">';
+echo '<option value="RS" '.($estado == "RS"?'selected="selected"':"").'>Rio Grande do Sul</option>
+<option value="Outro" '.($estado == "Outro"?'selected="selected"':"").'>Outro</option>
+</select><span id="blocoOutro" '.($estado == "Outro"?'':'style="display:none"').'>
+<input type="text" name="estadoOutro" id="estadoOutro" 
+value="'.$estadoOutro.'" size="27" maxlength="50"/></span></td></tr>';
+//---------------------Telefone Residencial-------------------------
+echo '<tr><td><a href="#" class="dica">Telefone Residencial:<span>Esse campo deve ter o formato(prefixo) 
+dddd-dddd, onde prefixo é o número do prefixo e d é um dígito(número)!</span></a></td>';
+echo '<td><input type="text" id="telResidencial" value="'.$telResidencial.'" NAME="telResidencial" 
+size="20" maxlength="16"></td></tr>';
+//----------------------------Celular---------------------------------
+echo '<tr><td><a href="#" class="dica">Celular: <span>Esse campo deve ter o formato (prefixo)dddd-dddd, 
+onde prefixo é o número do prefixo e d é um dígito(número)!</span></a><font class="erro">*</font></td>';
+echo '<td><input type="text" id="celular" name="celular" value="'.$celular.'" size="20" 
+maxlength="16"></td></tr>';
+//-----------------------------Foto-------------------------------------
+echo '<tr><td><a href="#" class="dica">Foto de rosto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp. A foto a ser anexada <u>deve ser obrigatoriamente</u> uma foto de <b>rosto</b>!</span></a><font class="erro">*</font></td>';
+echo '<input type="hidden" name="MAX_FILE_SIZE" value="2000000">';
+echo '<td><input type="file" name="foto"></td></tr>';
+echo '<tr><td colspan="2"><center><img src="foto.php?id='.$_SESSION['idLogin'].'" width="100" height="120"></center></td></tr>';
+//------------------------------MSN-------------------------------------
+echo '<tr><td><a href="#" class="dica">MSN:<span>Esse campo deve ser preenchido com um e-mail válido!</span> </a><font class="erro">*</font></td>';
+echo '<td><input name="msn" id="msn" value="'.$msn.'" type="text" size="30" maxlength="30" /></td></tr>';
+//------------------------------ORKUT-------------------------------------
+echo '<tr><td><a href="#" class="dica">Perfil do orkut:<span>Esse campo deve ser preenchido com um link válido!</span></a></td>';
+echo '<td><input name="orkut" id="orkut" value="'.$orkut.'" type="text" size="50" maxlength="200" /></td></tr>';
+//--------
+echo '</table><br />';
+echo '<center>';
+echo '<table cellpadding="15">';
+echo '<tr><td><input type=Submit value="Ir para o próximo passo" /></form></td>';
+echo '</table>';
+echo '</center>';
+echo '<ul class="ajuda"><li>Os campos marcados com asterisco (<font class="erro">*</font>) são obrigatórios!</li></ul>';
 //---------------Rodape-------------------
 include ("rodape.php"); 
 ?>

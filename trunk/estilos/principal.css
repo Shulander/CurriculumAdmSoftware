@@ -1,6 +1,6 @@
 .topo
 {
-	background-image: url(../imagens/Header.gif);
+	background-image: url(../imagens/Logo.jpg);
 	background-position: center;
 	border-color: #002F99;
 	border-style: groove;
@@ -8,8 +8,9 @@
 	text-align: center;
 	width: 782px;
 	height: 95px;
+	background-color: white;
 	background-repeat: no-repeat;
-	background-color: #FF9933;
+
 }
 
 p
@@ -168,8 +169,9 @@ th
 
 body
 {
-	background-color: #DFE1FF;
+	background-color: White;
 	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 
@@ -208,11 +210,6 @@ a:hover {
 	text-align: center;
 }
 
-.intercambista
-{
-	font-size: larger;
-	font-weight: bold;
-}
 
 .item
 {
@@ -221,10 +218,6 @@ a:hover {
 	text-align: center;	
 }
 
-.membro
-{
-	font-size: smaller;
-}
 
 .sucesso
 {
@@ -252,7 +245,7 @@ a:hover {
 a.dica
 {
 	position: relative;
-	font-family: "Times New Roman", Times, serif;
+	font-family: Arial, Helvetica, sans-serif;
 	padding: 0;
 	color: #002F99;
 	text-decoration: none;

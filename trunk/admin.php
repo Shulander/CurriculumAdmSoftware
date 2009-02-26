@@ -1,8 +1,8 @@
 <?php 
 	require_once ("utils/sessao.php");
 	include ("cabecalho.php");
-	restritoUsuario ();	
-	$idLogin = $_SESSION['idLogin'];				
+	restritoAdministrador ();	
+	$idLogin = $_SESSION['idLogin'];
 ?>
 <!-- Sub-titulo -->
 <h3>Módulo Administrador</h3>

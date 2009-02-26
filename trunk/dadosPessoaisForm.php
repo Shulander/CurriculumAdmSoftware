@@ -1,27 +1,9 @@
 <?php
-echo '<form action="'.$pagina.'" method="POST" enctype="multipart/form-data"
-onsubmit="return verificaFormDadosPessoais($(\'nome\'), $(\'nacionalidade\'), $(\'nacionalidadeEstrangeira\'), 
-$(\'dataNascimento\'), $(\'sexo\'), $(\'estadoCivil\'), $(\'endereco\'), $(\'numero\'), $(\'cep\'), $(\'cidade\'), 
-$(\'cidadeOutra\'), $(\'estado\'), $(\'estadoOutro\'), $(\'celular\'));">';
+echo '<form action="'.$pagina.'" method="POST" enctype="multipart/form-data">';
 echo '<table class="tabela">';
 //-------------Nome---------------
 echo '<tr><td>Nome:<font class="erro">*</font></td>';
 echo '<td><input type="text" id="nome" name="nome" value="'.$nome.'" size="50" maxlength="50"></td></tr>';
-//-------------Nacionalidade-------
-echo '<tr><td>Nacionalidade:<font class="erro">*</font></td>';
-echo '<td><select id="nacionalidade" name="nacionalidade" onchange="
-if(this.options[this.selectedIndex].value==\'Estrangeira\') { 
-	blocoAbre($(\'blocoEstrangeira\')); 
-} else { blocoFecha($(\'blocoEstrangeira\')); }
-">';
-echo '<option value="0"> -- Selecione -- </option>';
-echo '<option value="Brasileira" '.($nacionalidade == "Brasileira"?'selected="selected"':"").'>
-Brasileira</option>';
-echo '<option value="Estrangeira" '.($nacionalidade == "Estrangeira"?'selected="selected"':"").'>
-Estrangeira</option>';
-echo '</select><span id="blocoEstrangeira" '.($nacionalidade == "Estrangeira"?'':'style="display:none"').'>
-&nbsp;&nbsp;&nbsp;<input type="text" name="nacionalidadeEstrangeira" id="nacionalidadeEstrangeira" 
-value="'.$nacionalidadeEstrangeira.'" size="30" maxlength="30"/></span></td></tr>';
 //----------Data de Nascimento---------
 echo '<tr><td><a href="#" class="dica">Data de Nascimento:<span>Esse campo deve ter o formato dd/mm/aaaa!</span>
 </a><font class="erro">*</font>&nbsp;&nbsp;</td>';
@@ -37,7 +19,7 @@ echo '<option value="Feminino" '.($sexo == "Feminino"?'selected="selected"':"").
 echo '<option value="Masculino" '.($sexo == "Masculino"?'selected="selected"':"").'>Masculino</option>';
 echo '</select></td></tr>';
 //----------Estado civil----------------------
-echo '<tr><td>Estado civil:<font class="erro">*</font></td>';
+/*echo '<tr><td>Estado civil:<font class="erro">*</font></td>';
 echo '<td><select id="estadoCivil" name="estadoCivil">';
 echo '<option value="0"> -- Selecione -- </option>';
 echo '<option value="Solteiro" '.($estadoCivil == "Solteiro"?'selected="selected"':"").'>Solteiro</option>';
@@ -45,13 +27,13 @@ echo '<option value="Casado" '.($estadoCivil == "Casado"?'selected="selected"':"
 echo '<option value="Viúvo" '.($estadoCivil == "Viúvo"?'selected="selected"':"").'>Viúvo</option>';
 echo '<option value="Separado" '.($estadoCivil == "Separado"?'selected="selected"':"").'>Separado</option>';
 echo '<option value="Divorciado" '.($estadoCivil == "Divorciado"?'selected="selected"':"").'>Divorciado</option>';
-echo '</select></td></tr>';
+echo '</select></td></tr>';*/
 //----------Endereco-------------------
-echo '<tr><td>Endereço:<font class="erro">*</font></td>';
+/*
+echo '<tr><td>Endereço:</td>';
 echo '<td><input type="text" id="endereco" name="endereco" value="'.$endereco.'" size="50" maxlength="50"></td></tr>';
 //Numero
-echo '<tr><td><a href="#" class="dica">Número: <span>Esse campo só aceita valores numéricos!</span></a>
-<font class="erro">*</font></td>';
+echo '<tr><td><a href="#" class="dica">Número: <span>Esse campo só aceita valores numéricos!</span></a></td>';
 echo '<td><input type="text" id="numero" name="numero" value="'.$numero.'" size="10" maxlength="10"></td></tr>';
 //Complemento
 echo '<tr><td>Complemento: </td><td><input type="text" id="complemento" value="'.$complemento.'" 
@@ -60,7 +42,8 @@ name="complemento" size="50" maxlength="50"></td></tr>';
 echo '<tr><td>Bairro: </td><td><input type="text" id="bairro" value="'.$bairro.'" name="bairro" size="50" maxlength="50"></td></tr>';
 //Cep
 echo '<tr><td><a href="#" class="dica">CEP: <span>Esse campo só aceita valores numéricos!</span></a>
-<font class="erro">*</font></td><td><input type="text" id="cep" value="'.$cep.'" name="cep" size="8" maxlenght="8"></td></tr>';
+</td><td><input type="text" id="cep" value="'.$cep.'" name="cep" size="8" maxlenght="8"></td></tr>';
+*/
 //--------------------------Cidade------------------------------
 echo '<tr><td>Cidade: <font class="erro">*</font></td>';
 echo '<td><select id="cidade" name="cidade" onchange="
@@ -97,16 +80,22 @@ onde prefixo é o número do prefixo e d é um dígito(número)!</span></a><font clas
 echo '<td><input type="text" id="celular" name="celular" value="'.$celular.'" size="20" 
 maxlength="16"></td></tr>';
 //-----------------------------Foto-------------------------------------
-echo '<tr><td><a href="#" class="dica">Foto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp.</span></a><font class="erro">*</font></td>';
+echo '<tr><td><a href="#" class="dica">Foto de rosto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp. A foto a ser anexada <u>deve ser obrigatoriamente</u> uma foto de <b>rosto</b>!</span></a><font class="erro">*</font></td>';
 echo '<input type="hidden" name="MAX_FILE_SIZE" value="2000000">';
 echo '<td><input type="file" name="foto"></td></tr>';
 echo '<tr><td colspan="2"><center><img border="1" src="foto.php?id='.$_SESSION['idLogin'].'" width="100" height="120"></center></td></tr>';
+//------------------------------MSN-------------------------------------
+echo '<tr><td><a href="#" class="dica">MSN:<span>Esse campo deve ser preenchido com um e-mail válido!</span> </a><font class="erro">*</font></td>';
+echo '<td><input name="msn" id="msn" value="'.$msn.'" type="text" size="30" maxlength="30" /></td></tr>';
+//------------------------------ORKUT-------------------------------------
+echo '<tr><td><a href="#" class="dica">Perfil do orkut:<span>Esse campo deve ser preenchido com um link válido!</span></a></td>';
+echo '<td><input name="orkut" id="orkut" value="'.$orkut.'" type="text" size="30" maxlength="30" /></td></tr>';
 //--------
 echo '</table><br />';
 echo '<center>';
 echo '<table cellpadding="15">';
-echo '<tr><td><input type=Submit value="Salvar" /></form></td>';
-echo '<td><form action="principal.php"><input type="submit" value="Voltar"></form></td></tr>';
+echo '<tr><td><input type=Submit value="Ir para o próximo passo" /></form></td>';
+//echo '<td><form action="principal.php"><input type="submit" value="Voltar"></form></td></tr>';
 echo '</table>';
 echo '</center>';
 echo '<ul class="ajuda"><li>Os campos marcados com asterisco (<font class="erro">*</font>) são obrigatórios!</li></ul>';

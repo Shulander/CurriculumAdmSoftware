@@ -6,16 +6,16 @@
 	restritoUsuario();
 	$idLogin = $_SESSION['idLogin'] + 0;
 	$nome = $_POST['nome'];
-	$nacionalidade = $_POST['nacionalidade'];
-	$nacionalidadeEstrangeira = $_POST['nacionalidadeEstrangeira'];
+	/*$nacionalidade = $_POST['nacionalidade'];
+	$nacionalidadeEstrangeira = $_POST['nacionalidadeEstrangeira'];*/
 	$dataNascimento = $_POST['dataNascimento'];
 	$sexo = $_POST['sexo'];
-	$estadoCivil = $_POST['estadoCivil'];
-	$endereco = $_POST['endereco'];
+	/*$estadoCivil = $_POST['estadoCivil'];
+	/$endereco = $_POST['endereco'];
 	$numero = $_POST['numero'];
 	$complemento = $_POST['complemento'];
 	$bairro = $_POST['bairro'];
-	$cep = $_POST['cep'];
+	$cep = $_POST['cep'];*/
 	$cidade = $_POST['cidade'];
 	$cidadeOutra = $_POST['cidadeOutra'];
 	$estado = $_POST['estado'];
@@ -23,11 +23,12 @@
 	$telResidencial = $_POST['telResidencial'];
 	$celular = $_POST['celular'];
 	$conexaoBD = new BancoDados ();
-	$location = "&nome=".$nome."&nacionalidade=".$nacionalidade.
-		"&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira."&dataNascimento=".$dataNascimento."&sexo=".$sexo.
-		"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento.
-		"&bairro=".$bairro.	"&cep=".$cep."&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado.
-		"&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial."&celular=".$celular;
+	$location = "&nome=".$nome.
+	/*"&nacionalidade=".$nacionalidade."&nacionalidadeEstrangeira=".$nacionalidadeEstrangeira.*/
+	"&dataNascimento=".$dataNascimento."&sexo=".$sexo.
+	/*"&estadoCivil=".$estadoCivil."&endereco=".$endereco."&numero=".$numero."&complemento=".$complemento."&bairro=".$bairro."&cep=".$cep.*/
+	"&cidade=".$cidade."&cidadeOutra=".$cidadeOutra."&estado=".$estado."&estadoOutro=".$estadoOutro."&telResidencial=".$telResidencial.
+	"&celular=".$celular."&msn=".$msn."&orkut=".$orkut;
 	//verifica se a conexao ao banco de dados ocorreu corretamente
 	if (!$conexaoBD->conecta()) {
 		$aviso = "Erro de sistema! Contate o administrador do sistema!";
@@ -45,6 +46,7 @@
 		}
 	}
 	/*---------Nacionalidade-----------*/
+	/*
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($nacionalidade)) {
 			$aviso = "É necessário preencher o campo 'Nacionalidade'!";	
@@ -62,7 +64,7 @@
 				}
 			}
 		}
-	}
+	}*/
 	/*---------Data de Nascimento-----------*/	
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($dataNascimento)) {
@@ -98,20 +100,22 @@
 		}
 	}
 	/*---------Estado Civil------------*/
+	/*
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($estadoCivil)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Estado civil'!";	
 		}
-	}
+	}*/
 	/*------------Endereco----------------*/
-	if(is_null ($aviso)) {
+	/*if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($endereco)) {
 			$aviso = "É necessário preencher o campo 'Endereço'!";	
 		} else if (!$validador->comprimento($endereco, 50)) {
 			$aviso = "O campo 'Endereço' deve possuir no máximo 50 caracteres!";
 		}
-	}
+	}*/
 	/*------------Numero----------------*/
+	/*
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($numero)) {
 			$aviso = "É necessário preencher o campo 'Numero'!";	
@@ -120,24 +124,27 @@
 		} else if (!$validador->isNumero($numero)) {
 			$aviso = "O campo 'Número' deve possuir valor numérico!";
 		}
-	}
+	}*/
 	/*------------Complemento----------------*/
+	/*
 	if(is_null ($aviso)) {
 		if (!empty ($complemento)) {
 			if (!$validador->comprimento($complemento, 50)) {
 				$aviso = "O campo 'Complemento' deve possuir no máximo 50 caracteres!";
 			}
 		}
-	}
+	}*/
 	/*------------Bairro----------------*/
+	/*
 	if(is_null ($aviso)) {
 		if (!empty ($bairro)) {
 			if (!$validador->comprimento($bairro, 50)) {
 				$aviso = "O campo 'Bairro' deve possuir no máximo 50 caracteres!";
 			}
 		}
-	}
+	}*/
 	/*------------CEP----------------*/
+	/*
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido ($cep)) {
 			$aviso = "É necessário preencher o campo 'CEP'!";	
@@ -146,7 +153,7 @@
 		} else if (!$validador->isNumero($cep)) {
 			$aviso = "O campo 'CEP' deve possuir valor numérico!";
 		}
-	}
+	}*/
 	/*---------Cidade-----------*/
 	if(is_null ($aviso)) {
 		if (!$validador->isPreenchido($cidade)) {
@@ -205,6 +212,24 @@
 			$aviso = "Campo 'Telefone Residencial' inválido!";
 		}*/
 	}
+	/*------------MSN----------------*/
+	if(is_null ($aviso)) {		
+		if (!$validador->isPreenchido ($msn)) {
+			$aviso = "É necessário preencher o campo 'MSN'!";	
+		} else if (!$validador->comprimento($msn, 50)) {
+			$aviso = "O campo 'MSN' deve possuir no máximo 50 caracteres!";
+		} else if (!$validador->isEmail($msn)) {
+			$aviso = "Campo 'MSN' inválido!";
+		}
+	}	
+	/*------------Orkut----------------*/
+	if(is_null ($aviso)) {		
+		if (!$validador->isPreenchido ($orkut)) {
+			$aviso = "É necessário preencher o campo 'Perfil do Orkut'!";	
+		} else if (!$validador->comprimento($orkut, 50)) {
+			$aviso = "O campo 'Perfil do Orkut' deve possuir no máximo 200 caracteres!";
+		}
+	}
 	/*------------foto----------------*/
 	if(is_null ($aviso)) {	
 		if(isset($_FILES['foto']) && $_FILES['foto']['size'] >  0)
@@ -233,13 +258,17 @@
 				
 				mysql_query($query) or die('Error, query failed'. mysql_error());
 			}
+		} else {
+			//verifica se existe uma foto cadastrada
+
+			$aviso = "É necessário adicionar uma foto ao cadastro!";
 		}
 	}
 	/*----------Verifica se tem avisos----------*/
 	if (!is_null($aviso)) {
-		if (!empty ($nacionalidadeEstrangeira)) {
+		/*if (!empty ($nacionalidadeEstrangeira)) {
 			$nacionalidade = "estrangeira";
-		}
+		}*/
 		if (!empty ($cidadeOutra)) {
 			$cidade = "outra";
 		}
@@ -251,13 +280,13 @@
 	}
 
 	/*-----------Editar pessoa------------------*/
-	$pessoa = new Pessoa ($idLogin, $nome, $nacionalidade, $dataNascimentoBD, $sexo, $estadoCivil, $endereco, $numero,
-	$complemento, $bairro, $cep, $cidade, $estado, $telResidencial, $celular, 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, $nome, "", $dataNascimentoBD, $sexo, "", "", 0, "", "", 0, $cidade, $estado, $telResidencial,
+	$celular, $msn, $orkut, 0, $conexaoBD);
 	$aviso = $pessoa->edita();
 	if ($aviso != sucesso) {
-		if (!empty ($nacionalidadeEstrangeira)) {
+		/*if (!empty ($nacionalidadeEstrangeira)) {
 			$nacionalidade = "estrangeira";
-		}
+		}*/
 		if (!empty ($cidadeOutra)) {
 			$cidade = "outra";
 		}
@@ -268,5 +297,6 @@
 	} else {
 		header ("Location:dadosEducacionais.php?aviso=".$aviso);
 	}
+	$conexaoBD->desconecta ();
 	exit();
 ?>

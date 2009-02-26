@@ -4,6 +4,7 @@
 	include ("menu.php");
 	require_once ("utils/BancoDados.php");
 	require_once ("classes/Pessoa.php");
+	require_once ("classes/Usuario.php");
 	restritoUsuario ();
 	$idLogin = $_SESSION['idLogin'];
 	/*--------Testa variaveis ---------*/
@@ -13,9 +14,6 @@
 	} else {
 		$aviso = "";
 	}
-/*	echo '<pre>';
-	var_dump($_GET);
-	exit(0);*/
 	//testa se a variavel ingles existe
 	if(isset($_REQUEST['ingles'])) {
 		$ingles = $_REQUEST['ingles'];	
@@ -145,7 +143,7 @@
 	}		
 ?>
 <!-- Sub-titulo -->
-<h3>Habilidades</h3>
+<h3><u>Passo 3:</u> Habilidades</h3>
 <?php
 	if(!empty($aviso)) {
 		echo '<ul class="erro"><li>'.$aviso.'</li></ul>';							
@@ -155,10 +153,9 @@
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
-			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 			$resultado = $pessoa->buscaPorIdUsuario ();
 			if ($resultado == true) { //se pessoa foi cadastrada
-				echo '<ul class="ajuda"><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
 				//editar dados pessoais
 				$result = $pessoa->busca();
 				if ($result == true) {
@@ -179,10 +176,6 @@
 						$webdesign = (empty($webdesign)?$pessoa->getWebdesign():$webdesign);
 						$editorImagem = (empty($editorImagem)?$pessoa->getEditorImagem():$editorImagem);
 						$contabilidade = (empty($contabilidade)?array_flip(explode(",", $pessoa->getContabilidade())):$contabilidade);
-						/*echo count ($contabilidade);
-						for ($i = 0; $i < count ($contabilidade); $i++) {
-							echo $contabilidade[$i];
-						}*/
 						$administracao = (empty($administracao)?array_flip(explode(",", $pessoa->getAdministracao())):$administracao);
 						$economia = (empty($economia)?array_flip(explode(",", $pessoa->getEconomia())):$economia);
 						$financas = (empty($financas)?array_flip(explode(",", $pessoa->getFinancas())):$financas);
@@ -307,6 +300,14 @@
 						echo '</table><br />';
 						echo '<hr />';
 						//-------------contabilidade----------------------
+						$usuario = new Usuario ("", "", "", $conexaoBD, $idLogin);
+						$usuario->busca ();
+						if ($usuario->getTipo () == "membro") {
+							echo '<h4>ATENÇÃO: </h4>';
+							echo "<center>Os próximos dados não são de preenchimento obrigatório. <br />
+							Caso você tenha algum conhecimento acadêmico e/ou profissional em alguma das áreas abaixo listadas, selecione a respectiva área. Estes dados não servirão como critério eliminatório.<br /></center>";
+							echo '<hr />';
+						}
 						echo '<h4>Contabilidade</h4>';
 						echo '<table class="tabela">';
 						echo '<tr><td><input type="checkbox" id="auditoria" name="contabilidade[]" value="Auditoria" '.(isset($contabilidade["Auditoria"])?'CHECKED="CHECKED"':"").'>Auditoria </td><td></td></tr>';
@@ -403,10 +404,7 @@
 						echo '<tr><td><input type="checkbox" id="cienciasocial" name="outrosEstudos[]" value="Ciência Social" '.(isset($outrosEstudos["Ciência Social"])?'CHECKED="CHECKED"':"").'>Ciências Sociais</td><td></td></tr>';
 						echo '</table><br />';
 						echo '<center>';
-						echo '<table cellpadding="15">';
-						echo '<tr><td><input type=Submit value="Salvar" /></form></td>';
-						echo '<td><form action="principal.php"><input type="submit" value="Voltar"></form></td></tr>';
-						echo '</table>';
+						echo '<input type=Submit value="Ir para o próximo passo" /></form>';
 						echo '</center>';
 						echo '<ul class="ajuda"><li>Os campos marcados com asterisco (<font class="erro">*</font>) são obrigatórios!</li></ul>';	
 					}
@@ -414,7 +412,7 @@
 					echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 				}
 			} else { //pessoa ainda nao foi cadastrada
-				echo '<ul class="aviso"><li>Para inserir ou editar uma experiência, é necessário cadastrar seus
+				echo '<ul class="aviso"><li>Para inserir ou editar habilidades, é necessário cadastrar seus
 				dados pessoais. Clique <a href="dadosPessoais.php">aqui</a>.</li></ul>';	
 			}
 		} else {

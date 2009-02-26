@@ -75,7 +75,7 @@
 	}				
 ?>
 <!-- Sub-titulo -->
-<h3>Pesquisa de Imagem</h3>
+<h3><u>Passo 5:</u> Pesquisa de Imagem</h3>
 <?php
 if(!empty($aviso)) {
 	if ($aviso == "sucesso") {
@@ -89,10 +89,9 @@ if (!$conexaoBD->conecta()) {
 	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 		$resultado = $pessoa->buscaPorIdUsuario ();
-		if ($resultado == true) { //se pessoa foi cadastrada
-			echo '<ul class="ajuda"><li>Seus dados já foram cadastrados. Para editá-los, modifique o formulário abaixo.</li></ul> '; 
+		if ($resultado == true) { //se pessoa foi cadastrada			
 				//editar dados pessoais
 				$result = $pessoa->busca();
 				if ($result == true) {
@@ -129,8 +128,8 @@ if (!$conexaoBD->conecta()) {
 						$pergunta3 = ($pergunta3=='nao'&&$pessoa->getPergunta3()!=''?$pessoa->getPergunta3():$pergunta3);
 						$pergunta4 = (empty($pergunta4)&&$pessoa->getPergunta4()!=''?$pessoa->getPergunta4():$pergunta4);
 						$pergunta5 = (empty($pergunta5)&&$pessoa->getPergunta5()!=''?array_flip(explode(",", $pessoa->getPergunta5())):$pergunta5);
-						$pergunta6 = (empty($pergunta6)?array_flip(explode(",", $pessoa->getPergunta6())):$pergunta6);
-						
+						$pergunta6 = (empty($pergunta6)&&$pessoa->getPergunta6()!=""?array_flip(explode(",", $pessoa->getPergunta6())):$pergunta6);
+
 						$recomendador = (empty($recomendador)?$pessoa->getRecomendador():$recomendador);
 						// esquema para funcionar a opcao outro no cadastro
 						if(!empty($pergunta5) && empty($outro2)) {
@@ -145,13 +144,15 @@ if (!$conexaoBD->conecta()) {
 						// esquema para funcionar a opcao outro no cadastro
 						if(!empty($pergunta6) && empty($outro3)) {
 							foreach ($pergunta6 as $key => $value) {
-								if(!isset($respostasPergunta6[$key])){
+								$value = trim($value);
+								if(!isset($respostasPergunta6[$key]) && strlen($value)>0){
 									unset ($pergunta6[$key]);
 									$pergunta6['Outro'] = $value;
 									$outro3 = $key;
 								}
 							}
 						}
+
 						echo '<form action="dadosExtrasBD.php" method="POST">';
 						//-------------Pergunta 1---------------
 						echo '<ol class="normal">';
@@ -259,10 +260,7 @@ if (!$conexaoBD->conecta()) {
 						echo '</ol>';
 						//--------------
 						echo '<center>';
-						echo '<table cellpadding="15">';
-						echo '<tr><td><input type=Submit value="Salvar" /></form></td>';
-						echo '<td><form action="principal.php"><input type="submit" value="Voltar"></form></td></tr>';
-						echo '</table>';
+						echo '<input type=Submit value="Finalizar inscrição" /></form>';
 						echo '</center>';
 						echo '<ul class="ajuda"><li>Os campos marcados com asterisco (<font class="erro">*</font>) são obrigatórios!</li></ul>';						
 					}
@@ -270,7 +268,7 @@ if (!$conexaoBD->conecta()) {
 					echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 				}
 		} else { //pessoa ainda nao foi cadastrada
-			echo '<ul class="aviso"><li>Para inserir ou editar uma experiência, é necessário cadastrar seus
+			echo '<ul class="aviso"><li>Para inserir ou editar a pesquisa de imagem, é necessário cadastrar seus
 			dados pessoais. Clique <a href="dadosPessoais.php">aqui</a>.</li></ul>';	
 		}
 	} else {

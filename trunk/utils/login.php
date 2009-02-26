@@ -22,7 +22,7 @@
 	$sql = "SELECT tipo,id as idLogin FROM login WHERE email LIKE '".$email."' AND senha LIKE '".md5($senha)."'";
 	$result = mysql_query($sql, $conexao->getLink());
 	if (mysql_num_rows ($result)!= 1){
-		$aviso = "Erro de login! Os campos usuário e/ou senha estão incorretos!";
+		$aviso = "Erro de login! Os campos e-mail e/ou senha estão incorretos!";
 		voltaParaPaginaInicial ($aviso);
 	}
 	//se chegou ate aqui, a conexao foi aceita
@@ -35,21 +35,22 @@
 	if ($conexao->getTipo() == "admin") {
 		$_SESSION['admin'] = true;
 		mysql_free_result($result);	
-		header("Location:../controle.php");
+		header("Location:../admin.php");
 		exit();
 	} else {
 		$_SESSION['admin'] = false;
 	}
 	mysql_free_result($result);	
+	$conexao->desconecta ();
 	header("Location:../principal.php");
 	exit();
 	
 	function voltaParaPaginaInicial ($aviso)
 	{
 		if (empty($aviso)) {
-			header("Location:../index.php");
+			header("Location:../tela_login.php");
 		} else {
-			header("Location:../index.php?aviso=".$aviso);			
+			header("Location:../tela_login.php?aviso=".$aviso);			
 		}
 		exit();
 	}
