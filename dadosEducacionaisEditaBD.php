@@ -27,7 +27,7 @@
 		exit();
 	}
 	//Busca idPessoa
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 	$resultado = $pessoa->busca();
 	if ($resultado == true) {
 		$idPessoa = $pessoa->getId ();
@@ -140,7 +140,7 @@
 		header("Location:dadosEducacionaisEdita.php?aviso=".$aviso.$location);
 		exit();
 	} else {
-		$aviso = "sucesso";
+		$aviso = "sucesso2";
 		header ("Location:dadosEducacionais.php?aviso=".$aviso);
 	}
 	exit();

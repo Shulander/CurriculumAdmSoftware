@@ -12,7 +12,7 @@
 		header("Location:dadosProfissionais.php?aviso=".$aviso);
 		exit();
 	}
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 	$result = $pessoa->alteraDadosProfissionaisBD (1);
 	if ($result == "sucesso") {
 		header ("Location:dadosExtras.php");

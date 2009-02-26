@@ -52,40 +52,23 @@
 ?>
 <li>Instruções
 	<ul>
-	<li>Para preencher a sua inscrição clique em "Preencher dados" para participar da palestra de apresentação 
-	sobre a AIESEC.</li>
-	<li>Você pode possuir três status: bloqueado/em espera/liberado. O status bloqueado indica que os dados iniciais para a 
-	participação da palestra de apresentação ainda não foram preenchidos. O status "em espera" indica que você já preencheu 
-	os dados mas ainda não pagou a taxa de inscrição e o status liberado indica que você já fez os passos anteriores e está 
-	esperando para marcar a entrevista ou o resultado do processo.</li>
-	<li>Após a palestra apresentação, caso você deseje continuar participando do processo seletivo, é necessário
-	pagar a taxa de inscrição no valor de R$ 5,00 (cinco reais). Então você poderá marcar a entrevista no horário 
-	que lhe melhor convier 	dentre os disponíveis pelo sistema. Para isso, clique em "Marcar entrevista". O botão 
-	marcar entrevista estará liberado assim que for registrado o pagamento da taxa de inscrição.</li>
-	<li><u>ATENÇÃO:</u> No dia da palestra de apresentação <B>NÃO</B> será necessário levar o currículo impresso!<!-- 
-	(o botão "Imprimir currículo" estará disponível assim que todos os dados estiverem preenchidos. Não esqueça de levar 
-	uma foto 3x4 ou digitalizada.--></li>
+	<li>Para iniciar sua inscrição para o processo seletivo 2009 clique em "INSCREVA-SE  AQUI". A primeira etapa do processo consiste em uma palestra de apresentação sobre a AIESEC.</li>
+	<li>ATENÇÃO: No dia da palestra de apresentação NÃO é necessário levar o currículo impresso!!</li>
 	<li>Caso tenha quaisquer dúvidas, entrar em contato através do email <a href="mailto:aiesecsmpsel@gmail.com">
 	aiesecsmpsel@gmail.com</a>.</li>
 	</ul>
 </li>
 </ul>
 <br/>
-<hr>
-<p>
-Status: 
+<center><form action="dadosPessoais.php">
 <?php
-	if ($pago == 1 && $dadosPreenchidos == 1) { 
-		echo "<font class='sucesso'>Liberado</font>"; 
-	} else if ($dadosPreenchidos == 1) { 
-		echo "<font class='aviso'>Em espera</font>"; 
-	} else { 
-		echo "<font class='erro'>Bloqueado</font>"; 
+	if ($dadosPreenchidos == 0) {
+		echo '<input type="submit" value="Inscreva-se aqui">';
+	} else {
+		echo '<input type="submit" value="Editar dados">';
 	}
 ?>
-<br/>
-</p>
-<center><form action="dadosPessoais.php"><input type="submit" value="Preencher dados"></form></center><br />
+</form></center><br />
 <center><form action="marcarEntrevista.php"><input type="submit" <?php if ($pago == 0) {  echo "disabled='disabled'"; } ?> value="Marcar entrevista"></form></center>
 <!-- Rodape -->
 <?php include ("rodape.php"); ?>

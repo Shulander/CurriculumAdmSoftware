@@ -2,6 +2,6 @@
 	require_once("sessao.php");
 	restritoUsuario();
 	session_destroy();	
-	header("Location:../index.php");
+	header("Location:../tela_login.php");
 	exit();	
 ?>

@@ -53,7 +53,7 @@ if (!$conexaoBD->conecta()) {
 	echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 } else {
 	if (isset($idLogin)) {
-		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 		$resultado = $pessoa->buscaPorIdUsuario ();
 		if ($resultado == true) { //se pessoa foi cadastrada
 			echo '<form action="dadosProfissionaisInsereBD.php" method="POST" name="dadosProfissionaisForm"

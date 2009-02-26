@@ -14,10 +14,14 @@
 		$aviso = "";
 	}
 	//titulo
-	echo '<h3>Formação Acadêmica</h3>';
+	echo '<h3><u>Passo 2:</u> Formação Acadêmica</h3>';
 	if(!empty($aviso)) {
 		if ($aviso == "sucesso") {
-			echo '<ul class="sucesso"><li>Alteração concluída com sucesso!</li></ul>';
+			echo '<ul class="sucesso"><li>Passo 1 concluído com sucesso!</li></ul>';
+		} else if ($aviso == "sucesso1") {
+			echo '<ul class="sucesso"><li>Formação acadêmica inserida com sucesso!</li></ul>';
+		} else if ($aviso == "sucesso2") {
+			echo '<ul class="sucesso"><li>Formação acadêmica editada com sucesso!</li></ul>';
 		} else {
 			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
 		}				
@@ -27,17 +31,16 @@
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
-			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 			$resultado = $pessoa->buscaPorIdUsuario ();
 			if ($resultado == true) { //se pessoa foi cadastrada
-				echo '<ul><li>Clique na opção desejada:';
+				echo '<ul><li>Clique na opção desejada (é necessário inserir pelo menos uma experiência acadêmica):';
 				echo '<ul>';
-				echo '<li><a href="dadosEducacionaisInsere.php">Inserir nova experiência acadêmica</a></li>';
+				echo '<li><a href="dadosEducacionaisInsere.php">Inserir experiência acadêmica</a></li>';
 				echo '<li><a href="dadosEducacionaisEdita.php">Editar experiência acadêmica existente</a></li>';
-				echo '<li><a href="habilidades.php">Ir para o próximo passo</a></li>';
 				echo '</ul>';
 				echo '</li></ul>';
-				echo '<center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
+				echo '<center><form action="habilidades.php"><input type="submit" value="Ir para o próximo passo"></form></center>';
 				echo '<br />';
 			} else { //pessoa ainda nao foi cadastrada
 				echo '<ul class="aviso"><li>Para inserir ou editar uma experiência, é necessário cadastrar seus

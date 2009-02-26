@@ -14,10 +14,14 @@
 		$aviso = "";
 	}
 	//titulo
-	echo '<h3>Experiência Profissional</h3>';
+	echo '<h3><u>Passo 4:</u> Experiência Profissional</h3>';
 	if(!empty($aviso)) {
 		if ($aviso == "sucesso") {
-			echo '<ul class="sucesso"><li>Alteração concluída com sucesso!</li></ul>';
+			echo '<ul class="sucesso"><li>Passo 3 concluído com sucesso!</li></ul>';
+		} else if ($aviso == "sucesso1") {
+			echo '<ul class="sucesso"><li>Experiência profissional inserida com sucesso!</li></ul>';
+		} else if ($aviso == "sucesso2") {
+			echo '<ul class="sucesso"><li>Experiência profissional editada com sucesso!</li></ul>';
 		} else {
 			echo '<ul class="erro"><li>'.$aviso.'</li></ul>';	
 		}				
@@ -27,18 +31,17 @@
 		echo '<ul class="erro"><li>Erro de sistema! Contate o administrador do sistema!</li></ul>';
 	} else {
 		if (isset($idLogin)) {
-			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD); 
+			$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 			$resultado = $pessoa->buscaPorIdUsuario ();
 			if ($resultado == true) { //se pessoa foi cadastrada
-				echo '<ul><li>Clique na opção desejada:';
+				echo '<ul><li>Clique na opção desejada (é obrigatório inserir uma experiência profissional ou informar que não tem nenhuma):';
 				echo '<ul>';
-				echo '<li><a href="dadosProfissionaisInsere.php">Inserir nova experiência profissional</a></li>';
+				echo '<li><a href="dadosProfissionaisInsere.php">Inserir experiência profissional</a></li>';
 				echo '<li><a href="dadosProfissionaisEdita.php">Editar experiência profissional existente</a></li>';
 				echo '<li><a href="dadosProfissionaisAusente.php">Não tenho experiência profissional</a></li>';
-				echo '<li><a href="dadosExtras.php">Ir para o próximo passo</a></li>';
 				echo '</ul>';
 				echo '</li></ul>';
-				echo '<center><form action="principal.php"><input type="submit" value="Voltar"></form></center>';
+				echo '<center><form action="dadosExtras.php"><input type="submit" value="Ir para o próximo passo"></form></center>';
 				echo '<br />';
 			} else { //pessoa ainda nao foi cadastrada
 				echo '<ul class="aviso"><li>Para inserir ou editar uma experiência, é necessário cadastrar seus

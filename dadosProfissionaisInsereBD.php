@@ -21,7 +21,7 @@
 		exit();
 	}
 	//Busca idPessoa
-	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+	$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 	$resultado = $pessoa->busca();
 	if ($resultado == true) {
 		$idPessoa = $pessoa->getId ();
@@ -38,6 +38,8 @@
 			if (!$validador->comprimento($empresa, 50)) {
 				$aviso = "O campo 'Empresa' deve possuir no máximo 50 caracteres!";
 			}
+		}  else {
+			$aviso = "É necessário preencher o campo 'Empresa'!";
 		}
 	}
 	/*------------Tipo----------------*/
@@ -96,7 +98,7 @@
 	} else {
 		$result = $pessoa->alteraDadosProfissionaisBD (1);
 		if ($result == "sucesso") {
-			$aviso = "sucesso";
+			$aviso = "sucesso1";
 			header ("Location:dadosProfissionais.php?aviso=".$aviso);
 		} else {
 			header("Location:dadosProfissionaisInsere.php?aviso=".$result.$location);

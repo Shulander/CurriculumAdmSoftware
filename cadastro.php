@@ -33,6 +33,9 @@
 	}
 ?>				
 <center>
+Aqui você irá criar um usuário para poder cadastrar seus dados no sistema. <br />
+Para isso, escolha um email real e válido (é necessário que ele exista pois você receberá emails durante o processo seletivo) e uma senha de acesso. <br />
+Você precisará desses dados para as próximas etapas do processo seletivo.<br /><br />
 <form action="cadastroBD.php" method="POST" onsubmit="return verificaFormularioUsuario($('email'), $('senha'), $('tipo'));">
 <table class="dados">
 	<tr>
@@ -50,18 +53,20 @@
 	<td><select id="tipo" name="tipo">
 	<option value="0"> -- Selecione -- </option>
 	<?php 
-	echo '<option value="Intercambista"  '.($tipo == "Intercambista"?'selected="selected"':"").' >Intercambista</option>'; 
-	echo '<option value="Membro" '.($tipo == "Membro"?'selected="selected"':"").'>Membro</option>';
+	echo '<option value="intercambista"  '.($tipo == "intercambista"?'selected="selected"':"").' >Intercambista</option>'; 
+	echo '<option value="membro" '.($tipo == "membro"?'selected="selected"':"").'>Membro</option>';
 	?>
 	</select></td></tr>
 </table>
 <br/>
-<input name="envia" type="submit" value="Salvar" />
-</form>
+<center>
+<table cellpadding="15">
+<tr><td><input name="envia" type="submit" value="Salvar" /></form></td>
+<td><form action="index.php"><input type="submit" value="Voltar"></form>
+</table>
+</center>
 <br />
 <ul class="ajuda"><li>Os campos marcados com asterisco (<font class="erro">*</font>) são obrigatórios!</li></ul>
-<br />
-<a href="index.php">Voltar</a>
 <br />
 </center>			
 <!-- Rodape -->

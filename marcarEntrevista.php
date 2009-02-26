@@ -44,7 +44,7 @@
 					if ($usuario->isEntrevistaMarcada()) { //entrevista ja foi marcada
 						//mostra o horario da pessoa
 						//pega o id da pessoa
-						$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, $conexaoBD);
+						$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
 						$retorno = $pessoa->busca ();
 						if ($retorno == false) {
 							echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';

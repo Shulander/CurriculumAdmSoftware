@@ -18,6 +18,8 @@ class Pessoa
 	var $estado;
 	var $telResidencial;
 	var $celular;
+	var $msn;
+	var $orkut;
 	var $conexaoBD;
 	
 	//Habilidades
@@ -56,7 +58,7 @@ class Pessoa
 	
 	function Pessoa ($idLogin=0, $nome="", $nacionalidade="", $dataNascimento="", $sexo="", $estadoCivil="",
 	$endereco="", $numero="", $complemento="", $bairro="", $cep="", $cidade="", $estado="", $telResidencial="",
-	$celular="", $id=0, $conexaoBD=false)
+	$celular="", $msn="", $orkut="", $id=0, $conexaoBD=false)
 	{
 		$this->id = $id + 0;
 		$this->nome = strip_tags (htmlspecialchars ($nome, ENT_QUOTES));
@@ -73,6 +75,8 @@ class Pessoa
 		$this->estado = strip_tags (htmlspecialchars ($estado, ENT_QUOTES));
 		$this->telResidencial = strip_tags (htmlspecialchars ($telResidencial, ENT_QUOTES));
 		$this->celular = strip_tags (htmlspecialchars ($celular, ENT_QUOTES));
+		$this->msn = strip_tags (htmlspecialchars ($msn, ENT_QUOTES));
+		$this->orkut = strip_tags (htmlspecialchars ($orkut, ENT_QUOTES));
 		$this->idLogin = $idLogin + 0;
 		$this->conexaoBD = $conexaoBD;
 	}
@@ -156,6 +160,15 @@ class Pessoa
 		return $this->celular;
 	}
 	
+	function getMsn ()
+	{
+		return $this->msn;
+	}
+
+	function getOrkut ()
+	{
+		return $this->orkut;
+	}
 	//Habilidades
 	function getIngles()
 	{ 
@@ -305,18 +318,18 @@ class Pessoa
 	function insere ()
 	{
 		$sql = "INSERT INTO pessoa(nome, nacionalidade, dataNascimento, sexo, estadoCivil, endereco, numero, 
-		complemento, bairro, cep, cidade, estado, telResidencial, celular, idLogin) VALUES ('".$this->nome."', 
+		complemento, bairro, cep, cidade, estado, telResidencial, celular, msn, orkut, idLogin) VALUES ('".$this->nome."', 
 		'".$this->nacionalidade."', '".$this->dataNascimento."', '".$this->sexo."', '".$this->estadoCivil."', 
 		'".$this->endereco."', ".$this->numero.", '".$this->complemento."', '".$this->bairro."', ".$this->cep.", 
-		'".$this->cidade."', '".$this->estado."', '".$this->telResidencial."', '".$this->celular."', 
-		".$this->idLogin.")";
+		'".$this->cidade."', '".$this->estado."', '".$this->telResidencial."', '".$this->celular."', '".$this->msn."', 
+		'".$this->orkut."', ".$this->idLogin.")";
 		mysql_query($sql, $this->conexaoBD->getLink());
 		$result = mysql_affected_rows();
 		if ($result == 1) {
 			return "sucesso";
 		} else {
 			if (mysql_errno() == 1062) {
-				return "Erro! Essa pessoa já está cadastrado no sistema!";	
+				return "Erro! Essa pessoa já está cadastrada no sistema!";	
 			} else {
 				return "Erro no cadastro dos dados pessoais!".mysql_error();
 			}		
@@ -329,7 +342,8 @@ class Pessoa
 		dataNascimento='".$this->dataNascimento."', sexo='".$this->sexo."', estadoCivil='".$this->estadoCivil."', 
 		endereco='".$this->endereco."', numero=".$this->numero.", complemento='".$this->complemento."', 
 		bairro='".$this->bairro."', cep=".$this->cep.", cidade='".$this->cidade."', estado='".$this->estado."', 
-		telResidencial='".$this->telResidencial."', celular='".$this->celular."' WHERE idLogin=".$this->idLogin;
+		telResidencial='".$this->telResidencial."', msn='".$this->msn."', orkut='".$this->orkut."', celular='".$this->celular."'
+		WHERE idLogin=".$this->idLogin;
 		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
 		if (!$result) {
     		return "Erro no alteração dos dados pessoais!".mysql_error();
@@ -413,7 +427,8 @@ class Pessoa
 			return false;
 		}
 	}
-	
+		
+
 	/*Busca dados de pessoa no BD. Retorna true se existe pessoa cadastrada relacionada ao id do usuario*/
 	function busca ()
 	{
@@ -436,6 +451,8 @@ class Pessoa
 				$this->estado = $dados['estado'];
 				$this->telResidencial = $dados['telResidencial'];
 				$this->celular = $dados['celular'];
+				$this->msn = $dados['msn'];
+				$this->orkut = $dados['orkut'];
 				$this->id = $dados['id'];
 			}
 			return true;

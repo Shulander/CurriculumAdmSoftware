@@ -18,10 +18,11 @@
 	{
 		//se nao ta logado volta pra tela de login
 		if ($_SESSION['logado'] == false) {
-			if ($_SESSION['admin'] == false) {	
-				header ("Location: index.php");
+			header ("Location: tela_login.php");
 				exit;
-			}
+		} else if ($_SESSION['admin'] == false) {	
+				header ("Location: tela_login.php");
+				exit;
 		}
 	}
 	

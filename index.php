@@ -3,42 +3,32 @@
 	restritoVisitante();
 	include ("cabecalho.php");
 	//testar se a variavel aviso existe
-	if(isset($_GET['aviso'])) {
-		$aviso = $_GET['aviso'];	
-	} else {
-		$aviso = '';
-	}
 ?>
 <!-- Corpo -->
-<h3>Processo seletivo 2008/2</h3>
-<?php 
-	if(!empty($aviso)) {
-		echo "<ul class='erro'><li>".$aviso."</li></ul>";
-	}
-?>
-<form action="utils/login.php" method="POST" onsubmit="return verificaFormularioUsuario($('email'), $('senha'));">
-<center>
-<div class="login">
-<table>
-	<tr><td>E-mail:&nbsp;&nbsp;</td><td><input name="email" id="email" type="text" size="30" maxlength="30" /></td></tr>
-	<tr><td>Senha:</td><td><input name="senha" id="senha" type="password" size="30" maxlength="30"/></td></tr>
-</table>
-<br>
-<input name="envia" type="submit" class="login" value="Entrar" />
-</div>
-</form>
-<br>
-<ul class="ajuda">
-<li>Esqueci minha senha! Clique <a class="link_cadastro" href="recuperaUsuario.php">aqui!</a></li>
-<li>Reportar problemas no sistema? Favor contate-nos através do e-mail: <a href="mailto:aiesecsmpsel@gmail.com">aiesecsmpsel@gmail.com</a>.</li>
-<!-- <li>Ainda não tem cadastro?</li>-->
+<h3>Processo seletivo AIESEC 2009</h3>
+<ul>
+<li><b>Intercambista</b>
+	<ul>
+	<li>Para se cadastrar como <b>intercambista</b>, clique <a href="cadastro.php?tipo=intercambista"><U><B>AQUI</U></B>!</a></li>
+	<li>Intercambista significa o candidato que quer fazer seu intercambio pela AIESEC em até 6 meses. É necessário ter pelo menos 70% do seu curso completo ou até 2 anos depois de formado.</li>
+	</ul>
+</li>
+<li><b>Membro</b>
+	<ul>
+	<li>Para se cadastrar como <b>membro</b>, clique <a href="cadastro.php?tipo=membro"><U><B>AQUI</U></B>!</a></li>
+	<li>Membro significa o candidato que quer entrar para AIESEC para trabalhar na organização em alguma área (finanças, gestão da informação, recursos humanos, vendas, marketing ou intercambio) e só depois fazer seu intercambio.</li>
+	</ul>
+</li>
+<li><b>Já tem cadastro?</b>
+	<ul>
+	<li>Caso você já tenha se cadastrado, clique <a class="link_cadastro" href="tela_login.php"><U><B>AQUI</U></B>!</a></li>
+	</ul>
+</li>
 </ul>
-<ul class="item">
+<br>
+<!-- <ul class="item">
 <li class="intercambista"><font class="erro">ATENÇÃO!</font> Inscrições encerradas!!</li>
-<!--<li class="intercambista">Para se cadastrar como <u>intercambista</u>, clique <a class="link_cadastro" href="informacao_intercambista.php">aqui!</a></li>-->
-<!--  <li class="membro">Para se cadastrar como membro, clique <a class="link_cadastro" href="informacao_membro.php">aqui!</a></li> -->
-</ul>
-</center>
+</ul>-->
 <!-- Rodape -->
 <br/>
 <center><font class="aiesecRodape">AIESEC in Santa Maria</font></center>
