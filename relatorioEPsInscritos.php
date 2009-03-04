@@ -20,7 +20,7 @@
 	if ($resultado != 0) {
 		echo '<ol class="normal">';
 		while ($dados  = mysql_fetch_array ($resultado)) {
-			echo '<li><a href="http://localhost/Curriculo/fpdf/index.php?id='.$dados['id'].'">'.$dados['nome'].'</a></li>';
+			echo '<li><a href="fpdf/index.php?id='.$dados['id'].'">'.$dados['nome'].'</a></li>';
 		}
 		echo "</ol>";
 		echo "<center>Total de inscritos: ".$numLinhas."</center>";

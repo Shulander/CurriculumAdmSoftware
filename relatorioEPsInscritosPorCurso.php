@@ -39,7 +39,7 @@
 		if ($resultadoNome != 0) {
 			echo '<ol class="normal">';
 			while ($dadosNome  = mysql_fetch_array ($resultadoNome)) {
-				echo '<li><a href="http://localhost/Curriculo/fpdf/index.php?id='.$dadosNome['id'].'">'.$dadosNome['nome'].'</a></li>';
+				echo '<li><a href="fpdf/index.php?id='.$dadosNome['id'].'">'.$dadosNome['nome'].'</a></li>';
 				
 			}
 			echo "</ol>";

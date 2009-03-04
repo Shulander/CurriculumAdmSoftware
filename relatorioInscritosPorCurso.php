@@ -1,4 +1,4 @@
-<?php
+h<?php
 	require_once ("utils/sessao.php");
 	include ("cabecalho.php");
 	require_once ("utils/BancoDados.php");
@@ -39,7 +39,7 @@
 		if ($resultadoNome != 0) {
 			echo '<ol class="normal">';
 			while ($dadosNome  = mysql_fetch_array ($resultadoNome)) {
-				echo '<li><a href="http://localhost/Curriculo/fpdf/index.php?id='.$dadosNome['idLogin'].'">'.$dadosNome['nome'].'</a></li>';
+				echo '<li><a href="fpdf/index.php?id='.$dadosNome['idLogin'].'">'.$dadosNome['nome'].'</a></li>';
 			}
 			echo "</ol>";
 			echo '<p align="right"><a href="#topo"><u>Topo</u></a></p>';
