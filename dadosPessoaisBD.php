@@ -31,6 +31,8 @@
 	$validador = new Validador ();
 	/*------------Foto----------------*/
 	if(is_null ($aviso)) {	
+		var_dump($_FILES);
+		exit(0);
 		if(isset($_FILES['foto'])){
 			if ($_FILES['foto']['error'] == UPLOAD_ERR_FORM_SIZE) {
 				$aviso = 'Tamanho da imagem excedeu o limite de 2 Mbytes permitido. Reduza o tamanho da imagem.';
@@ -39,7 +41,7 @@
 				$tmpName  = $_FILES['foto']['tmp_name'];
 				$fileSize = $_FILES['foto']['size'];
 				$fileType = $_FILES['foto']['type'];				
-				$tiposPermitidosArquivo = array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1);
+				$tiposPermitidosArquivo = array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1, 'image/pjpeg' => 1, 'image/x-png' => 1);
 				if(!isset($tiposPermitidosArquivo[$fileType])) {
 					$aviso = "A imagem deve ser dos tipos jpg, gif, png, bmp!";
 				} else {			
