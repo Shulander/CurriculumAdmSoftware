@@ -231,32 +231,36 @@
 		}
 	}
 	/*------------foto----------------*/
-	if(is_null ($aviso)) {	
-		if(isset($_FILES['foto']) && $_FILES['foto']['size'] >  0)
+	if(is_null ($aviso)) {
+		if(isset($_FILES['foto']))
 		{
-			$fileName = $_FILES['foto']['name'];
-			$tmpName  = $_FILES['foto']['tmp_name'];
-			$fileSize = $_FILES['foto']['size'];
-			$fileType = $_FILES['foto']['type'];
-			
-			$tiposPermitidosArquivo = array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1);
-			if(!isset($tiposPermitidosArquivo[$fileType])) {
-				$aviso = "A imagem deve ser dos tipos jpg, gif, png, bmp!";
-			} else {			
-				$fp      = fopen($tmpName, 'r');
-				$content = fread($fp, filesize($tmpName));
-				$content = addslashes($content);
-				fclose($fp);
+			if ($_FILES['foto']['error'] == UPLOAD_ERR_FORM_SIZE) {
+				$aviso = 'Tamanho da imagem excedeu o limite de 2 Mbytes permitido. Reduza o tamanho da imagem.';
+			} else if($_FILES['foto']['size'] > 0) {
+				$fileName = $_FILES['foto']['name'];
+				$tmpName  = $_FILES['foto']['tmp_name'];
+				$fileSize = $_FILES['foto']['size'];
+				$fileType = $_FILES['foto']['type'];
 				
-				if(!get_magic_quotes_gpc())
-				{
-				    $fileName = addslashes($fileName);
+				$tiposPermitidosArquivo = array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1);
+				if(!isset($tiposPermitidosArquivo[$fileType])) {
+					$aviso = "A imagem deve ser dos tipos jpg, gif, png, bmp!";
+				} else {			
+					$fp      = fopen($tmpName, 'r');
+					$content = fread($fp, filesize($tmpName));
+					$content = addslashes($content);
+					fclose($fp);
+					
+					if(!get_magic_quotes_gpc())
+					{
+					    $fileName = addslashes($fileName);
+					}
+					
+					$query = "REPLACE INTO fotos (fk_login, name, size, type, content ) ".
+					"VALUES ('".$_SESSION['idLogin']."', '$fileName', '$fileSize', '$fileType', '$content')";
+					
+					mysql_query($query) or die('Error, query failed'. mysql_error());
 				}
-				
-				$query = "REPLACE INTO fotos (fk_login, name, size, type, content ) ".
-				"VALUES ('".$_SESSION['idLogin']."', '$fileName', '$fileSize', '$fileType', '$content')";
-				
-				mysql_query($query) or die('Error, query failed'. mysql_error());
 			}
 		} else {
 			//verifica se existe uma foto cadastrada
