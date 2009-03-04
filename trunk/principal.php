@@ -52,7 +52,13 @@
 ?>
 <li>Instruções
 	<ul>
-	<li>Para iniciar sua inscrição para o processo seletivo 2009 clique em "INSCREVA-SE  AQUI". A primeira etapa do processo consiste em uma palestra de apresentação sobre a AIESEC.</li>
+<?php
+	if ($dadosPreenchidos == 0) {
+		echo '<li>Para iniciar sua inscrição para o processo seletivo 2009 clique em "INSCREVA-SE  AQUI". A primeira etapa do processo consiste em uma palestra de apresentação sobre a AIESEC.</li>';
+	} else {
+		echo '<li>Para alterar os dados da sua inscrição, clique em "EDITAR DADOS". A primeira etapa do processo consiste em uma palestra de apresentação sobre a AIESEC.</li>';
+	}
+?>
 	<li>ATENÇÃO: No dia da palestra de apresentação NÃO é necessário levar o currículo impresso!!</li>
 	<li>Caso tenha quaisquer dúvidas, entrar em contato através do email <a href="mailto:aiesecsmpsel@gmail.com">
 	aiesecsmpsel@gmail.com</a>.</li>

@@ -21,8 +21,8 @@ $idLogin = @$_GET['id']+0;
 $conexaoBD = new BancoDados ();
 $conexaoBD->conecta();
 //busca todos que marcaram entrevista com dados completos
-$sql = "SELECT p.id, p.nome, p.nacionalidade, p.dataNascimento, p.sexo, p.estadoCivil,
-p.endereco, p.numero, p.complemento, p.bairro, p.cep, p.cidade, p.estado,
+$sql = "SELECT p.id, p.nome, p.msn, p.dataNascimento, p.sexo, p.orkut,
+p.cidade, p.estado,
 p.telResidencial, p.celular, p.ingles, p.espanhol, p.italiano,
 p.frances, p.alemao, p.outro1Nivel, p.outro2Nivel, p.outro1,p.outro2,
 p.office, p.webdesign, p.editorImagem, p.pergunta1, p.pergunta2, p.pergunta3,
@@ -39,20 +39,13 @@ if ($numLinhas != 0) {
 	$dadosPessoais .= "<b>Código</b>: ".$dados['id']."<br />";
 	$dadosPessoais .= "<b>Nome</b>: ".$dados['nome']."<br />";
 	$dadosPessoais .= "<b>E-mail</b>: ".$dados['email']."<br />";
-	$dadosPessoais .= "<b>Nacionalidade</b>: ".$dados['nacionalidade']."<br />";
 	$dadosPessoais .= "<b>Sexo</b>: ".$dados['sexo']."<br />";
-	$dadosPessoais .= "<b>Estado Civil</b>: ".$dados['estadoCivil']."<br />";
-//	$dadosPessoais .= "<b>Tipo</b>: ".$dados['tipo']."<br />"; // tipo nao existe
-	$dadosPessoais .= "<b>Endereço</b>: ".$dados['endereco']."<br />";
-	$dadosPessoais .= "<b>Número</b>: ".$dados['numero']."<br />";
-	$dadosPessoais .= "<b>Complemento</b>: ".$dados['complemento']."<br />";
-	$dadosPessoais .= "<b>Bairro</b>: ".$dados['bairro']."<br />";
-	$dadosPessoais .= "<b>CEP</b>: ".$dados['cep']."<br />";
 	$dadosPessoais .= "<b>Cidade</b>: ".$dados['cidade']."<br />";
 	$dadosPessoais .= "<b>Estado</b>: ".$dados['estado']."<br />";
 	$dadosPessoais .= "<b>Telefone Residencial</b>: ".$dados['telResidencial']."<br />";
 	$dadosPessoais .= "<b>Celular</b>: ".$dados['celular']."<br />";
-	
+	$dadosPessoais .= "<b>MSN</b>: ".$dados['msn']."<br />";
+	$dadosPessoais .= "<b>Orkut</b>: ".$dados['orkut']."<br />";
 	$outrosDados = "<br />";
 	$outrosDados .= "<b>Habilidades</b><br />";
 	
