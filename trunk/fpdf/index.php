@@ -48,33 +48,131 @@ if ($numLinhas != 0) {
 	$dadosPessoais .= "<b>Orkut</b>: ".$dados['orkut']."<br />";
 	$outrosDados = "<br />";
 	$outrosDados .= "<b>Habilidades</b><br />";
-	
-	$outrosDados .= "<b>Inglês</b>: ".$dados['ingles']."<br />";
-	$outrosDados .= "<b>Espanhol</b>: ".$dados['espanhol']."<br />";
-	$outrosDados .= "<b>Italiano</b>: ".$dados['italiano']."<br />";
-	$outrosDados .= "<b>Francês</b>: ".$dados['frances']."<br />";
-	$outrosDados .= "<b>Alemão</b>: ".$dados['alemao']."<br />";
+	if ($dados['ingles'] == "basico") {
+		$outrosDados .= "<b>Inglês</b>: Nível Básico<br />";
+	} else if ($dados['ingles'] == "intermediario") {
+		$outrosDados .= "<b>Inglês</b>: Nível Intermediário<br />";
+	} else if ($dados['ingles'] == "avancado") {
+		$outrosDados .= "<b>Inglês</b>: Nível Avançado<br />";
+	} else if ($dados['ingles'] == "fluente") {
+		$outrosDados .= "<b>Inglês</b>: Fluente<br />";
+	}
+	if ($dados['espanhol'] == "basico") {
+		$outrosDados .= "<b>Espanhol</b>: Nível Básico<br />";
+	} else if ($dados['espanhol'] == "intermediario") {
+		$outrosDados .= "<b>Espanhol</b>: Nível Intermediário<br />";
+	} else if ($dados['espanhol'] == "avancado") {
+		$outrosDados .= "<b>Espanhol</b>: Nível Avançado<br />";
+	} else if ($dados['espanhol'] == "fluente") {
+		$outrosDados .= "<b>Espanhol</b>: Fluente<br />";
+	}
+	if ($dados['espanhol'] == "basico") {
+		$outrosDados .= "<b>Espanhol</b>: Nível Básico<br />";
+	} else if ($dados['espanhol'] == "intermediario") {
+		$outrosDados .= "<b>Espanhol</b>: Nível Intermediário<br />";
+	} else if ($dados['espanhol'] == "avancado") {
+		$outrosDados .= "<b>Espanhol</b>: Nível Avançado<br />";
+	} else if ($dados['espanhol'] == "fluente") {
+		$outrosDados .= "<b>Espanhol</b>: Fluente<br />";
+	}
+	if ($dados['italiano'] == "basico") {
+		$outrosDados .= "<b>Italiano</b>: Nível Básico<br />";
+	} else if ($dados['italiano'] == "intermediario") {
+		$outrosDados .= "<b>Italiano</b>: Nível Intermediário<br />";
+	} else if ($dados['italiano'] == "avancado") {
+		$outrosDados .= "<b>Italiano</b>: Nível Avançado<br />";
+	} else if ($dados['italiano'] == "fluente") {
+		$outrosDados .= "<b>Italiano</b>: Fluente<br />";
+	}
+	if ($dados['alemao'] == "basico") {
+		$outrosDados .= "<b>Alemão</b>: Nível Básico<br />";
+	} else if ($dados['alemao'] == "intermediario") {
+		$outrosDados .= "<b>Alemão</b>: Nível Intermediário<br />";
+	} else if ($dados['alemao'] == "avancado") {
+		$outrosDados .= "<b>Alemão</b>: Nível Avançado<br />";
+	} else if ($dados['alemao'] == "fluente") {
+		$outrosDados .= "<b>Alemão</b>: Fluente<br />";
+	}
+	if ($dados['frances'] == "basico") {
+		$outrosDados .= "<b>Francês</b>: Nível Básico<br />";
+	} else if ($dados['frances'] == "intermediario") {
+		$outrosDados .= "<b>Francês</b>: Nível Intermediário<br />";
+	} else if ($dados['frances'] == "avancado") {
+		$outrosDados .= "<b>Francês</b>: Nível Avançado<br />";
+	} else if ($dados['frances'] == "fluente") {
+		$outrosDados .= "<b>Francês</b>: Fluente<br />";
+	}
 	if (!empty ($dados['outro1'])) {
 		$outrosDados .= "<b>".$dados['outro1']."</b>: ".$dados['outro1Nivel']."<br />";
 	}
 	if (!empty ($dados['outro2'])) {
 		$outrosDados .= "<b>".$dados['outro2']."</b>: ".$dados['outro2Nivel']."<br />";
 	}
-	$outrosDados .= "<b>Pacote Office</b>: ".$dados['office']."<br />";
-	$outrosDados .= "<b>Webdesign</b>: ".$dados['webdesign']."<br />";
-	$outrosDados .= "<b>Editor de Imagem</b>: ".$dados['editorImagem']."<br />";
-	$outrosDados .= "<b>Contabilidade</b>: ".$dados['contabilidade']."<br />";
-	$outrosDados .= "<b>Administração</b>: ".$dados['administracao']."<br />";
-	$outrosDados .= "<b>Economia</b>: ".$dados['economia']."<br />";
-	$outrosDados .= "<b>Finanças</b>: ".$dados['financas']."<br />";
-	$outrosDados .= "<b>Recursos Humanos</b>: ".$dados['recursosHumanos']."<br />";
-	$outrosDados .= "<b>Marketing</b>: ".$dados['marketing']."<br />";
-	$outrosDados .= "<b>Tecnologia da Informação</b>: ".$dados['tecnologiaInformacao']."<br />";
-	$outrosDados .= "<b>Outros Estudos</b>: ".$dados['outrosEstudos']."<br />";
-	
+	if (!empty ($dados['office'])) {
+		if ($dados['office'] == "basico") {
+			$outrosDados .= "<b>Pacote Office</b>: Nível Básico<br />";
+		} else if ($dados['office'] == "intermediario") {
+			$outrosDados .= "<b>Pacote Office</b>: Nível Intermediário<br />";
+		} else if ($dados['office'] == "avancado") {
+			$outrosDados .= "<b>Pacote Office</b>: Nível Avançado<br />";
+		} else if ($dados['office'] == "expert") {
+			$outrosDados .= "<b>Pacote Office</b>: Expert<br />";
+		} else {
+			$outrosDados .= "<b>Pacote Office</b>: Nenhum conhecimento<br />";
+		}
+	}
+	if (!empty ($dados['webdesign'])) {
+		if ($dados['webdesign'] == "basico") {
+			$outrosDados .= "<b>Webdesign</b>: Nível Básico<br />";
+		} else if ($dados['webdesign'] == "intermediario") {
+			$outrosDados .= "<b>Webdesign</b>: Nível Intermediário<br />";
+		} else if ($dados['webdesign'] == "avancado") {
+			$outrosDados .= "<b>Webdesign</b>: Nível Avançado<br />";
+		} else if ($dados['webdesign'] == "expert") {
+			$outrosDados .= "<b>Webdesign</b>: Expert<br />";
+		} else {
+			$outrosDados .= "<b>Webdesign</b>: Nenhum conhecimento<br />";
+		}
+	}
+	if (!empty ($dados['editorImagem'])) {
+		if ($dados['editorImagem'] == "basico") {
+			$outrosDados .= "<b>Editor de Imagem</b>: Nível Básico<br />";
+		} else if ($dados['editorImagem'] == "intermediario") {
+			$outrosDados .= "<b>Editor de Imagem</b>: Nível Intermediário<br />";
+		} else if ($dados['editorImagem'] == "avancado") {
+			$outrosDados .= "<b>Editor de Imagem</b>: Nível Avançado<br />";
+		} else if ($dados['editorImagem'] == "expert") {
+			$outrosDados .= "<b>Editor de Imagem</b>: Expert<br />";
+		} else {
+			$outrosDados .= "<b>Editor de Imagem</b>: Nenhum conhecimento<br />";
+		}
+	}
+	if (!empty ($dados['contabilidade'])) {
+		$outrosDados .= "<b>Contabilidade</b>: ".$dados['contabilidade']."<br />";
+	}
+	if (!empty ($dados['administracao'])) {
+		$outrosDados .= "<b>Administração</b>: ".$dados['administracao']."<br />";
+	}
+	if (!empty ($dados['economia'])) {
+		$outrosDados .= "<b>Economia</b>: ".$dados['economia']."<br />";
+	}
+	if (!empty ($dados['financas'])) {
+		$outrosDados .= "<b>Finanças</b>: ".$dados['financas']."<br />";
+	}
+	if (!empty ($dados['recursosHumanos'])) {
+		$outrosDados .= "<b>Recursos Humanos</b>: ".$dados['recursosHumanos']."<br />";
+	}
+	if (!empty ($dados['marketing'])) {
+		$outrosDados .= "<b>Marketing</b>: ".$dados['marketing']."<br />";
+	}
+	if (!empty ($dados['tecnologiaInformacao'])) {
+		$outrosDados .= "<b>Tecnologia da Informação</b>: ".$dados['tecnologiaInformacao']."<br />";
+	}
+	if (!empty ($dados['outrosEstudos'])) {
+		$outrosDados .= "<b>Outros Estudos</b>: ".$dados['outrosEstudos']."<br />";
+	}
 	$outrosDados .= "<br />";
-	$outrosDados .= "<b>Pesquisa de Imagem</b><br />";
-	
+	$outrosDados .= "<b>Pesquisa de Imagem</b><br />";	
 	$outrosDados .= "<b>Você conhecia a AIESEC antes do processo seletivo?</b>: ".$dados['pergunta1']."<br />";
 	$outrosDados .= "<b>Você pretende realizar intercâmbio pela AIESEC?</b>: ".$dados['pergunta2']."<br />";
 	$outrosDados .= "<b>Já teve experiência internacional?</b>: ".$dados['pergunta3']."<br />";
@@ -100,15 +198,17 @@ if ($numLinhas != 0) {
 			$outrosDados .= "<b>Tipo</b>: ".$dados2['tipo']."<br />";
 			$outrosDados .= "<b>Turno</b>: ".$dados2['turno']."<br />";
 			$outrosDados .= "<b>Semestre</b>: ".$dados2['semestre']."<br />";
-			$outrosDados .= "<b>Data de ingresso</b>: ".$dados2['dataIngresso']."<br />";
-			$outrosDados .= "<b>Data de Conclusão</b>: ".$dados2['dataConclusao']."<br />";
-			
+			$dataBD = explode("-", $dados2['dataIngresso']);
+			$data = $dataBD[2]."/".$dataBD[1]."/".$dataBD[0];	
+			$outrosDados .= "<b>Data de ingresso</b>: ".$data."<br />";
+			unset ($dataBD);
+			unset ($data);
+			$dataBD = explode("-", $dados2['dataConclusao']);
+			$data = $dataBD[2]."/".$dataBD[1]."/".$dataBD[0];	
+			$outrosDados .= "<b>Data de Conclusão</b>: ".$data."<br />";
 			$outrosDados .= "<br />";
 			$i++;
 		}
-	} else {
-		$outrosDados .= "<b>Formação Acadêmica</b><br />";
-		$outrosDados .= 'Não há experiências acadêmicas vinculadas a esse candidato!<br />';
 	}
 	//mostrar experiencia profissional
 	$sql3 = "SELECT * FROM expprofissional WHERE idPessoa=".$idPessoa;
@@ -122,15 +222,18 @@ if ($numLinhas != 0) {
 			$outrosDados .= "<b>Empresa</b>: ".$dados3['empresa']."<br />";
 			$outrosDados .= "<b>Tipo</b>: ".$dados3['tipo']."<br />";
 			$outrosDados .= "<b>Atividade</b>: ".$dados3['atividade']."<br />";
-			$outrosDados .= "<b>Data de Início</b>: ".$dados3['dataInicio']."<br />";
-			$outrosDados .= "<b>Data de Conclusão</b>: ".$dados3['dataConclusao']."<br />";
+			$dataBD = explode("-", $dados3['dataInicio']);
+			$data = $dataBD[2]."/".$dataBD[1]."/".$dataBD[0];	
+			$outrosDados .= "<b>Data de Início</b>: ".$data."<br />";
+			unset ($dataBD);
+			unset ($data);
+			$dataBD = explode("-", $dados3['dataConclusao']);
+			$data = $dataBD[2]."/".$dataBD[1]."/".$dataBD[0];
+			$outrosDados .= "<b>Data de Conclusão</b>: ".$data."<br />";
 			
 			$outrosDados .= "<br />";
 			$j++;
 		}
-	} else {
-		$outrosDados .= "<b>Experiência Profissional</b><br />";
-		$outrosDados .= 'Não há experiências profissionais vinculadas a esse candidato!<br />';
 	}
 	
 	$outrosDados .= "<hr><br />";
@@ -146,8 +249,6 @@ if ($numLinhas != 0) {
 		fwrite( $fileHandle, $content, $size );
 		fclose($fileHandle);
 	}
-} else {
-//	echo 'c$outrosDados .= 'erro">Ninguém marcou entrevista!<br />';
 }
 
 class PDF extends FPDF
