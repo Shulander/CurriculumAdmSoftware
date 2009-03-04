@@ -30,7 +30,7 @@
 <br>
 <ul class="ajuda">
 <li>Esqueci minha senha! Clique <a class="link_cadastro" href="recuperaUsuario.php">aqui!</a></li>
-<li>Reportar problemas no sistema? Favor contate-nos através do e-mail: <a href="mailto:aiesecsmpsel@gmail.com">aiesecsmpsel@gmail.com</a>.</li>
+<li>Reportar problemas no sistema? Favor contate-nos através do e-mail: <a href="mailto:santamaria@aiesec.org.br">santamaria@aiesec.org.br</a>.</li>
 <li><a href="index.php">Voltar para a página anterior</a></li>
 </ul>
 </center>

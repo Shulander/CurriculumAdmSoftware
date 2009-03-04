@@ -234,6 +234,9 @@
 	if(is_null ($aviso)) {
 		if(isset($_FILES['foto']))
 		{
+			echo "<pre>";
+			var_dump ($_FILES);
+			exit ();
 			if ($_FILES['foto']['error'] == UPLOAD_ERR_FORM_SIZE) {
 				$aviso = 'Tamanho da imagem excedeu o limite de 2 Mbytes permitido. Reduza o tamanho da imagem.';
 			} else if($_FILES['foto']['size'] > 0) {
