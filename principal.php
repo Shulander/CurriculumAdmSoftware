@@ -60,8 +60,8 @@
 	}
 ?>
 	<li>ATENÇÃO: No dia da palestra de apresentação NÃO é necessário levar o currículo impresso!!</li>
-	<li>Caso tenha quaisquer dúvidas, entrar em contato através do email <a href="mailto:aiesecsmpsel@gmail.com">
-	aiesecsmpsel@gmail.com</a>.</li>
+	<li>Caso tenha quaisquer dúvidas, entrar em contato através do email <a href="mailto:santamaria@aiesec.org.br">
+	santamaria@aiesec.org.br</a>.</li>
 	</ul>
 </li>
 </ul>

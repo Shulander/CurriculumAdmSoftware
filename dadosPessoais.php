@@ -108,7 +108,9 @@ if(!empty($aviso)) {
 $conexaoBD = new BancoDados ();
 //verifica se a conexao ao banco de dados ocorreu corretamente
 if (!$conexaoBD->conecta()) {
-	echo '<ul class="erro"><li>Erro de sistema (1)! Contate o administrador do sistema!</li></ul>';
+	if(empty($aviso)) {
+		echo '<ul class="erro"><li>Erro de sistema (1)! Contate o administrador do sistema!</li></ul>';
+	}
 } else {
 	if (isset($idLogin)) {
 		$pessoa = new Pessoa ($idLogin, "", "", "", "", "", "", 0, "", "", 0, "", "", "", "", "", "", 0, $conexaoBD);
@@ -133,14 +135,20 @@ if (!$conexaoBD->conecta()) {
 					$msn = $pessoa->getMsn();
 					$orkut = $pessoa->getOrkut();
 				} else {
-					echo '<ul class="erro"><li>Erro de sistema (2)! Contate o administrador do sistema!</li></ul>';
+					if(empty($aviso)) {
+						echo '<ul class="erro"><li>Erro de sistema (2)! Contate o administrador do sistema!</li></ul>';
+					}
 				}
 			} else {
+				if(empty($aviso)) {
 					echo '<ul class="erro"><li>Erro de sistema (3)! Contate o administrador do sistema!</li></ul>';
+				}
 			}
 		}
 	} else {
-		echo '<ul class="erro"><li>Erro de sistema (4)! Contate o administrador do sistema!</li></ul>';
+		if(empty($aviso)) {
+			echo '<ul class="erro"><li>Erro de sistema (4)! Contate o administrador do sistema!</li></ul>';
+		}
 	}
 }
 
@@ -199,7 +207,7 @@ onde prefixo é o número do prefixo e d é um dígito(número)!</span></a><font clas
 echo '<td><input type="text" id="celular" name="celular" value="'.$celular.'" size="20" 
 maxlength="16"></td></tr>';
 //-----------------------------Foto-------------------------------------
-echo '<tr><td><a href="#" class="dica">Foto de rosto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp. A foto a ser anexada <u>deve ser obrigatoriamente</u> uma foto de <b>rosto</b>!</span></a><font class="erro">*</font></td>';
+echo '<tr><td><a href="#" class="dica">Foto de rosto: <span>Esse campo só aceita arquivos no formato jpg, png, gif e bmp. A foto anexada não deve exceder o tamanho de 2MB. Além disso, a foto a ser anexada <u>deve ser obrigatoriamente</u> uma foto de <b>rosto</b>!</span></a><font class="erro">*</font></td>';
 echo '<input type="hidden" name="MAX_FILE_SIZE" value="2000000">';
 echo '<td><input type="file" name="foto"></td></tr>';
 echo '<tr><td colspan="2"><center><img src="foto.php?id='.$_SESSION['idLogin'].'" width="100" height="120"></center></td></tr>';
