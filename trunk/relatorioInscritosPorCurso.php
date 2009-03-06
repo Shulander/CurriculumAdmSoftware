@@ -1,4 +1,4 @@
-h<?php
+<?php
 	require_once ("utils/sessao.php");
 	include ("cabecalho.php");
 	require_once ("utils/BancoDados.php");
