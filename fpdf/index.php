@@ -39,7 +39,9 @@ if ($numLinhas != 0) {
 	
 	$dadosPessoais .= "<b>Código</b>: ".$dados['id']."<br />";
 	$dadosPessoais .= "<b>Nome</b>: ".$dados['nome']."<br />";
-	$dadosPessoais .= "<b>Data de Nascimento</b>: ".$dados['dataNascimento']."<br />";
+	$dataBD = explode("-", $dados2['dataNascimento']);
+	$data = $dataBD[2]."/".$dataBD[1]."/".$dataBD[0];	
+	$dadosPessoais .= "<b>Data de Nascimento</b>: ".$data."<br />";
 	$dadosPessoais .= "<b>E-mail</b>: ".$dados['email']."<br />";
 	$dadosPessoais .= "<b>Sexo</b>: ".$dados['sexo']."<br />";
 	$dadosPessoais .= "<b>Cidade</b>: ".$dados['cidade']."<br />";
