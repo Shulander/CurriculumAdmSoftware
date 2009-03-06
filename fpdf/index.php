@@ -424,5 +424,5 @@ $pdf->SetFontSize(13);
 $pdf->WriteHTML($dadosPessoais);
 $pdf->SetRightMargin(10);
 $pdf->WriteHTML($outrosDados);
-$pdf->Output('@SM_Curriculum_'.str_replace(" ", "_", $nomePessoa).'.pdf', 'I');
+$pdf->Output('@SM_Curriculum_'.str_replace(" ", "_", $nomePessoa).'.pdf', 'D');
 ?>
