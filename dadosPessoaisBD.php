@@ -42,7 +42,21 @@
 				$tiposPermitidosArquivo = array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1, 'image/pjpeg' => 1, 'image/x-png' => 1);
 				if(!isset($tiposPermitidosArquivo[$fileType])) {
 					$aviso = "A imagem deve ser dos tipos jpg, gif, png, bmp!";
-				} else {			
+					$uploadImage = true;
+				} else {
+					// converte o bmp para jpg
+					if($fileType == 'image/bmp') {
+						require_once('fpdf/fpdf/bmp_funcoes.php');
+						// para descobrir qual é a pasta temporária
+						$temporaryFolder = getTempDir();			
+						/*** read in the BMP image ***/
+						$img = ImageCreateFromBmp($tmpName);
+						/*** write the new jpeg image ***/
+						imagejpeg($img, $temporaryFolder."/".$idLogin.'.jpg');
+						$tmpName = $temporaryFolder."/".$idLogin.'.jpg';
+						$fileSize = filesize($tmpName);
+						$fileType = 'image/jpeg';
+					}
 					$fp      = fopen($tmpName, 'r');
 					$content = fread($fp, filesize($tmpName));
 					$content = addslashes($content);
@@ -57,16 +71,23 @@
 					"VALUES ('".$_SESSION['idLogin']."', '$fileName', '$fileSize', '$fileType', '$content')";
 					
 					mysql_query($query) or die('Error, query failed'. mysql_error());
+					$uploadImage = true;
 				}
-			}
+			} else {
+				$uploadImage = false;
+			}			
 		} else {
+			$uploadImage = false;
+		}
+		
+		if($uploadImage == false) {
 			//verificar se ja existe foto cadastrada no bd
 			$consulta = "SELECT * FROM fotos WHERE fk_login=".$idLogin;
 			$resultado = mysql_query($consulta, $conexaoBD->getLink());
 			$numLinhas = mysql_num_rows ($resultado);
 			if ($numLinhas == 0) {
 				$aviso = "É necessário adicionar uma foto ao cadastro!";
-			}
+			}			
 		}
 	}
 	/*------------Nome----------------*/

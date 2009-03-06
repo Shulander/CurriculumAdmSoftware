@@ -3,10 +3,6 @@
  * Criado com a bibliteca http://www.fpdf.org/
  */
 
-// para descobrir qual é a pasta temporária
-$tmpfile = tempnam("dummy","");
-$temporaryFolder = dirname($tmpfile);
-unlink($tmpfile);
 require_once ("../utils/sessao.php");
 require_once ("../utils/BancoDados.php");
 require_once ("../classes/Usuario.php");
@@ -16,6 +12,10 @@ require_once ("../classes/ExpAcademica.php");
 require_once ("../classes/ExpProfissional.php");
 
 require_once("fpdf/fpdf.php");
+require_once('fpdf/bmp_funcoes.php');
+
+// para descobrir qual é a pasta temporária
+$temporaryFolder = getTempDir();
 
 $idLogin = @$_GET['id']+0;
 $conexaoBD = new BancoDados ();
@@ -30,6 +30,7 @@ p.pergunta4, p.pergunta5, p.pergunta6, p.recomendador, p.contabilidade, p.admini
 p.economia, p.financas, p.recursosHumanos, p.tecnologiaInformacao, p.marketing, p.outrosEstudos ,l.email FROM login as l JOIN pessoa as p ON l.id=p.idLogin WHERE idLogin=".$idLogin;
 $consulta = mysql_query($sql, $conexaoBD->getLink());
 $numLinhas = mysql_num_rows ($consulta);
+$tipo = '';
 if ($numLinhas != 0) {
 	$dados  = mysql_fetch_array ($consulta,MYSQL_ASSOC);
 	$idPessoa = $dados['id'];
@@ -244,10 +245,36 @@ if ($numLinhas != 0) {
 	$result = mysql_query($query) or die('Error, query failed '.mysql_error());
 	if(mysql_num_rows($result)==1) {
 		list($name, $type, $size, $content) = mysql_fetch_array($result);
+		switch($type) {
+			case 'image/jpeg':
+			case 'image/pjpeg':
+				$tipo = '.jpg';
+				break;
+			case 'image/gif':
+				$tipo = '.gif';
+				break;
+			case 'image/png':
+			case 'image/x-png':
+				$tipo = '.png';
+				break;
+			case 'image/bmp':
+				$tipo = '.bmp';
+				break;
+			default:
+				$tipo = '.jpg';
+		}
 		
-		$fileHandle = fopen($temporaryFolder."/".$idLogin.".jpg", 'w');
+//array('image/jpeg' => 1,'image/gif' => 1,'image/png' => 1,'image/bmp' => 1, 'image/pjpeg' => 1, 'image/x-png' => 1);		
+		$fileHandle = fopen($temporaryFolder."/".$idLogin.$tipo, 'w');
 		fwrite( $fileHandle, $content, $size );
 		fclose($fileHandle);
+		if($tipo == '.bmp') {			
+			/*** read in the BMP image ***/
+			$img = ImageCreateFromBmp($temporaryFolder."/".$idLogin.$tipo);
+			/*** write the new jpeg image ***/
+			imagejpeg($img, $temporaryFolder."/".$idLogin.'.jpg');
+			$tipo = '.jpg';
+		}
 	}
 }
 
@@ -384,8 +411,8 @@ $pdf->AliasNbPages();
 //First page
 $pdf->AddPage();
 $pdf->SetFont('Arial','',20);
-if(file_exists  ($temporaryFolder."/".$idLogin.".jpg")) {
-	$pdf->Image($temporaryFolder."/".$idLogin.".jpg",140,40,50,0);
+if(file_exists  ($temporaryFolder."/".$idLogin.$tipo)) {
+	$pdf->Image($temporaryFolder."/".$idLogin.$tipo,140,40,50,0);
 } else {	
 	$pdf->Image("./imgs/magical_trevor.jpg",140,40,50,0);
 }
