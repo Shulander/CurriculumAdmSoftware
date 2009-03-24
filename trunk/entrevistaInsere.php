@@ -75,6 +75,11 @@
 	echo '<option value="Gestão de Talentos" '.($area == "Gestão de Talentos"?'selected="selected"':"").'>Gestão de Talentos</option>';
 	echo '<option value="Marketing e Comunicação" '.($area == "Marketing e Comunicação"?'selected="selected"':"").'>Marketing e Comunicação</option>';
 	echo '<option value="Relações Externas" '.($area == "Relações Externas"?'selected="selected"':"").'>Relações Externas</option>';
+	echo '<option value="Administração" '.($area == "Administração"?'selected="selected"':"").'>Administração</option>';
+	echo '<option value="Engenharias" '.($area == "Engenharias"?'selected="selected"':"").'>Engenharias</option>';
+	echo '<option value="Letras" '.($area == "Letras"?'selected="selected"':"").'>Letras</option>';
+	echo '<option value="Saúde" '.($area == "Saúde"?'selected="selected"':"").'>Saúde</option>';
+	echo '<option value="TI" '.($area == "TI"?'selected="selected"':"").'>Tecnologia da Informação</option>';
 	echo '<option value="Indefinida" '.($area == "Indefinida"?'selected="selected"':"").'>Indefinida</option>';
 	echo '</select></td></tr>';
 	echo '<tr><td>Tipo:<font class="erro">*</font></td>';

@@ -53,6 +53,14 @@
 	if(is_null ($aviso)) {
 		if (!$validador->isSelecionado($tipo)) {
 			$aviso = "É necessário selecionar uma opção do campo 'Tipo'!";	
+		} else if ($tipo == "intercambista") {
+			if ($area != "Administração" && $area != "Engenharias" && $area != "Saúde" && $area != "TI" && $area != "Letras" && $area != "Indefinida") {
+				$aviso = "Para intercambista, é necessário selecionar dentre as opções: Administração, Engenharias, Saúde, TI, Letras ou Indefinida!";	
+			}
+		} else { //entao eh membro
+			if (!($area != "Administração" && $area != "Engenharias" && $area != "Saúde" && $area != "TI" && $area != "Letras" )) {
+				$aviso = "Para membro, não deve selecionar-se as opções: Administração, Engenharias, Saúde, TI, Letras!";	
+			}			
 		}
 	}
 	/*----------Verifica se tem avisos----------*/
