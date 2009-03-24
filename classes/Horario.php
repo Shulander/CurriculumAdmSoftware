@@ -131,6 +131,18 @@ class Horario
 		}
 	}
 	
+
+	function insereEntrevista ()
+	{
+		$sql = "INSERT INTO horario (data, hora, area, tipo) VALUES ('".$this->data."','".$this->hora."','".$this->area."','".$this->tipo."')";
+		$result = mysql_query($sql, $this->conexaoBD->getLink()); 
+		if (!$result) {
+    		return "Erro ao inserir a entrevista!".mysql_error();
+		} else {
+			return "sucesso";
+		}
+	}
+
 	/*Verifica se existe entrevista relacionada a pessoa*/
 	function buscaPorIdPessoa ()
 	{
